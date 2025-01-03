@@ -1,0 +1,13 @@
+@use '../../../css/queries' as *;
+@use '../../../css/vars' as *;
+
+.cardButtonContainer {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  padding-top: 2rem;
+
+  @include med-small-break {
+    justify-content: flex-start;
+  }
+}

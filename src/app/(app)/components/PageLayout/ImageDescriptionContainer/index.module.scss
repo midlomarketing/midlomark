@@ -1,0 +1,48 @@
+@use '../../../css/queries' as *;
+
+.left {
+  text-align: center;
+}
+
+.header {
+  display: block;
+  margin: 2rem 1rem 1rem 1rem;
+
+  .description {
+    padding: 0;
+  }
+
+  .left {
+    img {
+      border-radius: 10px;
+      position: relative;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      max-width: 640px;
+      width: 100%;
+      height: auto;
+    }
+  }
+
+}
+
+@include med-small-break {
+
+  .header {
+    display: flex;
+    margin: 0 1rem 1rem;
+    align-items: flex-start;
+  }
+
+  .left {
+    display: block;
+    position: sticky;
+    top: 124px;
+    margin-right: 1rem;
+  }
+
+  .description {
+    width: 80%;
+  }
+
+}

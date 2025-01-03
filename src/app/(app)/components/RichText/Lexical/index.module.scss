@@ -1,0 +1,23 @@
+.accent {
+  color: var(--accent);
+}
+
+.address {
+  margin-bottom: 1rem;
+}
+
+.address p {
+  margin: 0.375rem;
+}
+
+.small {
+  display: inline-flex;
+  align-items: center;
+}
+
+.small svg {
+  display: flex;
+  width: 1rem;
+  margin-left: 0.25rem;
+  opacity: 0.8;
+}

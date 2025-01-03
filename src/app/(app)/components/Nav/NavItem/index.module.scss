@@ -1,0 +1,156 @@
+@use '../../../css/queries' as *;
+@use '../../../css/vars' as *;
+
+.listItem {
+  list-style: none;
+  text-decoration: none;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 2rem;
+  display: block;
+  color: var(--dark-primary);
+  transition: color 0.25s;
+  margin: 0;
+  width: auto;
+  @include small-break {
+    padding: 1rem;
+    &:hover {
+      color: var(--accent);
+      transition: color 0.1s;
+    }
+  }
+}
+
+.lastItem {
+  padding: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: var(--accent);
+  border: 1px solid var(--accent);
+  color: var(--dark-secondary);
+  display: block;
+  @include small-break {
+    border-radius: 10px;
+    transition: background-color 500ms, color 500ms, box-shadow 250ms, border 500ms;
+    box-shadow: none;
+    margin-right: 1rem;
+    padding: 1rem;
+
+    &:hover {
+      background-color: var(--dark-secondary);
+      color: var(--accent) !important;
+      border: 1px solid var(--dark-secondary);
+      transition: background-color 500ms, color 500ms, box-shadow 250ms, border 500ms;
+      @include shadow-lg
+    }
+  }
+
+}
+
+.activeContainer {
+  pointer-events: none;
+  background-color: #fff;
+
+  @include small-break {
+    background-color: unset;
+  }
+}
+
+.active {
+  // TODO CTA will disappear since it has a bg of accent
+  color: var(--accent);
+  @include small-break {
+    pointer-events: none;
+  }
+}
+
+.dropdownMenu {
+  .active {
+    background-color: var(--light-primary);
+    color: var(--dark-primary);
+    @include mid-break {
+      border-radius: 10px;
+      pointer-events: none;
+    }
+  }
+  display: none;
+  background-color: var(--dark-secondary);
+  padding-left: 0;
+  border-radius: 0;
+  text-align: start;
+  z-index: 1010;
+  transition: color 500ms;
+  .listItem {
+    color: var(--light-primary);
+    transition: color 500ms;
+    display: block;
+    text-align: center;
+  }
+
+  @include small-break {
+    background-color: var(--dark-secondary-50);
+    backdrop-filter: saturate(180%) blur(10px);
+    .listItem {
+      padding: 1.7rem;
+      &:hover {
+        color: var(--accent);
+        transition: color 500ms;
+      }
+    }
+  }
+
+}
+
+.show {
+  display: block;
+  @include small-break {
+    position: absolute;
+    top: 126px;
+    border-radius: 0 0 10px 10px;
+    width: 50%;
+    left: 29.4%;
+    box-shadow: inset 0 2px 5px var(--accent);
+  }
+  @include mid-break {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    border-radius: 0;
+    top: 101px;
+    width: 100%;
+    left: 0;
+    gap: 1rem;
+  }
+}
+
+.dropdown .navLinks a span:hover {
+  //background-color: var(--dark-secondary);
+  color: var(--white);
+  transition: background-color 500ms, color 500ms;
+}
+
+.dropdown {
+  position: relative;
+  appearance: unset;
+  transition: color 500ms, background-color 500ms;
+
+  @include small-break {
+    &:hover {
+      color: var(--accent);
+      transition: color 500ms, background-color 500ms;
+    }
+  }
+
+  &::after {
+    display: inline-block;
+    margin-left: 0.255em;
+    vertical-align: 0.255em;
+    content: "";
+    border-top: 0.3em solid;
+    border-right: 0.3em solid transparent;
+    border-bottom: 0;
+    border-left: 0.3em solid transparent;
+    color: inherit;
+  }
+
+}

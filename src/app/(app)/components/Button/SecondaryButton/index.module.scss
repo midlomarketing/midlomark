@@ -1,0 +1,23 @@
+@use '../../../css/queries' as *;
+@use '../../../css/vars' as *;
+
+.secondaryBtn {
+  color: var(--dark-primary);
+  background-color: var(--transparent);
+  border: 1px solid var(--dark-primary);
+  transition: all 200ms ease-in-out;
+  padding: 0.75rem 3rem;
+  width: auto;
+  @include shadow-sm;
+  @include bg-pill;
+  text-transform: uppercase;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: var(--white-75);
+    box-shadow: none;
+  }
+}

@@ -1,0 +1,59 @@
+@use 'vars' as *;
+
+////////////////////////////
+// MEDIA QUERIES
+/////////////////////////////
+
+@mixin extra-small-break {
+  @media (min-width: $breakpoint-xs-width) {
+    @content;
+  }
+}
+
+@mixin small-break {
+  @media (min-width: $breakpoint-s-width) {
+    @content;
+  }
+}
+
+@mixin med-small-break {
+  @media (min-width: $breakpoint-ms-width) {
+    @content;
+  }
+}
+
+@mixin in-between {
+  @media (min-width: $breakpoint-mh-width) {
+    @content
+  }
+}
+
+@mixin mid-break {
+  @media (min-width: $breakpoint-m-width) {
+    @content;
+  }
+}
+
+@mixin mobile-header-break {
+  @media (max-width: $breakpoint-mh-width) {
+    @content;
+  }
+}
+
+@mixin large-break {
+  @media (min-width: $breakpoint-l-width) {
+    @content;
+  }
+}
+
+@mixin extra-large-break {
+  @media (min-width: $breakpoint-xl-width) {
+    @content;
+  }
+}
+
+@mixin two-extra-large-break {
+  @media (min-width: $breakpoint-2xl-width) {
+    @content;
+  }
+}

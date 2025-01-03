@@ -1,0 +1,66 @@
+@use '../../css/queries' as *;
+@use '../../css/vars' as *;
+
+.textRight {
+  @include med-small-break {
+    order: 1;
+    padding-left: 1rem;
+  }
+}
+
+.textLeft {
+  @include med-small-break {
+    order: -1;
+    padding-right: 1rem;
+  }
+}
+
+.heroContainer {
+  max-width: 80rem;
+  margin: 2rem auto;
+  padding: 0 2rem;
+  @include med-small-break {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+  }
+}
+
+.imageContainer {
+  @include med-small-break {
+    flex: 1 0 calc(40% - 1rem);
+  }
+}
+
+.headerAndButtons {
+  flex: 1 0 calc(40% - 1rem);
+  @include med-small-break {
+    //display: flex;
+    //flex-wrap: wrap;
+    //justify-content: space-between;
+  }
+}
+
+.textContainer {
+  @include med-small-break {
+    flex: 1 0 auto;
+  }
+}
+
+.headline {
+  margin-top: 1rem;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  @include med-small-break {
+    flex: 1 0 auto;
+  }
+  @include mid-break {
+    flex-direction: row;
+    flex: auto;
+    justify-content: flex-start;
+  }
+}

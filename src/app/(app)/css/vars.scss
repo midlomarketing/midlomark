@@ -1,0 +1,227 @@
+@use 'sass:math';
+
+//
+// BREAKPOINTS
+//
+
+$breakpoint-xs-width: 400px;
+$breakpoint-s-width: 690px;
+$breakpoint-ms-width: 768px;
+$breakpoint-m-width: 1024px;
+$breakpoint-mh-width: 1200px;
+$breakpoint-l-width: 1440px;
+$breakpoint-xl-width: 1920px;
+$breakpoint-2xl-width: 2250px;
+
+//
+// ASPECT RATIOS
+//
+
+@mixin aspect-video {
+  aspect-ratio: 16 / 9;
+}
+
+@mixin aspect-square {
+  aspect-ratio: 1 / 1;
+}
+
+@mixin aspect-auto {
+  aspect-ratio: auto;
+}
+
+//
+// SHADOWS
+//
+
+@mixin solid-shadow-right {
+  box-shadow: 5px 5px 0 var(--primary-950);
+}
+
+@mixin solid-shadow-left {
+  box-shadow: -5px 5px 0 var(--primary-950);
+}
+
+@mixin shadow-sm {
+  box-shadow: 0 2px 3px 0 rgba(0, 2, 4, 0.05), 0 10px 4px -8px rgba(0, 2, 4, 0.02);
+}
+
+@mixin shadow-m {
+  box-shadow: 0 0 30px 0 rgb(0 2 4 / 12%), 0 30px 25px -8px rgb(0 2 4 / 10%);
+}
+
+@mixin shadow-lg {
+  box-shadow: 0 20px 35px -10px rgba(0, 2, 4, 0.2), 0 6px 4px -4px rgba(0, 2, 4, 0.02);
+}
+
+@mixin shadow-lg-top {
+  box-shadow: 0 -2px 20px 7px rgba(0, 2, 4, 0.1), 0 6px 4px -4px rgba(0, 2, 4, 0.02);
+}
+
+@mixin shadow {
+  box-shadow: 0 12px 45px rgba(0, 0, 0, .03);
+
+  &:hover {
+    box-shadow: 0 12px 45px rgba(0, 0, 0, .07);
+  }
+}
+
+@mixin inputShadowActive {
+  box-shadow: 0 2px 3px 0 rgba(0, 2, 4, 0.16), 0 6px 4px -4px rgba(0, 2, 4, 0.13);
+}
+
+@mixin inputShadow {
+  @include shadow-sm;
+
+  &:not(:disabled) {
+    &:hover {
+      box-shadow: 0 2px 3px 0 rgba(0, 2, 4, 0.13), 0 6px 4px -4px rgba(0, 2, 4, 0.1);
+    }
+
+    &:active,
+    &:focus {
+      @include inputShadowActive;
+    }
+  }
+}
+
+@mixin soft-shadow-bottom {
+  box-shadow: 0 7px 14px 0px rgb(0 0 0 / 5%);
+}
+
+//
+// Border rounding
+//
+
+@mixin bg-pill {
+  border-radius: 10rem;
+}
+
+@mixin rounded {
+  border-radius: 1rem;
+}
+
+
+
+//////////////////////////////
+// STYLE MIXINS
+//////////////////////////////
+
+@mixin blur-bg($color: var(--light-primary-70), $blur: 1rem) {
+  backdrop-filter: blur($blur) saturate(180%);
+  background-color: $color;
+}
+
+@mixin formInput() {
+  @include inputShadow;
+  font-family: var(--font-body);
+  width: 100%;
+  border: 1px solid var(--theme-border-color);
+  background: var(--theme-input-bg);
+  color: var(--theme-elevation-800);
+  border-radius: 0;
+  font-size: 1rem;
+  height: calc(var(--base) * 2);
+  line-height: var(--base);
+  padding: calc(var(--base) * 0.5) calc(var(--base) * 0.75);
+  -webkit-appearance: none;
+
+  &::-webkit-input-placeholder {
+    color: var(--theme-elevation-400);
+    font-weight: normal;
+    font-size: 1rem;
+  }
+
+  &::-moz-placeholder {
+    color: var(--theme-elevation-400);
+    font-weight: normal;
+    font-size: 1rem;
+  }
+
+  &:hover {
+    border-color: var(--theme-elevation-250);
+  }
+
+  &:focus,
+  &:active {
+    border-color: var(--theme-elevation-400);
+    outline: 0;
+  }
+
+  &:disabled {
+    background: var(--theme-elevation-200);
+    color: var(--theme-elevation-450);
+
+    &:hover {
+      border-color: var(--theme-elevation-250);
+    }
+  }
+}
+
+@mixin btnReset {
+  border: 0;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+  color: currentColor;
+  font-size: var(--font-body-size);
+  font-family: var(--font-body);
+}
+
+@mixin mouseHover {
+  @media (pointer: fine) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+@mixin outline {
+  @media (pointer: fine) {
+    outline: 1px solid var(--theme-blue-400);
+    outline-offset: 2px;
+  }
+}
+
+@mixin color-links {
+  a {
+    text-decoration: none;
+    border-bottom: 1px dotted currentColor;
+    color: var(--color-blue-600);
+
+    @include mouseHover {
+      color: var(--color-blue-400);
+    }
+
+
+    &:visited {
+      color: var(--color-purple-600);
+
+      @include mouseHover {
+        color: var(--color-purple-500);
+      }
+    }
+  }
+}
+
+@mixin dark-custom-scrollbar {
+  &::-webkit-scrollbar {
+    background-color: transparent;
+    height: 8px;
+    cursor: pointer;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-base-800);
+    border-radius: 0px;
+    cursor: pointer;
+  }
+}
+
+@mixin underline-on-focus {
+  text-decoration: none;
+
+  &:focus {
+    text-decoration: underline;
+  }
+}

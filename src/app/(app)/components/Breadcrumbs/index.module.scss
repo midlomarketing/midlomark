@@ -1,0 +1,25 @@
+.breadcrumbContainer {
+  //margin-left: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 0;
+  span, strong {
+    margin-right: 0.25rem;
+    margin-left: 0;
+  }
+  span:last-child {
+    margin-right: 0;
+  }
+}
+
+.breadcrumbLink {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}

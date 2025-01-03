@@ -1,0 +1,70 @@
+@use '../../css/queries' as *;
+@use '../../css/vars' as *;
+
+.footerSection {
+  background-color: var(--dark-primary);
+}
+
+.logoContainer {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.logo {
+  width: 15rem;
+  height: auto;
+  margin-bottom: 2rem;
+}
+
+.navContainer {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  flex: 0 1 calc(25% - 1rem);
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+
+  a, span {
+    color: var(--light-primary);
+  }
+
+  span {
+    color: var(--light-primary-70)!important;
+    text-decoration: underline;
+    pointer-events: none;
+  }
+
+  @include small-break {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.nestedContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--light-secondary);
+  padding: 0.5rem 1rem;
+  * {
+    color: var(--dark-primary)!important;
+  }
+  @include rounded;
+  @include small-break {
+    * {
+      color: var(--light-primary) !important;
+    }
+    background-color: inherit;
+
+  }
+}
+
+.copyright {
+  margin-top: 2rem;
+  font-size: smaller;
+  text-align: center;
+  color: var(--light-primary-70);
+}

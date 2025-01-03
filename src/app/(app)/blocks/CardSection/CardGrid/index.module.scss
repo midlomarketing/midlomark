@@ -1,0 +1,31 @@
+@use '../../../css/queries' as *;
+@use '../../../css/vars' as *;
+
+.baseGrid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  grid-gap: 1rem;
+  align-items: stretch;
+}
+
+.twoCards {
+  @include med-small-break {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.threeCards {
+  @include med-small-break {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+
+.fourCards {
+  @include med-small-break {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  @include mid-break {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

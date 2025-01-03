@@ -1,0 +1,30 @@
+@use '../../app/(app)/css/queries' as *;
+@use '../../app/(app)/css/vars' as *;
+
+.input {
+  outline: 1px solid var(--dark-primary);
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  padding: 0.5rem;
+  width: 100%;
+  //@include rounded;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.submitButton {
+  background-color: var(--dark-primary);
+  color: var(--light-primary);
+  padding: 1rem;
+  width: auto;
+}
+
+.textarea {
+  outline: 1px solid var(--dark-primary);
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  padding: 0.5rem;
+  width: 100%;
+  //@include rounded;
+}

@@ -1,0 +1,45 @@
+@use '../../css/queries' as *;
+@use '../../css/vars' as *;
+
+.container {
+  display: flex;
+
+  p, span {
+    margin-right: 0.175rem;
+    margin-top: 0;
+    font-weight: lighter;
+    font-size: 0.875rem;
+    color: var(--secondary-translucent);
+  }
+
+  a.categoryLinks:hover {
+    background-color: var(--secondary-translucent);
+    transition: background-color 500ms;
+  }
+}
+
+.categoryLinks {
+  display: inline-block;
+  background-color: var(--secondary-brand-color);
+  color: var(--white);
+  @include bg-pill;
+  margin: 0.375rem !important;
+  font-weight: lighter;
+  font-size: 0.875rem;
+  transition: background-color 500ms;
+}
+
+.category {
+  display: inline-block;
+  font-weight: lighter;
+  font-size: 0.875rem;
+}
+
+@include med-small-break {
+  .container {
+    display: inline-flex;
+    flex-wrap: wrap;
+  }
+}
+
+

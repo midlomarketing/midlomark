@@ -1,0 +1,28 @@
+@use '../../css/queries' as *;
+@use '../../css/vars' as *;
+
+.summaryContainer {
+//  `bg-light-green rounded-xl p-8 shadow-sm w-1/5`
+  background-color: var(--light-primary);
+  padding: 2rem;
+  grid-column: span 12;
+  @include shadow-sm;
+  @include rounded;
+  @include small-break {
+    grid-column: span 4;
+  }
+  @include mid-break {
+    grid-column: span 3;
+  }
+}
+
+.summaryHeader {
+  * {
+    font-size: 1.5rem;
+  }
+    margin-bottom: 1rem;
+}
+
+.summaryText {
+  font-size: 1rem;
+}

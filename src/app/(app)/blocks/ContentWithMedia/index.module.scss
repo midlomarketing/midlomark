@@ -1,0 +1,81 @@
+@use '../../css/queries' as *;
+@use '../../css/vars' as *;
+
+.imageColumn {
+  grid-column: span 12;
+  @include med-small-break {
+    grid-column: span 6;
+  }
+  @include large-break {
+    grid-column: span 5;
+  }
+}
+
+.imageContainer {
+  @include med-small-break {
+    margin-bottom: 0;
+  }
+}
+
+.image {
+  object-fit: cover;
+  height: 100%;
+  @include rounded
+}
+
+.contentColumn {
+  grid-column: span 12;
+  background-color: var(--light-primary);
+  padding: 2rem 1rem;
+  @include rounded;
+  @include shadow-sm;
+
+  @include med-small-break {
+    top: 1.25rem;
+    position: sticky;
+    grid-column: span 6;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  @include large-break {
+    grid-column: span 7;
+  }
+}
+
+.contentReverse {
+  @include med-small-break {
+    flex-direction: column-reverse;
+  }
+}
+
+.backgroundContainer {
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  padding: 0;
+}
+
+.backgroundImage {
+  object-fit: cover;
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.contentContainer {
+  padding: 2rem 1rem;
+  max-width: 36rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.blurBox {
+  padding: 2rem 1rem 1rem;
+  @include blur-bg;
+  @include rounded;
+}

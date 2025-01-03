@@ -1,0 +1,25 @@
+@use '../../../css/queries' as *;
+@use '../../../css/vars' as *;
+
+.primaryBtn {
+  background-color: var(--dark-primary);
+  border-color: var(--dark-primary);
+  border: 1px solid var(--dark-primary);
+  color: var(--white);
+  transition: all 250ms ease-in-out;
+  padding: 0.75rem 3rem;
+  width: auto;
+  @include shadow-sm;
+  @include bg-pill;
+  text-transform: uppercase;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:hover {
+    color: var(--dark-primary);
+    background-color: var(--transparent);
+    transition: all 250ms ease-in-out;
+    box-shadow: none;
+  }
+}

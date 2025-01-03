@@ -1,0 +1,35 @@
+@use '../../css/vars' as *;
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+
+  p, span {
+    margin-right: 0.175rem;
+    margin-top: 0;
+  }
+
+  a.nameLinks:hover {
+    box-shadow: 0 4px 7px var(--secondary-transparent);
+    transform: scale(1.02);
+    transition: all 500ms;
+  }
+
+}
+
+.nameLinks {
+  @include bg-pill;
+  margin: 0.375rem 0.375rem 0.375rem 0 !important;
+  box-shadow: 0 2px 5px var(--secondary-transparent);
+  background-color: white;
+  color: var(--secondary-brand-color);
+  font-weight: lighter;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 500ms;
+}
+
+.names {
+  font-weight: lighter;
+  display: inline-block;
+}

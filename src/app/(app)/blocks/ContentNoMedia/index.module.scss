@@ -1,0 +1,17 @@
+@use '../../css/queries' as *;
+@use '../../css/vars.scss' as vars;
+
+.background {
+  background-color: var(--dark-primary);
+  .header * {
+    color: var(--light-primary);
+  }
+}
+
+.addedPadding {
+  padding: 1.5rem;
+}
+
+.header, .bodyText p, .bodyText a {
+  color: var(--light-primary);
+}

@@ -1,0 +1,16 @@
+@use '../../css/queries' as *;
+@use '../../css/vars' as *;
+
+.navContainer {
+  padding: 0.5rem 0 0;
+  z-index: 100;
+  align-items: center;
+  width: 100%;
+  @include shadow-sm;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  @include small-break {
+    padding-bottom: 0.5rem;
+  }
+}

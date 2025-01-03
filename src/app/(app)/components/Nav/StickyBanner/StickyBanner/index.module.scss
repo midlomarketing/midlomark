@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  align-items: center;
+  margin: 0;
+  padding: 0 1rem;
+  background-color: var(--dark-primary);
+  backdrop-filter: blur(3px) saturate(180%);
+  * {
+    color: var(--light-primary);
+    font-size: 1.1rem;
+  }
+}
+
+.hide {
+  display: none;
+}
+
+.text {
+  width: 90%;
+  margin-right: 1rem;
+}
+
+.exit {
+  width: 10%;
+  cursor: pointer;
+  text-align: center;
+  svg {
+    width: 50px;
+  }
+}

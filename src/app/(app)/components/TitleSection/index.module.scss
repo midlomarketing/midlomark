@@ -1,0 +1,70 @@
+@use '../../css/queries' as *;
+
+.titleContainer {
+  //margin: 0.5rem 1rem;
+  font-size: smaller;
+  background-color: var(--white-glass);
+  backdrop-filter: saturate(180%) blur(5px);
+  padding: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.title {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.details {
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+
+  p {
+    margin: 0;
+  }
+
+  .schedule {
+    font-size: 1rem;
+  }
+}
+
+.titleButton {
+  a {
+    margin-top: 0 !important;
+  }
+
+  text-align: left !important;
+}
+
+@include small-break {
+
+  .details {
+    margin-top: 1rem;
+  }
+
+  .titleButton {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+  }
+}
+
+@include mid-break {
+  .details {
+    //justify-content: flex-start;
+
+    p {
+      margin: 0;
+    }
+
+  }
+
+  .categoryContainer, .speakerContainer {
+    margin-right: 0.5rem
+  }
+
+}

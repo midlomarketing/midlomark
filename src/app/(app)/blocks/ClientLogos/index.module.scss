@@ -1,0 +1,24 @@
+@use '../../css/queries' as *;
+@use '../../css/vars.scss' as vars;
+
+.logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  @include small-break {
+    justify-content: space-between;
+  }
+}
+
+.logo {
+  width: 1rem;
+  flex: 1 0 100%;
+  @include small-break {
+    flex: 0 0 30%;
+  }
+  @include large-break {
+    flex: 0 0 18%;
+  }
+}

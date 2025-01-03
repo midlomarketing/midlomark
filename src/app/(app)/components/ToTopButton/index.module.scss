@@ -1,0 +1,32 @@
+@use '../../css/vars' as *;
+
+.toTop {
+  position: sticky;
+  bottom: 20px;
+  left: 20px;
+  color: var(--dark-primary);
+  border: 1px solid var(--dark-primary);
+  @include bg-pill;
+  padding: 0.5rem;
+  transition: all 250ms ease-in-out;
+
+  &:hover {
+    background-color: var(--dark-primary);
+    color: var(--light-primary);
+    transition: all 250ms ease-in-out;
+  }
+}
+
+.visible {
+  opacity: 1;
+  transition: all 250ms ease-in-out;
+}
+
+.hidden {
+  opacity: 0;
+  transition: all 250ms ease-in-out;
+  pointer-events: none;
+  cursor: default;
+}
+
+
