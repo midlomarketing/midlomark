@@ -6,6 +6,7 @@ import {buildConfig} from 'payload'
 import sharp from 'sharp'
 import {fileURLToPath} from 'url'
 import {nodemailerAdapter} from '@payloadcms/email-nodemailer'
+import {resendAdapter} from '@payloadcms/email-resend'
 import {
   StickyBanners,
   Categories,
@@ -197,17 +198,10 @@ export default buildConfig({
       logout: '/logout',
     },
   },
-  email: nodemailerAdapter({
+  email: resendAdapter({
     defaultFromAddress: 'nick@midlowebdesign.com',
     defaultFromName: 'Nick',
-    transportOptions: {
-      host: 'smtp.sendgrid.net',
-      port: 465,
-      auth: {
-        user: 'apikey',
-        pass: process.env.SMTP_API_KEY,
-      },
-    },
+    apiKey: process.env.RESEND_API_KEY!,
   }),
   async onInit(payload) {
     const existingUsers = await payload.find({

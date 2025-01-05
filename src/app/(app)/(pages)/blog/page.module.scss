@@ -56,7 +56,8 @@
 
 }
 .featuredDate {
-
+font-size: 1rem;
+  color: var(--dark-primary-70);
 }
 .featuredAuthor {
 
@@ -67,41 +68,3 @@
 .recentPosts {
   margin: 1rem 0;
 }
-
-.cardRow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  align-items: stretch;
-  margin-top: 1rem;
-}
-.card {
-  flex: 0 1 auto;
-  overflow: hidden;
-  background-color: var(--light-primary);
-  @include rounded;
-  @include med-small-break {
-    flex: 0 1 calc(50% - 1rem)
-  }
-  @include mid-break {
-    flex: 0 1 calc(33% - 1rem)
-  }
-  @include large-break {
-    flex: 0 1 calc(25% - 1rem)
-  }
-}
-.cardImage {
-
-}
-.cardBody {
-
-  padding: 1rem;
-}
-.cardTitle {
-  font-size: 1.1rem;
-}
-.cardDate {
-  font-size: 1rem;
-  color: var(--dark-primary-70);
-}
-

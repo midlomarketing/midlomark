@@ -14,16 +14,14 @@ import {Hero} from "@/app/(app)/components/Hero";
 
 // export const revalidate = 86400
 
-// TODO switch to Resend
-
-// TODO test out select and populate options in Local API
-// TODO add categories
-// TODO query related blog posts at end of blog page
-
-// TODO blog navigation
-// TODO work on schema to make sure that works
+// TODO blog navigation (with previous and next) <-- -->
+// TODO render blog categories on cards (likely over the image)
+// TODO clean up components
 
 // TODO build out industry pages
+
+// TODO work on schema to make sure that works
+
 
 export async function generateStaticParams() {
   const payload = await getPayload({config: configPromise})

@@ -11,6 +11,8 @@ import {SerializeLexical} from "@/app/(app)/components/RichText/Lexical";
 import {GeneralDate} from "@/app/(app)/components/Date";
 import Link from "next/link";
 import {User} from "@/payload-types"
+import {PostCard} from "@/app/(app)/components/PostCard/Card";
+import {CardRow} from "@/app/(app)/components/PostCard";
 
 const payload = await getPayload({config: configPromise})
 
@@ -113,7 +115,7 @@ export default async function Blogs({params}: BlogProps) {
                               className={classes.featuredAuthor}>{author.name}{featured?.content?.authors && featured?.content?.authors?.length > 1 ? i + 1 < arr.length ? `, ` : `` : ``}</span>
                       ))}
                     </div>
-                    <GeneralDate date={featured.date || ``} includeTime={false} className={classes.cardDate}/>
+                    <GeneralDate date={featured.date || ``} includeTime={false} className={classes.featuredDate}/>
                   </span>
                   {featured?.content?.summary && <p className={classes.featuredSummary}>
                     {featured?.content?.summary}
@@ -126,32 +128,22 @@ export default async function Blogs({params}: BlogProps) {
         </section>}
         <section className={classes.recentPosts}>
           {featured && <h2>Recent Posts</h2>}
-          <div className={classes.cardRow}>
+          <CardRow>
             {all.docs.map((post) => (
-              <Link key={post.id} href={`/blog/${post.slug}`} className={classes.card}>
-                <div className={classes.cardImage}>
-                  <ImageObject
-                    filename={typeof post?.content?.image?.image !== 'string' && post?.content?.image?.image?.filename || ''}
-                    width={typeof post?.content?.image?.image !== 'string' && post?.content?.image?.image?.width || 640}
-                    height={typeof post?.content?.image?.image !== 'string' && post?.content?.image?.image?.height || 360}
-                    altDescription={typeof post?.content?.image?.image !== 'string' && post?.content?.image?.image?.altDescription || ''}
-                    creator={typeof post?.content?.image?.image !== 'string' && post?.content?.image?.image?.credit?.creator || ''}
-                    creatorLink={typeof post?.content?.image?.image !== 'string' && post?.content?.image?.image?.credit?.creatorLink || ''}
-                    creatorType={typeof post?.content?.image?.image !== 'string' && post?.content?.image?.image?.credit?.creatorLink || ''}
-                  />
-                </div>
-                <div className={classes.cardBody}>
-                  <h3 className={classes.cardTitle}>
-                    {post.title}
-                  </h3>
-                  {typeof post?.content?.authors !== 'string' && post?.content?.authors?.map((author: User) => (
-                    <span key={author.id} className={classes.featuredAuthor}>{author.name}</span>
-                  ))}
-                  <GeneralDate date={post.date || ``} includeTime={false} className={classes.cardDate}/>
-                </div>
-              </Link>
+              <PostCard title={post.title} id={post.id} date={post.date || ``} slug={post.slug!}
+                        filename={typeof post?.content?.image?.image !== 'string' && post?.content?.image?.image?.filename || ''}
+                        width={typeof post?.content?.image?.image !== 'string' && post?.content?.image?.image?.width || 640}
+                        height={typeof post?.content?.image?.image !== 'string' && post?.content?.image?.image?.height || 360}
+                        altDescription={typeof post?.content?.image?.image !== 'string' && post?.content?.image?.image?.altDescription || ''}
+                        creator={typeof post?.content?.image?.image !== 'string' && post?.content?.image?.image?.credit?.creator || ''}
+                        creatorLink={typeof post?.content?.image?.image !== 'string' && post?.content?.image?.image?.credit?.creatorLink || ''}
+                        creatorType={typeof post?.content?.image?.image !== 'string' && post?.content?.image?.image?.credit?.creatorLink || ''}
+                        // @ts-ignore
+                        author={post.content?.authors}
+                        key={post.id}
+              />
             ))}
-          </div>
+          </CardRow>
         </section>
       </ContentContainer>
     </SectionContainer>

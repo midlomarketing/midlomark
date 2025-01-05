@@ -9,16 +9,18 @@ import {SerializeLexical} from '@/app/(app)/components/RichText/Lexical'
 import formatDate from '@/app/(app)/utils/formatDate'
 import React, {cache} from "react";
 import {draftMode} from "next/headers";
-import {GlobalSetting} from "@/payload-types";
+import {GlobalSetting, Post} from "@/payload-types";
 import {getCachedGlobal} from "@/app/(app)/utils/getGlobals";
 import {Redirects} from "@/app/(app)/components/Redirects";
 import {SectionContainer} from "@/app/(app)/components/PageLayout";
 import {ImageObject} from "@/app/(app)/components/Media/Media";
 import {ToTopButton} from "@/app/(app)/components/ToTopButton";
 import {BreadCrumbsContainer, Breadcrumbs} from "@/app/(app)/components/Breadcrumbs";
+import {PostCard} from "@/app/(app)/components/PostCard/Card";
+import {CardRow} from "@/app/(app)/components/PostCard";
 
 type Props = {
-   params: Promise<{ slug: string }>
+  params: Promise<{ slug: string }>
 
 }
 
@@ -49,7 +51,7 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
       less_than_equal: new Date(),
     }
   }
-  const response = await queryBlog({slug: blogQuery})
+  const response = await queryBlog({slug: blogQuery, limit: 1})
   const blog = response.docs[0]
 
   if (blog) {
@@ -71,7 +73,7 @@ export default async function Blog({params}: Props) {
       less_than_equal: new Date(),
     }
   }
-  const response = await queryBlog({slug: blogQuery})
+  const response = await queryBlog({slug: blogQuery, limit: 1})
   const blog = response.docs[0]
 
   if (blog) {
@@ -92,6 +94,21 @@ export default async function Blog({params}: Props) {
       }
     ]
 
+    const categoryArray = typeof blog.content?.category !== 'string' &&
+      blog.content?.category?.map(category => typeof category !== 'string' && category.slug) || []
+
+    // console.log(categoryArray)
+
+    const categoryQuery = {
+      'content.category.slug': {
+        in: categoryArray
+      }
+    }
+
+    const relatedPosts = await queryBlog({slug: categoryQuery, limit: 4})
+
+    // console.log(relatedPosts)
+
     return <article>
       <Redirects url={url} disableNotFound/>
       <SectionContainer>
@@ -100,7 +117,7 @@ export default async function Blog({params}: Props) {
           <aside className={classes.sidebarContainer}>
             <div className={classes.sidebar}>
               <BreadCrumbsContainer>
-                <Breadcrumbs breadcrumbs={breadcrumbs} />
+                <Breadcrumbs breadcrumbs={breadcrumbs}/>
               </BreadCrumbsContainer>
               <h1 className={classes.blogTitle}>{blog.title}</h1>
               <div className={classes.blogInfo}>
@@ -128,9 +145,33 @@ export default async function Blog({params}: Props) {
               creatorType={typeof content?.image?.image !== 'string' && content?.image?.image?.credit?.creatorLink || ''}
             />
             <SerializeLexical className={classes.blogContent} nodes={content?.richText?.root.children}/>
+            {relatedPosts && relatedPosts.docs.length > 0 && (<section>
+                <h3>Related Posts</h3>
+                <CardRow>
+                  {relatedPosts.docs?.map((relatedPost: Post) => (
+                    <PostCard
+                        slug={relatedPost.slug || ``}
+                        date={relatedPost.date || ``}
+                        title={relatedPost.title || ``}
+                        id={relatedPost.id}
+                        filename={typeof relatedPost?.content?.image?.image !== 'string' && relatedPost?.content?.image?.image?.filename || ''}
+                        width={typeof relatedPost?.content?.image?.image !== 'string' && relatedPost?.content?.image?.image?.width || 640}
+                        height={typeof relatedPost?.content?.image?.image !== 'string' && relatedPost?.content?.image?.image?.height || 360}
+                        altDescription={typeof relatedPost?.content?.image?.image !== 'string' && relatedPost?.content?.image?.image?.altDescription || ''}
+                        creator={typeof relatedPost?.content?.image?.image !== 'string' && relatedPost?.content?.image?.image?.credit?.creator || ''}
+                        creatorLink={typeof relatedPost?.content?.image?.image !== 'string' && relatedPost?.content?.image?.image?.credit?.creatorLink || ''}
+                        creatorType={typeof relatedPost?.content?.image?.image !== 'string' && relatedPost?.content?.image?.image?.credit?.creatorLink || ''}
+                        // @ts-ignore
+                        author={relatedPost.content?.authors}
+                        key={relatedPost.id}
+                      />
+                  ))}
+                </CardRow>
+              </section>
+            )}
           </main>
         </div>
-        <ToTopButton />
+        <ToTopButton/>
       </SectionContainer>
 
     </article>
@@ -142,18 +183,43 @@ export default async function Blog({params}: Props) {
 }
 
 
-const queryBlog = cache(async ({slug}: { slug: Where }) => {
+const queryBlog = cache(async ({slug, limit}: { slug: Where, limit: number }) => {
   // const {isEnabled: draft} = draftMode()
 
   const payload = await getPayload({config: configPromise})
   const result = await payload.find({
     collection: 'posts',
     where: slug,
-    limit: 1,
+    limit: limit,
     overrideAccess: true,
     depth: 1,
     // draft
   })
 
   return result
+})
+
+const queryCategory = cache(async ({category}: { category: Where }) => {
+
+  const payload = await getPayload({config: configPromise})
+  const result = await payload.find({
+    collection: 'categories',
+    select: {
+      slug: true,
+      title: true,
+      relatedDocs: true,
+    },
+    where: category,
+    overrideAccess: true,
+    depth: 10,
+    joins: {
+      relatedDocs: {
+        limit: 3,
+        sort: '-date'
+      }
+    }
+  })
+
+  return result
+
 })

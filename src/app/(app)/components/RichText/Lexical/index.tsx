@@ -1,5 +1,11 @@
-import type {SerializedHeadingNode, SerializedQuoteNode, SerializedTextNode, SerializedListItemNode, SerializedListNode} from '@payloadcms/richtext-lexical'
-import type {SerializedElementNode, SerializedLexicalNode} from 'lexical'
+import type {
+  SerializedHeadingNode,
+  SerializedQuoteNode,
+  SerializedTextNode,
+  SerializedListItemNode,
+  SerializedListNode
+} from '@payloadcms/richtext-lexical'
+import type {SerializedElementNode, SerializedLexicalNode} from '@payloadcms/richtext-lexical/lexical'
 import classes from './index.module.scss'
 import {RichTextUpload} from '../Upload'
 import {icons} from '../../../utils/icons'
@@ -104,7 +110,6 @@ export function SerializeLexical({nodes, className}: Props): JSX.Element {
               }
               case 'heading': {
                   const node = _node as SerializedHeadingNode
-
                   type Heading = Extract<keyof JSX.IntrinsicElements, 'h1' | 'h2' | 'h3' | 'h4' | 'h5'>
                   const Tag = node?.tag as Heading
                   return <Tag key={index}>{serializedChildren}</Tag>

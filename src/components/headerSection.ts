@@ -1,8 +1,8 @@
 import { Field } from 'payload'
 import deepMerge from '../utilities/deepMerge'
 
-type HeaderSection = (fieldToUse?: string, overrides?: Partial<Field>) => Field
-const headerSection: HeaderSection = (fieldToUse = 'name', overrides) =>
+type HeaderSection = (overrides?: Partial<Field>) => Field
+const headerSection: HeaderSection = (overrides) =>
   deepMerge<Field, Partial<Field>>(
     {
       name: 'headerSection',

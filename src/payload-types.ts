@@ -27,6 +27,9 @@ export interface Config {
     'payload-migrations': PayloadMigration;
   };
   collectionsJoins: {
+    categories: {
+      relatedDocs: 'posts';
+    };
     users: {
       postsByUser: 'posts';
     };
@@ -1050,8 +1053,8 @@ export interface EntitySeo {
 export interface Category {
   id: string;
   title: string;
+  slug?: string | null;
   content?: {
-    slug?: string | null;
     description?: {
       root: {
         type: string;
@@ -1076,6 +1079,10 @@ export interface Category {
     image?: (string | null) | Media;
     description?: string | null;
   };
+  relatedDocs?: {
+    docs?: (string | Post)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1788,10 +1795,10 @@ export interface FormBlockSelect<T extends boolean = true> {
  */
 export interface CategoriesSelect<T extends boolean = true> {
   title?: T;
+  slug?: T;
   content?:
     | T
     | {
-        slug?: T;
         description?: T;
       };
   meta?:
@@ -1801,6 +1808,7 @@ export interface CategoriesSelect<T extends boolean = true> {
         image?: T;
         description?: T;
       };
+  relatedDocs?: T;
   updatedAt?: T;
   createdAt?: T;
 }
