@@ -18,10 +18,10 @@ import {ToTopButton} from "@/app/(app)/components/ToTopButton";
 import {BreadCrumbsContainer, Breadcrumbs} from "@/app/(app)/components/Breadcrumbs";
 import {PostCard} from "@/app/(app)/components/PostCard/Card";
 import {CardRow} from "@/app/(app)/components/PostCard";
+import {BlogNav} from "@/app/(app)/components/BlogNav";
 
 type Props = {
   params: Promise<{ slug: string }>
-
 }
 
 export async function generateStaticParams() {
@@ -105,7 +105,22 @@ export default async function Blog({params}: Props) {
       }
     }
 
-    const relatedPosts = await queryBlog({slug: categoryQuery, limit: 4})
+    const relatedPosts = await queryBlog({slug: categoryQuery, limit: 4, sort: '-date'})
+
+    const nextQuery = {
+      date: {
+        greater_than: blog.date,
+      },
+    }
+
+    const prevQuery = {
+      date: {
+        less_than: blog.date,
+      },
+    }
+
+    const getNext = await queryBlog({slug: nextQuery, limit: 1}).then(res => res.docs[0])
+    const getPrev = await queryBlog({slug: prevQuery, limit: 1, sort: '-date'}).then(res => res.docs[0])
 
     // console.log(relatedPosts)
 
@@ -134,36 +149,21 @@ export default async function Blog({params}: Props) {
               </div>}</div>
           </aside>
           <main className={classes.main}>
-            <ImageObject
+            {typeof content?.image?.image !== 'string' && content?.image?.image && <ImageObject
               className={classes.blogImage}
-              filename={typeof content?.image?.image !== 'string' && content?.image?.image?.filename || ''}
-              width={typeof content?.image?.image !== 'string' && content?.image?.image?.width || 640}
-              height={typeof content?.image?.image !== 'string' && content?.image?.image?.height || 360}
-              altDescription={typeof content?.image?.image !== 'string' && content?.image?.image?.altDescription || ''}
-              creator={typeof content?.image?.image !== 'string' && content?.image?.image?.credit?.creator || ''}
-              creatorLink={typeof content?.image?.image !== 'string' && content?.image?.image?.credit?.creatorLink || ''}
-              creatorType={typeof content?.image?.image !== 'string' && content?.image?.image?.credit?.creatorLink || ''}
-            />
+              image={content.image.image}
+            />}
             <SerializeLexical className={classes.blogContent} nodes={content?.richText?.root.children}/>
+
+            <BlogNav next={getNext} prev={getPrev} />
+
             {relatedPosts && relatedPosts.docs.length > 0 && (<section>
                 <h3>Related Posts</h3>
                 <CardRow>
-                  {relatedPosts.docs?.map((relatedPost: Post) => (
+                {relatedPosts.docs?.map((relatedPost: Post) => (
                     <PostCard
-                        slug={relatedPost.slug || ``}
-                        date={relatedPost.date || ``}
-                        title={relatedPost.title || ``}
-                        id={relatedPost.id}
-                        filename={typeof relatedPost?.content?.image?.image !== 'string' && relatedPost?.content?.image?.image?.filename || ''}
-                        width={typeof relatedPost?.content?.image?.image !== 'string' && relatedPost?.content?.image?.image?.width || 640}
-                        height={typeof relatedPost?.content?.image?.image !== 'string' && relatedPost?.content?.image?.image?.height || 360}
-                        altDescription={typeof relatedPost?.content?.image?.image !== 'string' && relatedPost?.content?.image?.image?.altDescription || ''}
-                        creator={typeof relatedPost?.content?.image?.image !== 'string' && relatedPost?.content?.image?.image?.credit?.creator || ''}
-                        creatorLink={typeof relatedPost?.content?.image?.image !== 'string' && relatedPost?.content?.image?.image?.credit?.creatorLink || ''}
-                        creatorType={typeof relatedPost?.content?.image?.image !== 'string' && relatedPost?.content?.image?.image?.credit?.creatorLink || ''}
-                        // @ts-ignore
-                        author={relatedPost.content?.authors}
-                        key={relatedPost.id}
+                      key={relatedPost.id}
+                      {...relatedPost}
                       />
                   ))}
                 </CardRow>
@@ -183,7 +183,7 @@ export default async function Blog({params}: Props) {
 }
 
 
-const queryBlog = cache(async ({slug, limit}: { slug: Where, limit: number }) => {
+const queryBlog = cache(async ({slug, limit, sort = 'date'}: { slug: Where, limit: number, sort?: string }) => {
   // const {isEnabled: draft} = draftMode()
 
   const payload = await getPayload({config: configPromise})
@@ -192,34 +192,10 @@ const queryBlog = cache(async ({slug, limit}: { slug: Where, limit: number }) =>
     where: slug,
     limit: limit,
     overrideAccess: true,
-    depth: 1,
+    depth: 2,
+    sort: sort
     // draft
   })
 
   return result
-})
-
-const queryCategory = cache(async ({category}: { category: Where }) => {
-
-  const payload = await getPayload({config: configPromise})
-  const result = await payload.find({
-    collection: 'categories',
-    select: {
-      slug: true,
-      title: true,
-      relatedDocs: true,
-    },
-    where: category,
-    overrideAccess: true,
-    depth: 10,
-    joins: {
-      relatedDocs: {
-        limit: 3,
-        sort: '-date'
-      }
-    }
-  })
-
-  return result
-
 })

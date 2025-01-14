@@ -23,6 +23,7 @@ const headerSection: HeaderSection = (overrides) =>
           type: 'text',
         },
       ],
+      interfaceName: 'HeaderSectionProps',
     },
     overrides,
   )

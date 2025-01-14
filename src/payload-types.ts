@@ -6,6 +6,23 @@
  * and re-run `payload generate:types` to regenerate this file.
  */
 
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Button".
+ */
+export type Button =
+  | {
+      title?: string | null;
+      link?: string | null;
+      /**
+       * Should this open in a new browser window/tab?
+       */
+      openInNewTab?: boolean | null;
+      isPrimary?: boolean | null;
+      id?: string | null;
+    }[]
+  | null;
+
 export interface Config {
   auth: {
     users: UserAuthOperations;
@@ -116,18 +133,7 @@ export interface Page {
       [k: string]: unknown;
     } | null;
     textPosition?: ('Left' | 'Right') | null;
-    buttons?:
-      | {
-          title?: string | null;
-          link?: string | null;
-          /**
-           * Should this open in a new browser window/tab?
-           */
-          openInNewTab?: boolean | null;
-          isPrimary?: boolean | null;
-          id?: string | null;
-        }[]
-      | null;
+    buttons?: Button;
     image?: {
       /**
        * Recommended size is 640x360 (16:9 aspect ratio)
@@ -146,11 +152,7 @@ export interface Page {
       | (
           | {
               active?: boolean | null;
-              headerSection?: {
-                headerText?: string | null;
-                headerLevel?: ('h2' | 'h3' | 'h4' | 'h5' | 'h6') | null;
-                anchor?: string | null;
-              };
+              headerSection?: HeaderSectionProps;
               content?: {
                 root: {
                   type: string;
@@ -173,11 +175,7 @@ export interface Page {
             }
           | {
               active?: boolean | null;
-              headerSection?: {
-                headerText?: string | null;
-                headerLevel?: ('h2' | 'h3' | 'h4' | 'h5' | 'h6') | null;
-                anchor?: string | null;
-              };
+              headerSection?: HeaderSectionProps;
               image?: {
                 /**
                  * Recommended size is 640x360 (16:9 aspect ratio)
@@ -206,18 +204,7 @@ export interface Page {
                 };
                 [k: string]: unknown;
               } | null;
-              buttons?:
-                | {
-                    title?: string | null;
-                    link?: string | null;
-                    /**
-                     * Should this open in a new browser window/tab?
-                     */
-                    openInNewTab?: boolean | null;
-                    isPrimary?: boolean | null;
-                    id?: string | null;
-                  }[]
-                | null;
+              buttons?: Button;
               /**
                * Which side of the screen should the text show up on on bigger screens? Or do you want the image to be in the background
                */
@@ -228,25 +215,10 @@ export interface Page {
             }
           | {
               active?: boolean | null;
-              headerSection?: {
-                headerText?: string | null;
-                headerLevel?: ('h2' | 'h3' | 'h4' | 'h5' | 'h6') | null;
-                anchor?: string | null;
-              };
+              headerSection?: HeaderSectionProps;
               mapLink?: string | null;
               address?: (string | null) | Address;
-              buttons?:
-                | {
-                    title?: string | null;
-                    link?: string | null;
-                    /**
-                     * Should this open in a new browser window/tab?
-                     */
-                    openInNewTab?: boolean | null;
-                    isPrimary?: boolean | null;
-                    id?: string | null;
-                  }[]
-                | null;
+              buttons?: Button;
               /**
                * Which side of the screen should the text show up on on bigger screens?
                */
@@ -270,102 +242,18 @@ export interface Page {
               blockName?: string | null;
               blockType: 'contentWithMap';
             }
+          | CardSection
           | {
+              headerSection?: HeaderSectionProps;
               active?: boolean | null;
-              headerSection?: {
-                headerText?: string | null;
-                headerLevel?: ('h2' | 'h3' | 'h4' | 'h5' | 'h6') | null;
-                anchor?: string | null;
-              };
-              card?:
-                | {
-                    image?: {
-                      /**
-                       * Recommended size is 640x360 (16:9 aspect ratio)
-                       */
-                      image?: (string | null) | Media;
-                      /**
-                       * Choose how you want to align the background image in the hero section. This does not change the placement of the image in the flow of the page.
-                       */
-                      imagePosition?:
-                        | (
-                            | 'backgroundTop'
-                            | 'backgroundBottom'
-                            | 'backgroundCenter'
-                            | 'backgroundLeft'
-                            | 'backgroundRight'
-                          )
-                        | null;
-                    };
-                    /**
-                     * Title of the image card.
-                     */
-                    cardHeader?: string | null;
-                    /**
-                     * Description of the image card.
-                     */
-                    cardText?: {
-                      root: {
-                        type: string;
-                        children: {
-                          type: string;
-                          version: number;
-                          [k: string]: unknown;
-                        }[];
-                        direction: ('ltr' | 'rtl') | null;
-                        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                        indent: number;
-                        version: number;
-                      };
-                      [k: string]: unknown;
-                    } | null;
-                    includeButton?: boolean | null;
-                    button?: {
-                      title?: string | null;
-                      link?: string | null;
-                      /**
-                       * Should this open in a new browser window/tab?
-                       */
-                      openInNewTab?: boolean | null;
-                      isPrimary?: boolean | null;
-                    };
-                    id?: string | null;
-                  }[]
-                | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'cardSection';
-            }
-          | {
-              headerSection?: {
-                headerText?: string | null;
-                headerLevel?: ('h2' | 'h3' | 'h4' | 'h5' | 'h6') | null;
-                anchor?: string | null;
-              };
-              active?: boolean | null;
-              buttons?:
-                | {
-                    title?: string | null;
-                    link?: string | null;
-                    /**
-                     * Should this open in a new browser window/tab?
-                     */
-                    openInNewTab?: boolean | null;
-                    isPrimary?: boolean | null;
-                    id?: string | null;
-                  }[]
-                | null;
+              buttons?: Button;
               id?: string | null;
               blockName?: string | null;
               blockType: 'cta';
             }
           | {
               active?: boolean | null;
-              headerSection?: {
-                headerText?: string | null;
-                headerLevel?: ('h2' | 'h3' | 'h4' | 'h5' | 'h6') | null;
-                anchor?: string | null;
-              };
+              headerSection?: HeaderSectionProps;
               video?: {
                 /**
                  * Copy and paste the direct link from your YouTube Studio. It should look like this: https://youtu.be/xxxxxx
@@ -431,18 +319,7 @@ export interface Page {
                 };
                 [k: string]: unknown;
               } | null;
-              buttons?:
-                | {
-                    title?: string | null;
-                    link?: string | null;
-                    /**
-                     * Should this open in a new browser window/tab?
-                     */
-                    openInNewTab?: boolean | null;
-                    isPrimary?: boolean | null;
-                    id?: string | null;
-                  }[]
-                | null;
+              buttons?: Button;
               /**
                * Which side of the screen should the text show up on on bigger screens?
                */
@@ -453,11 +330,7 @@ export interface Page {
             }
           | {
               active?: boolean | null;
-              headerSection?: {
-                headerText?: string | null;
-                headerLevel?: ('h2' | 'h3' | 'h4' | 'h5' | 'h6') | null;
-                anchor?: string | null;
-              };
+              headerSection?: HeaderSectionProps;
               logos?:
                 | {
                     image?: {
@@ -488,11 +361,7 @@ export interface Page {
             }
           | {
               active?: boolean | null;
-              headerSection?: {
-                headerText?: string | null;
-                headerLevel?: ('h2' | 'h3' | 'h4' | 'h5' | 'h6') | null;
-                anchor?: string | null;
-              };
+              headerSection?: HeaderSectionProps;
               FAQ?:
                 | {
                     question?: {
@@ -535,11 +404,7 @@ export interface Page {
             }
           | {
               active?: boolean | null;
-              headerSection?: {
-                headerText?: string | null;
-                headerLevel?: ('h2' | 'h3' | 'h4' | 'h5' | 'h6') | null;
-                anchor?: string | null;
-              };
+              headerSection?: HeaderSectionProps;
               painPoints?:
                 | {
                     image?: {
@@ -575,18 +440,7 @@ export interface Page {
                       };
                       [k: string]: unknown;
                     } | null;
-                    buttons?:
-                      | {
-                          title?: string | null;
-                          link?: string | null;
-                          /**
-                           * Should this open in a new browser window/tab?
-                           */
-                          openInNewTab?: boolean | null;
-                          isPrimary?: boolean | null;
-                          id?: string | null;
-                        }[]
-                      | null;
+                    buttons?: Button;
                     id?: string | null;
                   }[]
                 | null;
@@ -596,11 +450,7 @@ export interface Page {
             }
           | {
               active?: boolean | null;
-              headerSection?: {
-                headerText?: string | null;
-                headerLevel?: ('h2' | 'h3' | 'h4' | 'h5' | 'h6') | null;
-                anchor?: string | null;
-              };
+              headerSection?: HeaderSectionProps;
               link?: {
                 /**
                  * Link to the sponsor
@@ -643,11 +493,7 @@ export interface Page {
             }
           | {
               active?: boolean | null;
-              headerSection?: {
-                headerText?: string | null;
-                headerLevel?: ('h2' | 'h3' | 'h4' | 'h5' | 'h6') | null;
-                anchor?: string | null;
-              };
+              headerSection?: HeaderSectionProps;
               steps?:
                 | {
                     step?: string | null;
@@ -660,11 +506,7 @@ export interface Page {
             }
           | {
               active?: boolean | null;
-              headerSection?: {
-                headerText?: string | null;
-                headerLevel?: ('h2' | 'h3' | 'h4' | 'h5' | 'h6') | null;
-                anchor?: string | null;
-              };
+              headerSection?: HeaderSectionProps;
               steps?:
                 | {
                     image?: {
@@ -710,11 +552,7 @@ export interface Page {
             }
           | {
               active?: boolean | null;
-              headerSection?: {
-                headerText?: string | null;
-                headerLevel?: ('h2' | 'h3' | 'h4' | 'h5' | 'h6') | null;
-                anchor?: string | null;
-              };
+              headerSection?: HeaderSectionProps;
               /**
                * A short summary of the article or page.
                */
@@ -725,11 +563,7 @@ export interface Page {
             }
           | {
               active?: boolean | null;
-              headerSection?: {
-                headerText?: string | null;
-                headerLevel?: ('h2' | 'h3' | 'h4' | 'h5' | 'h6') | null;
-                anchor?: string | null;
-              };
+              headerSection?: HeaderSectionProps;
               numberedList?: boolean | null;
               tableOfContents?:
                 | {
@@ -819,6 +653,15 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeaderSectionProps".
+ */
+export interface HeaderSectionProps {
+  headerText?: string | null;
+  headerLevel?: ('h2' | 'h3' | 'h4' | 'h5' | 'h6') | null;
+  anchor?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "addresses".
  */
 export interface Address {
@@ -832,6 +675,71 @@ export interface Address {
   country?: string | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CardSection".
+ */
+export interface CardSection {
+  active?: boolean | null;
+  headerSection?: HeaderSectionProps;
+  card?:
+    | {
+        image?: {
+          /**
+           * Recommended size is 640x360 (16:9 aspect ratio)
+           */
+          image?: (string | null) | Media;
+          /**
+           * Choose how you want to align the background image in the hero section. This does not change the placement of the image in the flow of the page.
+           */
+          imagePosition?:
+            | ('backgroundTop' | 'backgroundBottom' | 'backgroundCenter' | 'backgroundLeft' | 'backgroundRight')
+            | null;
+        };
+        /**
+         * Title of the image card.
+         */
+        cardHeader?: string | null;
+        /**
+         * Description of the image card.
+         */
+        cardText?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        includeButton?: boolean | null;
+        button?: CardButtonProps;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'cardSection';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CardButtonProps".
+ */
+export interface CardButtonProps {
+  title?: string | null;
+  link?: string | null;
+  /**
+   * Should this open in a new browser window/tab?
+   */
+  openInNewTab?: boolean | null;
+  isPrimary?: boolean | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1366,15 +1274,7 @@ export interface PagesSelect<T extends boolean = true> {
         headline?: T;
         subtext?: T;
         textPosition?: T;
-        buttons?:
-          | T
-          | {
-              title?: T;
-              link?: T;
-              openInNewTab?: T;
-              isPrimary?: T;
-              id?: T;
-            };
+        buttons?: T | ButtonSelect<T>;
         image?:
           | T
           | {
@@ -1392,13 +1292,7 @@ export interface PagesSelect<T extends boolean = true> {
                 | T
                 | {
                     active?: T;
-                    headerSection?:
-                      | T
-                      | {
-                          headerText?: T;
-                          headerLevel?: T;
-                          anchor?: T;
-                        };
+                    headerSection?: T | HeaderSectionPropsSelect<T>;
                     content?: T;
                     includeBgColor?: T;
                     id?: T;
@@ -1408,13 +1302,7 @@ export interface PagesSelect<T extends boolean = true> {
                 | T
                 | {
                     active?: T;
-                    headerSection?:
-                      | T
-                      | {
-                          headerText?: T;
-                          headerLevel?: T;
-                          anchor?: T;
-                        };
+                    headerSection?: T | HeaderSectionPropsSelect<T>;
                     image?:
                       | T
                       | {
@@ -1423,15 +1311,7 @@ export interface PagesSelect<T extends boolean = true> {
                         };
                     imageOrientation?: T;
                     content?: T;
-                    buttons?:
-                      | T
-                      | {
-                          title?: T;
-                          link?: T;
-                          openInNewTab?: T;
-                          isPrimary?: T;
-                          id?: T;
-                        };
+                    buttons?: T | ButtonSelect<T>;
                     textPosition?: T;
                     id?: T;
                     blockName?: T;
@@ -1440,85 +1320,22 @@ export interface PagesSelect<T extends boolean = true> {
                 | T
                 | {
                     active?: T;
-                    headerSection?:
-                      | T
-                      | {
-                          headerText?: T;
-                          headerLevel?: T;
-                          anchor?: T;
-                        };
+                    headerSection?: T | HeaderSectionPropsSelect<T>;
                     mapLink?: T;
                     address?: T;
-                    buttons?:
-                      | T
-                      | {
-                          title?: T;
-                          link?: T;
-                          openInNewTab?: T;
-                          isPrimary?: T;
-                          id?: T;
-                        };
+                    buttons?: T | ButtonSelect<T>;
                     textPosition?: T;
                     content?: T;
                     id?: T;
                     blockName?: T;
                   };
-              cardSection?:
-                | T
-                | {
-                    active?: T;
-                    headerSection?:
-                      | T
-                      | {
-                          headerText?: T;
-                          headerLevel?: T;
-                          anchor?: T;
-                        };
-                    card?:
-                      | T
-                      | {
-                          image?:
-                            | T
-                            | {
-                                image?: T;
-                                imagePosition?: T;
-                              };
-                          cardHeader?: T;
-                          cardText?: T;
-                          includeButton?: T;
-                          button?:
-                            | T
-                            | {
-                                title?: T;
-                                link?: T;
-                                openInNewTab?: T;
-                                isPrimary?: T;
-                              };
-                          id?: T;
-                        };
-                    id?: T;
-                    blockName?: T;
-                  };
+              cardSection?: T | CardSectionSelect<T>;
               cta?:
                 | T
                 | {
-                    headerSection?:
-                      | T
-                      | {
-                          headerText?: T;
-                          headerLevel?: T;
-                          anchor?: T;
-                        };
+                    headerSection?: T | HeaderSectionPropsSelect<T>;
                     active?: T;
-                    buttons?:
-                      | T
-                      | {
-                          title?: T;
-                          link?: T;
-                          openInNewTab?: T;
-                          isPrimary?: T;
-                          id?: T;
-                        };
+                    buttons?: T | ButtonSelect<T>;
                     id?: T;
                     blockName?: T;
                   };
@@ -1526,13 +1343,7 @@ export interface PagesSelect<T extends boolean = true> {
                 | T
                 | {
                     active?: T;
-                    headerSection?:
-                      | T
-                      | {
-                          headerText?: T;
-                          headerLevel?: T;
-                          anchor?: T;
-                        };
+                    headerSection?: T | HeaderSectionPropsSelect<T>;
                     video?:
                       | T
                       | {
@@ -1554,15 +1365,7 @@ export interface PagesSelect<T extends boolean = true> {
                           description_html?: T;
                         };
                     content?: T;
-                    buttons?:
-                      | T
-                      | {
-                          title?: T;
-                          link?: T;
-                          openInNewTab?: T;
-                          isPrimary?: T;
-                          id?: T;
-                        };
+                    buttons?: T | ButtonSelect<T>;
                     textPosition?: T;
                     id?: T;
                     blockName?: T;
@@ -1571,13 +1374,7 @@ export interface PagesSelect<T extends boolean = true> {
                 | T
                 | {
                     active?: T;
-                    headerSection?:
-                      | T
-                      | {
-                          headerText?: T;
-                          headerLevel?: T;
-                          anchor?: T;
-                        };
+                    headerSection?: T | HeaderSectionPropsSelect<T>;
                     logos?:
                       | T
                       | {
@@ -1597,13 +1394,7 @@ export interface PagesSelect<T extends boolean = true> {
                 | T
                 | {
                     active?: T;
-                    headerSection?:
-                      | T
-                      | {
-                          headerText?: T;
-                          headerLevel?: T;
-                          anchor?: T;
-                        };
+                    headerSection?: T | HeaderSectionPropsSelect<T>;
                     FAQ?:
                       | T
                       | {
@@ -1619,13 +1410,7 @@ export interface PagesSelect<T extends boolean = true> {
                 | T
                 | {
                     active?: T;
-                    headerSection?:
-                      | T
-                      | {
-                          headerText?: T;
-                          headerLevel?: T;
-                          anchor?: T;
-                        };
+                    headerSection?: T | HeaderSectionPropsSelect<T>;
                     painPoints?:
                       | T
                       | {
@@ -1636,15 +1421,7 @@ export interface PagesSelect<T extends boolean = true> {
                                 imagePosition?: T;
                               };
                           painPoint?: T;
-                          buttons?:
-                            | T
-                            | {
-                                title?: T;
-                                link?: T;
-                                openInNewTab?: T;
-                                isPrimary?: T;
-                                id?: T;
-                              };
+                          buttons?: T | ButtonSelect<T>;
                           id?: T;
                         };
                     id?: T;
@@ -1654,13 +1431,7 @@ export interface PagesSelect<T extends boolean = true> {
                 | T
                 | {
                     active?: T;
-                    headerSection?:
-                      | T
-                      | {
-                          headerText?: T;
-                          headerLevel?: T;
-                          anchor?: T;
-                        };
+                    headerSection?: T | HeaderSectionPropsSelect<T>;
                     link?:
                       | T
                       | {
@@ -1677,13 +1448,7 @@ export interface PagesSelect<T extends boolean = true> {
                 | T
                 | {
                     active?: T;
-                    headerSection?:
-                      | T
-                      | {
-                          headerText?: T;
-                          headerLevel?: T;
-                          anchor?: T;
-                        };
+                    headerSection?: T | HeaderSectionPropsSelect<T>;
                     steps?:
                       | T
                       | {
@@ -1697,13 +1462,7 @@ export interface PagesSelect<T extends boolean = true> {
                 | T
                 | {
                     active?: T;
-                    headerSection?:
-                      | T
-                      | {
-                          headerText?: T;
-                          headerLevel?: T;
-                          anchor?: T;
-                        };
+                    headerSection?: T | HeaderSectionPropsSelect<T>;
                     steps?:
                       | T
                       | {
@@ -1724,13 +1483,7 @@ export interface PagesSelect<T extends boolean = true> {
                 | T
                 | {
                     active?: T;
-                    headerSection?:
-                      | T
-                      | {
-                          headerText?: T;
-                          headerLevel?: T;
-                          anchor?: T;
-                        };
+                    headerSection?: T | HeaderSectionPropsSelect<T>;
                     summary?: T;
                     id?: T;
                     blockName?: T;
@@ -1739,13 +1492,7 @@ export interface PagesSelect<T extends boolean = true> {
                 | T
                 | {
                     active?: T;
-                    headerSection?:
-                      | T
-                      | {
-                          headerText?: T;
-                          headerLevel?: T;
-                          anchor?: T;
-                        };
+                    headerSection?: T | HeaderSectionPropsSelect<T>;
                     numberedList?: T;
                     tableOfContents?:
                       | T
@@ -1775,6 +1522,61 @@ export interface PagesSelect<T extends boolean = true> {
   pageStatus?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Button_select".
+ */
+export interface ButtonSelect<T extends boolean = true> {
+  title?: T;
+  link?: T;
+  openInNewTab?: T;
+  isPrimary?: T;
+  id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeaderSectionProps_select".
+ */
+export interface HeaderSectionPropsSelect<T extends boolean = true> {
+  headerText?: T;
+  headerLevel?: T;
+  anchor?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CardSection_select".
+ */
+export interface CardSectionSelect<T extends boolean = true> {
+  active?: T;
+  headerSection?: T | HeaderSectionPropsSelect<T>;
+  card?:
+    | T
+    | {
+        image?:
+          | T
+          | {
+              image?: T;
+              imagePosition?: T;
+            };
+        cardHeader?: T;
+        cardText?: T;
+        includeButton?: T;
+        button?: T | CardButtonPropsSelect<T>;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CardButtonProps_select".
+ */
+export interface CardButtonPropsSelect<T extends boolean = true> {
+  title?: T;
+  link?: T;
+  openInNewTab?: T;
+  isPrimary?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -1,0 +1,75 @@
+@use '../../css/vars' as *;
+@use '../../css/queries' as *;
+
+.blogNavContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: stretch;
+  justify-content: space-between;
+  margin: 1rem 0;
+  @include small-break {
+    flex-wrap: nowrap;
+  }
+}
+
+.blogNavItem {
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+  flex: 1 1 100%;
+  @include small-break {
+    flex: 1 1 auto;
+  }
+}
+
+.nextBlog {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  @include rounded;
+  border: 1px solid var(--dark-primary);
+  padding: 1rem;
+  transition: all 250ms;
+
+  &:hover {
+    transition: all 250ms;
+    border: 1px solid var(--white);
+
+    p {
+      color: var(--white);
+    }
+
+    svg {
+      fill: var(--white);
+    }
+
+    background-color: var(--dark-primary);
+  }
+}
+
+.prevBlog {
+  //flex: 1 0 calc(50% - 1rem);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  @include rounded;
+  border: 1px solid var(--dark-primary);
+  padding: 1rem;
+  transition: all 250ms;
+
+  &:hover {
+    transition: all 250ms;
+    border: 1px solid var(--white);
+    p {
+      color: var(--white);
+    }
+    svg {
+      fill: var(--white);
+    }
+    background-color: var(--dark-primary);
+  }
+}

@@ -188,6 +188,7 @@ const Posts: CollectionConfig = {
                   name: 'category',
                   relationTo: 'categories',
                   hasMany: true,
+                  maxRows: 2,
                   admin: {
                     width: '50%'
                   }

@@ -10,6 +10,7 @@ import {
 } from "@/app/(app)/utils/types";
 import {ImageObject as ImageObjectType} from '@/app/(app)/components/Media/Media/types'
 import classes from './index.module.scss'
+import {Button, Media as MediaProps} from "@/payload-types";
 
 export function Hero({
                        headline,
@@ -18,20 +19,14 @@ export function Hero({
                      }: {
   headline: string
   subtext?: RichTextType
-  buttons?: AButton[]
-  image: ImageObjectType
+  buttons?: Button
+  image: MediaProps
   textPosition?: string
 }) {
   return <div className={`${classes.heroContainer}`}>
     <div className={classes.imageContainer}>
       <ImageObject className={classes.image}
-                   filename={image?.image?.filename || ''}
-                   width={image?.image?.width || 640}
-                   height={image?.image?.height || 360}
-                   altDescription={image?.image?.altDescription || ''}
-                   creator={image?.image?.credit?.creator || ''}
-                   creatorLink={image?.image?.credit?.creatorLink || ''}
-                   creatorType={image?.image?.credit?.creatorLink || ''}
+                   {...image}
       />
     </div>
     <div className={`${classes.headerAndButtons} ${textPosition === 'Left' ? classes.textLeft : classes.textRight}`}>

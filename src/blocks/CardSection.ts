@@ -84,10 +84,12 @@ const CardSection: Block = {
                             type: 'checkbox',
                         },
                     ],
+                  interfaceName: 'CardButtonProps',
                 },
             ],
         },
     ],
+  interfaceName: 'CardSection',
 }
 
 export default CardSection

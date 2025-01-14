@@ -1,5 +1,6 @@
 import React from "react";
 import classes from './index.module.scss'
+import type {HeaderSectionProps} from "@/payload-types";
 
 export interface HeaderType {
     headerLevel: string,
@@ -8,10 +9,10 @@ export interface HeaderType {
     className?: string,
 }
 
-export default function Header({headerLevel, headerText, className, anchor}: HeaderType) {
+export default function Header({headerLevel, headerText, className, anchor}: HeaderSectionProps & React.HTMLAttributes<HTMLDivElement>) {
     const HeadingTag = React.createElement(`${headerLevel}`, {} ,headerText);
 
-    return <div className={`${className} ${classes.header}`} id={anchor}>
+    return <div className={`${className} ${classes.header}`} id={anchor || ``}>
         {HeadingTag}
     </div>
 }

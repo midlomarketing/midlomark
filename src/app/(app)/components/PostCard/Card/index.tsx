@@ -1,47 +1,30 @@
 import classes from "./index.module.scss";
 import Link from "next/link";
 import {ImageObject} from "@/app/(app)/components/Media/Media";
-import {User} from "@/payload-types";
+import {Category, Post, User} from "@/payload-types";
 import {GeneralDate} from "@/app/(app)/components/Date";
 
-interface PostCardProps {
-  id: string,
-  slug: string,
-  title: string,
-  author?: User[],
-  date: Date | string,
-  filename: string,
-  width: number,
-  height: number,
-  altDescription?: string,
-    creator?: string,
-    creatorLink?: string,
-    creatorType?: string,
-
-}
-
-export function PostCard(post: PostCardProps) {
+export function PostCard(post: Post) {
 
   return (<Link key={post.id} href={`/blog/${post.slug}`} className={classes.card}>
-      <div className={classes.cardImage}>
+      {typeof post.content?.image?.image !== 'string' && post.content?.image?.image && <div className={classes.cardImage}>
         <ImageObject
-          filename={post.filename}
-          width={post.width}
-          height={post.height}
-          altDescription={post.altDescription || ``}
-          creator={post.creator || ``}
-          creatorLink={post.creatorLink || ``}
-          creatorType={post.creatorType || ``}
+          image={post.content.image.image}
         />
-      </div>
+      </div>}
       <div className={classes.cardBody}>
         <h3 className={classes.cardTitle}>
           {post.title}
         </h3>
-        {post.author?.map((author: User, index, array) => (
-          <span key={author.id} className={classes.featuredAuthor}>{array.length > index + 1 ? `${author.name}, ` : author.name}</span>
+        {post.content?.authors?.map((author: User, index, array) => (
+          <span key={author.id} className={classes.author}>{array.length > index + 1 ? `${author.name}, ` : author.name}</span>
         ))}
         <GeneralDate date={post.date || ``} includeTime={false} className={classes.cardDate}/>
+        {post.content?.category && <div className={classes.postCategories}>
+          {post.content?.category.map((category: Category, idx) => (
+            <span className={classes.categoryText} key={category.id}>{category.title}</span>
+            ))}
+        </div>}
       </div>
     </Link>
   )

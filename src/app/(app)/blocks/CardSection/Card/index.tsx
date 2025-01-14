@@ -8,6 +8,7 @@ import {
   YesOrNo
 } from '@/app/(app)/utils/types'
 import {ImageObject as ImageObjectType} from '@/app/(app)/components/Media/Media/types'
+import {Card as CardProps, CardButtonProps, Media} from "@/payload-types";
 
 
 export default function Card({
@@ -16,15 +17,10 @@ export default function Card({
                                className,
                              }: {
   className?: string
-  image: ImageObjectType
+  image: Media
   cardHeader: string
   includeButton: boolean
-  button?: {
-    title?: string,
-    link?: string,
-    openInNewTab?: YesOrNo
-    isPrimary?: false
-  }
+  button?: CardButtonProps
   cardText: RichTextType
 
 }) {
@@ -39,13 +35,9 @@ export default function Card({
                   aria-label={`An image for the card titled ${cardHeader}`}
                   title={`An image for the card titled ${cardHeader}`}
             >
-              <ImageObject className={classes.cardImage} filename={image?.image?.filename || ''}
-                           width={image?.image?.width || 640}
-                           height={image?.image?.height || 360}
-                           altDescription={image?.image?.altDescription || ''}
-                           creator={image?.image?.credit?.creator || ''}
-                           creatorLink={image?.image?.credit?.creatorLink || ''}
-                           creatorType={image?.image?.credit?.creatorLink || ''}/>
+              {image && <ImageObject className={classes.cardImage}
+                                     image={image}
+              />}
             </Link>
           ) : includeButton && button?.openInNewTab ? (
             <a
@@ -55,22 +47,14 @@ export default function Card({
               aria-label={`An image for the card titled ${cardHeader}`}
               title={`An image for the card titled ${cardHeader}`}
             >
-              <ImageObject className={classes.cardImage} filename={image?.image?.filename || ''}
-                           width={image?.image?.width || 640}
-                           height={image?.image?.height || 360}
-                           altDescription={image?.image?.altDescription || ''}
-                           creator={image?.image?.credit?.creator || ''}
-                           creatorLink={image?.image?.credit?.creatorLink || ''}
-                           creatorType={image?.image?.credit?.creatorLink || ''}/>
+              <ImageObject
+                image={image}
+                className={classes.cardImage}
+              />
             </a>
           ) : (
-            <ImageObject className={classes.cardImage} filename={image?.image?.filename || ''}
-                         width={image?.image?.width || 640}
-                         height={image?.image?.height || 360}
-                         altDescription={image?.image?.altDescription || ''}
-                         creator={image?.image?.credit?.creator || ''}
-                         creatorLink={image?.image?.credit?.creatorLink || ''}
-                         creatorType={image?.image?.credit?.creatorLink || ''}
+            <ImageObject image={image}
+                className={classes.cardImage}
             />
           )}
         </div>

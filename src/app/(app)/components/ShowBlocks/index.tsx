@@ -31,7 +31,7 @@ export function ShowBlocks({blocks}) {
     case 'contentWithMedia':
       return (
         <ContentWithMedia
-          image={blocks.image}
+          image={blocks.image.image}
           textPosition={blocks.textPosition}
           content={blocks.content}
           buttons={blocks.buttons}

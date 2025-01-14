@@ -7,6 +7,7 @@ const image: Image = (fieldToUse = 'name', overrides) =>
     {
       type: 'group',
       name: 'image',
+      label: 'Image',
       fields: [
         {
           name: 'image',

@@ -19,6 +19,8 @@
 //     url2?: string
 //     name3?: string
 // }
+import {Media} from "@/payload-types";
+
 type Image = {
     src?: string,
     credit?: CreditType
@@ -26,6 +28,7 @@ type Image = {
 
 import { CreditType } from "../../utils/types"
 import { VideoType} from "../Media/Media/types"
+import process from "process";
 
 // export const add2Breadcrumbs = async ({name1, url1, name2}: TwoBreadcrumbs) => {
 //     const globals: GlobalSetting = await getCachedGlobal('global-settings', 1)()
@@ -78,18 +81,18 @@ import { VideoType} from "../Media/Media/types"
 //     }
 // }
 
-export const addImage = async ({ src, credit }: Image) => {
+export const addImage = async (image: Media) => {
 
     const imageCredit = {
-        '@type': credit && credit.creatorType || 'Organization',
-        name: credit && credit.creator || 'MidloMark',
-        sameAs: credit && credit.creatorLink || 'https://midlomark.com'
+        '@type': image?.credit?.creatorType || 'Organization',
+        name: image?.credit?.creator || 'MidloMark',
+        sameAs: image?.credit?.creatorLink || 'https://midlomark.com'
     }
 
     return {
         '@context': 'https://schema.org/',
         '@type': 'ImageObject',
-        contentUrl: src,
+        contentUrl: `${process.env.CLOUDFLARE_BUCKET}/${image.filename}`,
         creator: imageCredit,
     }
 }

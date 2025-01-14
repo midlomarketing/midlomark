@@ -6,6 +6,7 @@ const buttons: Button = (fieldToUse = 'name', overrides) =>
   deepMerge<Field, Partial<Field>>(
     {
       name: 'buttons',
+      interfaceName: 'Button',
       type: 'array',
       label: 'CTA buttons',
       admin: {

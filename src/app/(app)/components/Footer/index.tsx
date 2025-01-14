@@ -12,29 +12,14 @@ export async function Footer() {
     const response: Navigation = await getCachedGlobal('nav', 1)()
     const globals: GlobalSetting = await getCachedGlobal('global-settings', 1)()
 
-    const image: ImageObjectType = {
-        image: {
-            width: typeof globals.logos?.landscapeLogo !== 'string' && globals.logos?.landscapeLogo?.width || 640,
-            height: typeof globals.logos?.landscapeLogo !== 'string' && globals.logos?.landscapeLogo?.height || 360,
-            altDescription: typeof globals.logos?.landscapeLogo !== 'string' && globals.logos?.landscapeLogo?.altDescription || '',
-            filename: typeof globals.logos?.landscapeLogo !== 'string' && globals.logos?.landscapeLogo?.filename || '',
-        }
-    }
-
     return <SectionContainer className={classes.footerSection}>
         <ContentContainer>
-            <div className={classes.logoContainer}>
-                <ImageObject
-                    filename={image?.image?.filename || ''}
-              width={image?.image?.width || 640}
-              height={image?.image?.height || 360}
-              altDescription={image?.image?.altDescription || ''}
-              creator={image?.image?.credit?.creator || ''}
-              creatorLink={image?.image?.credit?.creatorLink || ''}
-              creatorType={image?.image?.credit?.creatorLink || ''}
-                    className={classes.logo}
-                />
-            </div>
+          {typeof globals.logos?.landscapeLogo !== 'string' && globals.logos?.landscapeLogo && <div className={classes.logoContainer}>
+            <ImageObject
+              image={globals.logos.landscapeLogo}
+              className={classes.logo}
+            />
+          </div>}
             <div className={classes.navContainer}>
                 {response.navigationLink?.map((link) =>
                     link.linkType === 'Internal'

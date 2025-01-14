@@ -6,25 +6,20 @@ import {
   RichTextType
 } from '@/app/(app)/utils/types'
 import {ImageObject} from '@/app/(app)/components/Media/Media'
-import {ImageObject as ImageObjectType} from '../../components/Media/Media/types'
 import {SectionContainer} from "@/app/(app)/components/PageLayout";
 import {ContentContainer} from "@/app/(app)/components/PageLayout/ContentContainer";
 import Grid from "@/app/(app)/components/PageLayout/Grid";
 import classes from './index.module.scss'
+import {
+  Media as MediaProps,
+  Button as ButtonProps
+} from "@/payload-types";
 
-export default function ContentWithMedia({
-                                           header,
-                                           buttons,
-                                           content,
-                                           image,
-                                           textPosition,
-                                           aspectRatio,
-                                           active
-                                         }: {
+export default function ContentWithMedia({header, buttons, content, image, textPosition, aspectRatio, active}: {
   header: HeaderType
-  buttons: AButton[]
+  buttons: ButtonProps
   content: RichTextType
-  image: ImageObjectType
+  image: MediaProps
   textPosition: string
   aspectRatio: string
   active?: boolean
@@ -51,13 +46,7 @@ export default function ContentWithMedia({
           <Grid reverse={textPosition === 'Left'}>
             <div className={classes.imageColumn}>
               <ImageObject
-                filename={image?.image?.filename || ''}
-                width={image?.image?.width || 640}
-                height={image?.image?.height || 360}
-                altDescription={image?.image?.altDescription || ''}
-                creator={image?.image?.credit?.creator || ''}
-                creatorLink={image?.image?.credit?.creatorLink || ''}
-                creatorType={image?.image?.credit?.creatorLink || ''}
+                image={image}
                 className={`${classes.image} ${aspectRatio}`}
               />
             </div>
@@ -85,13 +74,7 @@ export default function ContentWithMedia({
     return (
       <SectionContainer className={classes.backgroundContainer}>
         <ImageObject
-          filename={image?.image?.filename || ''}
-              width={image?.image?.width || 640}
-              height={image?.image?.height || 360}
-              altDescription={image?.image?.altDescription || ''}
-              creator={image?.image?.credit?.creator || ''}
-              creatorLink={image?.image?.credit?.creatorLink || ''}
-              creatorType={image?.image?.credit?.creatorLink || ''}
+          image={image}
           className={classes.backgroundImage}
         />
         <div className={classes.contentContainer}>
@@ -99,7 +82,7 @@ export default function ContentWithMedia({
             <Header {...header} />
             {content && <SerializeLexical nodes={content.root.children}/>}
             <ButtonContainer>
-              {buttons.map((button: AButton) => (
+              {buttons?.map((button: AButton) => (
                 <Button
                   key={button.id}
                   {...button}

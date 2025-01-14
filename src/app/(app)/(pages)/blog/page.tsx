@@ -3,7 +3,7 @@ import {Metadata} from 'next'
 import {meta} from "@/app/(app)/components/Metadata";
 import {getPayload} from 'payload'
 import configPromise from '@payload-config'
-import {GlobalSetting} from "@/payload-types";
+import {GlobalSetting, Post} from "@/payload-types";
 import {getCachedGlobal} from "@/app/(app)/utils/getGlobals";
 import {ContentContainer, SectionContainer} from "@/app/(app)/components/PageLayout";
 import {ImageObject} from "@/app/(app)/components/Media/Media";
@@ -93,17 +93,9 @@ export default async function Blogs({params}: BlogProps) {
         {featured && <section className={classes.featuredPost}>
           <h2>Featured Post</h2>
           <Link href={`/blog/${featured.slug}` || ``} className={classes.featuredCard}>
-            <div className={classes.featuredImage}>
-              <ImageObject
-                filename={typeof featured?.content?.image?.image !== 'string' && featured?.content?.image?.image?.filename || ''}
-                width={typeof featured?.content?.image?.image !== 'string' && featured?.content?.image?.image?.width || 640}
-                height={typeof featured?.content?.image?.image !== 'string' && featured?.content?.image?.image?.height || 360}
-                altDescription={typeof featured?.content?.image?.image !== 'string' && featured?.content?.image?.image?.altDescription || ''}
-                creator={typeof featured?.content?.image?.image !== 'string' && featured?.content?.image?.image?.credit?.creator || ''}
-                creatorLink={typeof featured?.content?.image?.image !== 'string' && featured?.content?.image?.image?.credit?.creatorLink || ''}
-                creatorType={typeof featured?.content?.image?.image !== 'string' && featured?.content?.image?.image?.credit?.creatorLink || ''}
-              />
-            </div>
+            {featured.content?.image?.image && typeof featured.content.image.image !== 'string' && <div className={classes.featuredImage}>
+              <ImageObject image={featured.content.image.image} />
+            </div>}
             <div className={classes.featuredBody}>
               <div className={classes.featuredHeader}>
                 <div className={classes.featuredInfo}>
@@ -129,18 +121,10 @@ export default async function Blogs({params}: BlogProps) {
         <section className={classes.recentPosts}>
           {featured && <h2>Recent Posts</h2>}
           <CardRow>
-            {all.docs.map((post) => (
-              <PostCard title={post.title} id={post.id} date={post.date || ``} slug={post.slug!}
-                        filename={typeof post?.content?.image?.image !== 'string' && post?.content?.image?.image?.filename || ''}
-                        width={typeof post?.content?.image?.image !== 'string' && post?.content?.image?.image?.width || 640}
-                        height={typeof post?.content?.image?.image !== 'string' && post?.content?.image?.image?.height || 360}
-                        altDescription={typeof post?.content?.image?.image !== 'string' && post?.content?.image?.image?.altDescription || ''}
-                        creator={typeof post?.content?.image?.image !== 'string' && post?.content?.image?.image?.credit?.creator || ''}
-                        creatorLink={typeof post?.content?.image?.image !== 'string' && post?.content?.image?.image?.credit?.creatorLink || ''}
-                        creatorType={typeof post?.content?.image?.image !== 'string' && post?.content?.image?.image?.credit?.creatorLink || ''}
-                        // @ts-ignore
-                        author={post.content?.authors}
-                        key={post.id}
+            {all.docs.map((post: Post) => (
+              <PostCard
+                key={post.id}
+                {...post}
               />
             ))}
           </CardRow>

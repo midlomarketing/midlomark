@@ -14,11 +14,15 @@ import {Hero} from "@/app/(app)/components/Hero";
 
 // export const revalidate = 86400
 
-// TODO blog navigation (with previous and next) <-- -->
-// TODO render blog categories on cards (likely over the image)
-// TODO clean up components
+// TODO clean up components – clean up type issues
+
+// TODO redo our Rich Text Renderer
 
 // TODO build out industry pages
+// TODO new relationship field for posts to show up on industry pages
+
+// TODO include BG boolean selection and color picker in block
+// TODO use interfaceName to generate types – do with headerSection types
 
 // TODO work on schema to make sure that works
 
@@ -71,14 +75,7 @@ export default async function Page({params: paramsPromise}: Args) {
   const imageFilename = typeof meta?.image !== 'string' && meta?.image?.filename
 
   const schema = [
-    await addImage({
-      src: imageFilename || '',
-      credit: {
-        creator: typeof meta?.image !== 'string' && meta?.image?.credit?.creator || '',
-        creatorLink: typeof meta?.image !== 'string' && meta?.image?.credit?.creatorLink || '',
-        creatorType: typeof meta?.image !== 'string' && meta?.image?.credit?.creator || undefined,
-      }
-    }),
+    meta?.image && typeof meta?.image !== 'string' && await addImage(meta.image),
   ]
 
   return (

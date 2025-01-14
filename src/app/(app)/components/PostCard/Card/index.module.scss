@@ -26,9 +26,31 @@
   padding: 1rem;
 }
 .cardTitle {
-  font-size: 1.1rem;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
 }
 .cardDate {
   font-size: 1rem;
   color: var(--dark-primary-70);
 }
+
+.postCategories {
+  border-top: 1px solid var(--dark-primary);
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+  margin-top: 0.25rem;
+  padding-top: 0.25rem;
+}
+
+.categoryText {
+  padding: 0.075rem 0.125rem;
+  font-size: 0.8rem;
+  color: var(--dark-secondary);
+}
+
+.author {
+  color: var(--dark-primary);
+  font-size: 0.9rem;
+}
+
