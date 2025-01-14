@@ -1,21 +1,22 @@
 import {addImage} from '../../Schema'
 import {Individual} from '../../Schema/Container'
 import Image from 'next/image'
-import {Media} from "@/payload-types";
+import type {Media} from "@/payload-types";
 
-export async function ImageObject( {image, className, priority}: {
-  image: Media,
-  className?: string,
-  priority?: boolean
-}) {
+type Props = Media & {className?: string, priority?: boolean}
+
+export async function ImageObject(props: Props) {
+
+  const {filename, height, width, altDescription, className, priority} = props
+
   return (
     <>
-      <Individual schema={await addImage(image)}/>
+      {/*<Individual schema={await addImage(image)}/>*/}
       <Image
-        src={`${process.env.CLOUDFLARE_BUCKET}/${image.filename || ``}`}
-        height={image.height || 360}
-        width={image.width || 640}
-        alt={image.altDescription || ``}
+        src={`${process.env.CLOUDFLARE_BUCKET}/${filename}`}
+        height={height || 360}
+        width={width || 640}
+        alt={altDescription || ``}
         className={className}
         priority={priority}
       />

@@ -1,11 +1,11 @@
-import ContentNoMedia from '../../blocks/ContentNoMedia'
+import ContentNoMedia from '../../../../blocks/ContentNoMedia/Component'
 // import FeedToAdd from '../../blocks/Feed/FeedToAdd'
-import ContentWithMedia from '../../blocks/ContentWithMedia'
-import CardSection from '../../blocks/CardSection'
+import ContentWithMedia from '../../../../blocks/ContentWithMedia/Component'
+import CardSection from '../../../../blocks/Cards/Component'
 import CTA from '../../blocks/CTA'
 import ContentWithMap from '../../blocks/ContentWithMap'
 import ContentWithVideo from '../../blocks/ContentWithVideo'
-import ClientLogos from '../../blocks/ClientLogos'
+import ClientLogos from '../../../../blocks/ClientLogos/Component'
 import FAQ from '../../blocks/FAQ'
 import {PainPoints} from '../../blocks/PainPoints'
 import SponsoredSection from '../../blocks/SponsoredSection'
@@ -31,21 +31,13 @@ export function ShowBlocks({blocks}) {
     case 'contentWithMedia':
       return (
         <ContentWithMedia
-          image={blocks.image.image}
-          textPosition={blocks.textPosition}
-          content={blocks.content}
-          buttons={blocks.buttons}
-          header={blocks.headerSection}
-          aspectRatio={blocks.imageOrientation}
-          active={blocks?.active || true}
+          {...blocks}
         />
       )
     case 'cardSection':
       return (
         <CardSection
-          headerSection={blocks.headerSection}
-          cards={blocks.card}
-          active={blocks?.active || true}
+          {...blocks}
         />
       )
     case 'contentWithVideo':

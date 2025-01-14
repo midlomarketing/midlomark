@@ -1,6 +1,6 @@
-import Header, {HeaderType} from '../../components/CustomHeader'
-import {Button, ButtonContainer} from '../../components/Button'
-import {SerializeLexical} from '../../components/RichText/Lexical'
+import Header, {HeaderType} from '../../../app/(app)/components/CustomHeader'
+import {Button, ButtonContainer} from '../../../app/(app)/components/Button'
+import {SerializeLexical} from '../../../app/(app)/components/RichText/Lexical'
 import {
   AButton,
   RichTextType
@@ -12,48 +12,38 @@ import Grid from "@/app/(app)/components/PageLayout/Grid";
 import classes from './index.module.scss'
 import {
   Media as MediaProps,
-  Button as ButtonProps
+  Button as ButtonProps, ContentWithMediaProps
 } from "@/payload-types";
+import {RichText} from "@/app/(app)/components/RichText";
 
-export default function ContentWithMedia({header, buttons, content, image, textPosition, aspectRatio, active}: {
-  header: HeaderType
-  buttons: ButtonProps
-  content: RichTextType
-  image: MediaProps
-  textPosition: string
-  aspectRatio: string
-  active?: boolean
-}) {
-  let ratio
+export default function ContentWithMedia(props: ContentWithMediaProps) {
 
-  switch (aspectRatio) {
-    case 'landscape':
-      ratio = 'landscape-aspect'
-      break
-    case 'square':
-      ratio = 'square-aspect'
-      break
-    default:
-      ratio = 'auto-aspect'
-      break
-  }
+  const {
+    active,
+    headerSection,
+    content,
+    imageOrientation,
+    textPosition,
+    image,
+    buttons
+  } = props
 
   if (active && textPosition !== 'Foreground') {
     return (
       <SectionContainer>
         <ContentContainer>
-          <Header {...header} />
+          <Header {...headerSection} />
           <Grid reverse={textPosition === 'Left'}>
             <div className={classes.imageColumn}>
-              <ImageObject
-                image={image}
-                className={`${classes.image} ${aspectRatio}`}
-              />
+              {image?.image && typeof image.image !== 'string' && <ImageObject
+                {...image.image}
+                className={`${classes.image} ${imageOrientation}`}
+              />}
             </div>
             <div
               className={`${classes.contentColumn} ${textPosition === 'Left' ? classes.contentReverse : undefined}`}>
               {content &&
-                <SerializeLexical nodes={content.root.children}/>
+                <RichText data={content}/>
               }
               {buttons && (
                 <ButtonContainer>
@@ -73,14 +63,14 @@ export default function ContentWithMedia({header, buttons, content, image, textP
   } else if (textPosition === 'Foreground' && active) {
     return (
       <SectionContainer className={classes.backgroundContainer}>
-        <ImageObject
-          image={image}
+        {image?.image && typeof image.image !== 'string' && <ImageObject
+          {...image.image}
           className={classes.backgroundImage}
-        />
+        />}
         <div className={classes.contentContainer}>
           <div className={classes.blurBox}>
-            <Header {...header} />
-            {content && <SerializeLexical nodes={content.root.children}/>}
+            <Header {...headerSection} />
+            {content && <RichText data={content}/>}
             <ButtonContainer>
               {buttons?.map((button: AButton) => (
                 <Button

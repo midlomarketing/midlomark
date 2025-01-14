@@ -1,6 +1,6 @@
 import {Block} from 'payload'
-import image from '../components/image'
-import headerSection from '../components/headerSection'
+import image from '../../components/image'
+import headerSection from '../../components/headerSection'
 import {FixedToolbarFeature, lexicalEditor} from "@payloadcms/richtext-lexical";
 
 const CardSection: Block = {
@@ -87,6 +87,7 @@ const CardSection: Block = {
                   interfaceName: 'CardButtonProps',
                 },
             ],
+          interfaceName: 'CardArray',
         },
     ],
   interfaceName: 'CardSection',

@@ -1,9 +1,9 @@
 import {Block} from 'payload'
-import headerSection from '../components/headerSection'
+import headerSection from '../../components/headerSection'
 import {lexicalEditor} from "@payloadcms/richtext-lexical";
 import {HighlightFeature} from "@/utilities/features/colorAccent/server";
 
-const ContentNoMedia: Block = <Block>{
+const Config: Block = <Block>{
     slug: 'contentNoMedia',
     fields: [
         {
@@ -29,6 +29,7 @@ const ContentNoMedia: Block = <Block>{
         label: 'Do you want to include the primary background color?'
       },
     ],
+  interfaceName: 'ContentNoMediaProps'
 }
 
-export default ContentNoMedia
+export default Config

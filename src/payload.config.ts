@@ -25,7 +25,7 @@ import {formBuilderPlugin} from "@payloadcms/plugin-form-builder";
 // import {searchPlugin} from '@payloadcms/plugin-search'
 import {s3Storage} from '@payloadcms/storage-s3'
 import process from 'process'
-import ContentWithMedia from '@/blocks/ContentWithMedia'
+import ContentWithMedia from '@/blocks/ContentWithMedia/config'
 import EntitySeo from '@/collections/EntitySeo'
 import {Page, Post} from '@/payload-types'
 import {GenerateDescription, GenerateImage, GenerateTitle, GenerateURL} from '@payloadcms/plugin-seo/types'

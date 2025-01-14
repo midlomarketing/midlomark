@@ -1,5 +1,5 @@
-@use '../../../css/queries' as *;
-@use '../../../css/vars' as *;
+@use '../../../app/(app)/css/queries' as *;
+@use '../../../app/(app)/css/vars' as *;
 
 .cardContainer {
   display: flex;

@@ -1,8 +1,8 @@
 import {CollectionConfig} from 'payload'
-import ContentNoMedia from '../../blocks/ContentNoMedia'
-import ContentWithMedia from '../../blocks/ContentWithMedia'
+import Config from '../../blocks/ContentNoMedia/config'
+import ContentWithMedia from '../../blocks/ContentWithMedia/config'
 import contentWithMap from '../../blocks/ContentWithMap'
-import cardSection from '../../blocks/CardSection'
+import cardSection from '../../blocks/Cards/config'
 import buttons from '../../components/buttons'
 import image from '../../components/image'
 import slug from '../../components/slug'
@@ -17,7 +17,7 @@ import {
   OverviewField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
-import clientLogos from "@/blocks/ClientLogos";
+import clientLogos from "@/blocks/ClientLogos/config";
 import FAQBlock from "@/blocks/FAQBlock";
 import PainPoints from "@/blocks/PainPoints";
 import SponsoredBlock from "@/blocks/SponsoredBlock";
@@ -88,7 +88,7 @@ const Pages: CollectionConfig = {
               type: 'blocks',
               label: false,
               blocks: [
-                ContentNoMedia,
+                Config,
                 ContentWithMedia,
                 contentWithMap,
                 cardSection,

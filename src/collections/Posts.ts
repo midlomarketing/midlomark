@@ -19,8 +19,8 @@ import {
   PreviewField
 } from "@payloadcms/plugin-seo/fields";
 import TableOfContents from "@/blocks/TableOfContents";
-import ContentNoMedia from "@/blocks/ContentNoMedia";
-import ContentWithMedia from "@/blocks/ContentWithMedia";
+import Config from "@/blocks/ContentNoMedia/config";
+import ContentWithMedia from "@/blocks/ContentWithMedia/config";
 import {FormBlock} from "@/blocks/Form/config";
 
 
@@ -156,7 +156,7 @@ const Posts: CollectionConfig = {
                       BlocksFeature({
                         blocks: [
                           TableOfContents,
-                          ContentNoMedia,
+                          Config,
                           ContentWithMedia,
                           FormBlock,
                         ],

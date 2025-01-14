@@ -1,5 +1,5 @@
-@use '../../css/queries' as *;
-@use '../../css/vars.scss' as vars;
+@use '../../../app/(app)/css/queries' as *;
+@use '../../../app/(app)/css/vars' as vars;
 
 .logos {
   display: flex;

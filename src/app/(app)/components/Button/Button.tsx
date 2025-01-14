@@ -1,19 +1,16 @@
 import React from 'react'
-import {AButton, YesOrNo} from '../../utils/types'
 import {PrimaryButton} from "@/app/(app)/components/Button/PrimaryButton";
 import {SecondaryButton} from "@/app/(app)/components/Button/SecondaryButton";
+import type {CardButtonProps} from "@/payload-types";
 
-export function Button({link, openInNewTab, isPrimary, label, title, className}: AButton | {
-    title?: string,
-    link?: string,
-    openInNewTab?: YesOrNo | boolean
-    isPrimary?: false
-    label?: string,
-    className?: string,
-}) {
+type Props = CardButtonProps & {className?: string}
 
-    return (isPrimary ? <PrimaryButton className={className} title={title} link={link} label={label} openInNewTab={openInNewTab}/> :
-        <SecondaryButton className={className} title={title} link={link} label={label} openInNewTab={openInNewTab}/>)
+export function Button(props: Props) {
+
+  const {isPrimary, title, link, openInNewTab, className} = props
+
+    return (isPrimary ? <PrimaryButton className={className} title={title} link={link} label={title} openInNewTab={openInNewTab}/> :
+        <SecondaryButton className={className} title={title} link={link} label={title} openInNewTab={openInNewTab}/>)
 
     // {/*      TODO loading button */}
     // {/*<Link*/}

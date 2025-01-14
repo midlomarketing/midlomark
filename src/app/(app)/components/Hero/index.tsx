@@ -26,7 +26,7 @@ export function Hero({
   return <div className={`${classes.heroContainer}`}>
     <div className={classes.imageContainer}>
       <ImageObject className={classes.image}
-                   {...image}
+                    {...image}
       />
     </div>
     <div className={`${classes.headerAndButtons} ${textPosition === 'Left' ? classes.textLeft : classes.textRight}`}>

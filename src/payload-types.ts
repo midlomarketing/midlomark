@@ -22,6 +22,51 @@ export type Button =
       id?: string | null;
     }[]
   | null;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CardArray".
+ */
+export type CardArray =
+  | {
+      image?: {
+        /**
+         * Recommended size is 640x360 (16:9 aspect ratio)
+         */
+        image?: (string | null) | Media;
+        /**
+         * Choose how you want to align the background image in the hero section. This does not change the placement of the image in the flow of the page.
+         */
+        imagePosition?:
+          | ('backgroundTop' | 'backgroundBottom' | 'backgroundCenter' | 'backgroundLeft' | 'backgroundRight')
+          | null;
+      };
+      /**
+       * Title of the image card.
+       */
+      cardHeader?: string | null;
+      /**
+       * Description of the image card.
+       */
+      cardText?: {
+        root: {
+          type: string;
+          children: {
+            type: string;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      } | null;
+      includeButton?: boolean | null;
+      button?: CardButtonProps;
+      id?: string | null;
+    }[]
+  | null;
 
 export interface Config {
   auth: {
@@ -150,69 +195,8 @@ export interface Page {
   content?: {
     content?:
       | (
-          | {
-              active?: boolean | null;
-              headerSection?: HeaderSectionProps;
-              content?: {
-                root: {
-                  type: string;
-                  children: {
-                    type: string;
-                    version: number;
-                    [k: string]: unknown;
-                  }[];
-                  direction: ('ltr' | 'rtl') | null;
-                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                  indent: number;
-                  version: number;
-                };
-                [k: string]: unknown;
-              } | null;
-              includeBgColor?: boolean | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'contentNoMedia';
-            }
-          | {
-              active?: boolean | null;
-              headerSection?: HeaderSectionProps;
-              image?: {
-                /**
-                 * Recommended size is 640x360 (16:9 aspect ratio)
-                 */
-                image?: (string | null) | Media;
-                /**
-                 * Choose how you want to align the background image in the hero section. This does not change the placement of the image in the flow of the page.
-                 */
-                imagePosition?:
-                  | ('backgroundTop' | 'backgroundBottom' | 'backgroundCenter' | 'backgroundLeft' | 'backgroundRight')
-                  | null;
-              };
-              imageOrientation?: ('landscape' | 'square') | null;
-              content?: {
-                root: {
-                  type: string;
-                  children: {
-                    type: string;
-                    version: number;
-                    [k: string]: unknown;
-                  }[];
-                  direction: ('ltr' | 'rtl') | null;
-                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                  indent: number;
-                  version: number;
-                };
-                [k: string]: unknown;
-              } | null;
-              buttons?: Button;
-              /**
-               * Which side of the screen should the text show up on on bigger screens? Or do you want the image to be in the background
-               */
-              textPosition?: ('Left' | 'Right' | 'Foreground') | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'contentWithMedia';
-            }
+          | ContentNoMediaProps
+          | ContentWithMediaProps
           | {
               active?: boolean | null;
               headerSection?: HeaderSectionProps;
@@ -328,37 +312,7 @@ export interface Page {
               blockName?: string | null;
               blockType: 'contentWithVideo';
             }
-          | {
-              active?: boolean | null;
-              headerSection?: HeaderSectionProps;
-              logos?:
-                | {
-                    image?: {
-                      /**
-                       * Recommended size is 640x360 (16:9 aspect ratio)
-                       */
-                      image?: (string | null) | Media;
-                      /**
-                       * Choose how you want to align the background image in the hero section. This does not change the placement of the image in the flow of the page.
-                       */
-                      imagePosition?:
-                        | (
-                            | 'backgroundTop'
-                            | 'backgroundBottom'
-                            | 'backgroundCenter'
-                            | 'backgroundLeft'
-                            | 'backgroundRight'
-                          )
-                        | null;
-                    };
-                    clientLink?: string | null;
-                    id?: string | null;
-                  }[]
-                | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'clientLogos';
-            }
+          | ClientLogosProps
           | {
               active?: boolean | null;
               headerSection?: HeaderSectionProps;
@@ -653,12 +607,83 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentNoMediaProps".
+ */
+export interface ContentNoMediaProps {
+  active?: boolean | null;
+  headerSection?: HeaderSectionProps;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  includeBgColor?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contentNoMedia';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "HeaderSectionProps".
  */
 export interface HeaderSectionProps {
   headerText?: string | null;
   headerLevel?: ('h2' | 'h3' | 'h4' | 'h5' | 'h6') | null;
   anchor?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentWithMediaProps".
+ */
+export interface ContentWithMediaProps {
+  active?: boolean | null;
+  headerSection?: HeaderSectionProps;
+  image?: {
+    /**
+     * Recommended size is 640x360 (16:9 aspect ratio)
+     */
+    image?: (string | null) | Media;
+    /**
+     * Choose how you want to align the background image in the hero section. This does not change the placement of the image in the flow of the page.
+     */
+    imagePosition?:
+      | ('backgroundTop' | 'backgroundBottom' | 'backgroundCenter' | 'backgroundLeft' | 'backgroundRight')
+      | null;
+  };
+  imageOrientation?: ('landscape' | 'square') | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  buttons?: Button;
+  /**
+   * Which side of the screen should the text show up on on bigger screens? Or do you want the image to be in the background
+   */
+  textPosition?: ('Left' | 'Right' | 'Foreground') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contentWithMedia';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -683,47 +708,7 @@ export interface Address {
 export interface CardSection {
   active?: boolean | null;
   headerSection?: HeaderSectionProps;
-  card?:
-    | {
-        image?: {
-          /**
-           * Recommended size is 640x360 (16:9 aspect ratio)
-           */
-          image?: (string | null) | Media;
-          /**
-           * Choose how you want to align the background image in the hero section. This does not change the placement of the image in the flow of the page.
-           */
-          imagePosition?:
-            | ('backgroundTop' | 'backgroundBottom' | 'backgroundCenter' | 'backgroundLeft' | 'backgroundRight')
-            | null;
-        };
-        /**
-         * Title of the image card.
-         */
-        cardHeader?: string | null;
-        /**
-         * Description of the image card.
-         */
-        cardText?: {
-          root: {
-            type: string;
-            children: {
-              type: string;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
-        includeButton?: boolean | null;
-        button?: CardButtonProps;
-        id?: string | null;
-      }[]
-    | null;
+  card?: CardArray;
   id?: string | null;
   blockName?: string | null;
   blockType: 'cardSection';
@@ -740,6 +725,35 @@ export interface CardButtonProps {
    */
   openInNewTab?: boolean | null;
   isPrimary?: boolean | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ClientLogosProps".
+ */
+export interface ClientLogosProps {
+  active?: boolean | null;
+  headerSection?: HeaderSectionProps;
+  logos?:
+    | {
+        image?: {
+          /**
+           * Recommended size is 640x360 (16:9 aspect ratio)
+           */
+          image?: (string | null) | Media;
+          /**
+           * Choose how you want to align the background image in the hero section. This does not change the placement of the image in the flow of the page.
+           */
+          imagePosition?:
+            | ('backgroundTop' | 'backgroundBottom' | 'backgroundCenter' | 'backgroundLeft' | 'backgroundRight')
+            | null;
+        };
+        clientLink?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'clientLogos';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1288,34 +1302,8 @@ export interface PagesSelect<T extends boolean = true> {
         content?:
           | T
           | {
-              contentNoMedia?:
-                | T
-                | {
-                    active?: T;
-                    headerSection?: T | HeaderSectionPropsSelect<T>;
-                    content?: T;
-                    includeBgColor?: T;
-                    id?: T;
-                    blockName?: T;
-                  };
-              contentWithMedia?:
-                | T
-                | {
-                    active?: T;
-                    headerSection?: T | HeaderSectionPropsSelect<T>;
-                    image?:
-                      | T
-                      | {
-                          image?: T;
-                          imagePosition?: T;
-                        };
-                    imageOrientation?: T;
-                    content?: T;
-                    buttons?: T | ButtonSelect<T>;
-                    textPosition?: T;
-                    id?: T;
-                    blockName?: T;
-                  };
+              contentNoMedia?: T | ContentNoMediaPropsSelect<T>;
+              contentWithMedia?: T | ContentWithMediaPropsSelect<T>;
               contentWithMap?:
                 | T
                 | {
@@ -1370,26 +1358,7 @@ export interface PagesSelect<T extends boolean = true> {
                     id?: T;
                     blockName?: T;
                   };
-              clientLogos?:
-                | T
-                | {
-                    active?: T;
-                    headerSection?: T | HeaderSectionPropsSelect<T>;
-                    logos?:
-                      | T
-                      | {
-                          image?:
-                            | T
-                            | {
-                                image?: T;
-                                imagePosition?: T;
-                              };
-                          clientLink?: T;
-                          id?: T;
-                        };
-                    id?: T;
-                    blockName?: T;
-                  };
+              clientLogos?: T | ClientLogosPropsSelect<T>;
               faqBlock?:
                 | T
                 | {
@@ -1536,6 +1505,18 @@ export interface ButtonSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentNoMediaProps_select".
+ */
+export interface ContentNoMediaPropsSelect<T extends boolean = true> {
+  active?: T;
+  headerSection?: T | HeaderSectionPropsSelect<T>;
+  content?: T;
+  includeBgColor?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "HeaderSectionProps_select".
  */
 export interface HeaderSectionPropsSelect<T extends boolean = true> {
@@ -1545,28 +1526,51 @@ export interface HeaderSectionPropsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentWithMediaProps_select".
+ */
+export interface ContentWithMediaPropsSelect<T extends boolean = true> {
+  active?: T;
+  headerSection?: T | HeaderSectionPropsSelect<T>;
+  image?:
+    | T
+    | {
+        image?: T;
+        imagePosition?: T;
+      };
+  imageOrientation?: T;
+  content?: T;
+  buttons?: T | ButtonSelect<T>;
+  textPosition?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "CardSection_select".
  */
 export interface CardSectionSelect<T extends boolean = true> {
   active?: T;
   headerSection?: T | HeaderSectionPropsSelect<T>;
-  card?:
-    | T
-    | {
-        image?:
-          | T
-          | {
-              image?: T;
-              imagePosition?: T;
-            };
-        cardHeader?: T;
-        cardText?: T;
-        includeButton?: T;
-        button?: T | CardButtonPropsSelect<T>;
-        id?: T;
-      };
+  card?: T | CardArraySelect<T>;
   id?: T;
   blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CardArray_select".
+ */
+export interface CardArraySelect<T extends boolean = true> {
+  image?:
+    | T
+    | {
+        image?: T;
+        imagePosition?: T;
+      };
+  cardHeader?: T;
+  cardText?: T;
+  includeButton?: T;
+  button?: T | CardButtonPropsSelect<T>;
+  id?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1577,6 +1581,28 @@ export interface CardButtonPropsSelect<T extends boolean = true> {
   link?: T;
   openInNewTab?: T;
   isPrimary?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ClientLogosProps_select".
+ */
+export interface ClientLogosPropsSelect<T extends boolean = true> {
+  active?: T;
+  headerSection?: T | HeaderSectionPropsSelect<T>;
+  logos?:
+    | T
+    | {
+        image?:
+          | T
+          | {
+              image?: T;
+              imagePosition?: T;
+            };
+        clientLink?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

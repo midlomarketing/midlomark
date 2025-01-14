@@ -14,18 +14,15 @@ import {Hero} from "@/app/(app)/components/Hero";
 
 // export const revalidate = 86400
 
-// TODO clean up components – clean up type issues
-
-// TODO redo our Rich Text Renderer
+// TODO relationship converter
+// TODO clean up components – clean up type issues – continuing work
 
 // TODO build out industry pages
 // TODO new relationship field for posts to show up on industry pages
-
 // TODO include BG boolean selection and color picker in block
-// TODO use interfaceName to generate types – do with headerSection types
+
 
 // TODO work on schema to make sure that works
-
 
 export async function generateStaticParams() {
   const payload = await getPayload({config: configPromise})
