@@ -86,6 +86,7 @@ const video: Video = (fieldToUse = 'name', overrides) =>
                 },
                 lexicalHTML('description', {name: 'description_html'}),
             ],
+          interfaceName: 'VideoProps'
         },
         overrides,
     )

@@ -18,7 +18,7 @@ import {
   OverviewField,
   PreviewField
 } from "@payloadcms/plugin-seo/fields";
-import TableOfContents from "@/blocks/TableOfContents";
+import TableOfContents from "@/blocks/TableOfContents/config";
 import Config from "@/blocks/ContentNoMedia/config";
 import ContentWithMedia from "@/blocks/ContentWithMedia/config";
 import {FormBlock} from "@/blocks/Form/config";

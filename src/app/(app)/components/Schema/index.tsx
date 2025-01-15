@@ -19,7 +19,7 @@
 //     url2?: string
 //     name3?: string
 // }
-import {Media} from "@/payload-types";
+import {Media, VideoProps} from "@/payload-types";
 
 type Image = {
     src?: string,
@@ -29,6 +29,7 @@ type Image = {
 import { CreditType } from "../../utils/types"
 import { VideoType} from "../Media/Media/types"
 import process from "process";
+import {lexicalToPlainText} from "@/utilities/lexicalToPlainText";
 
 // export const add2Breadcrumbs = async ({name1, url1, name2}: TwoBreadcrumbs) => {
 //     const globals: GlobalSetting = await getCachedGlobal('global-settings', 1)()
@@ -249,7 +250,19 @@ export const addImage = async (image: Media) => {
 //     }
 // }
 
-export const addVideo = async (video: VideoType) => {
+export const addVideo = async (props: VideoProps) => {
+
+  const {
+    video,
+    videoName,
+    creatorName,
+    description,
+    image,
+    uploadDate,
+    minutes,
+    seconds
+  } = props
+
 
     return {
         '@context':
@@ -257,20 +270,18 @@ export const addVideo = async (video: VideoType) => {
         '@type':
             'VideoObject',
         name:
-            `${video.videoName} | ${video.creatorName} | ${`MidloMark`
+            `${videoName} | ${creatorName} | ${`MidloMark`
             }`,
         description:
-            video.description_html,
+            lexicalToPlainText(description),
         thumbnailUrl:
-            `${process.env.CLOUDFLARE_BUCKET}/${video.image?.image?.filename}`,
+            `${process.env.CLOUDFLARE_BUCKET}/${image?.image && typeof image.image !== 'string' && image.image.filename}`,
         uploadDate:
-            // formatDate(
-            video.uploadDate || ``,
-        // ),
+            uploadDate || ``,
         duration:
-            `PT${video.minutes}M${video.seconds}S`,
+            `PT${minutes}M${seconds}S`,
         embedUrl:
-            `https://www.youtube.com/embed/${video.video.split('https://youtu.be/')[1]}`,
+            `https://www.youtube.com/embed/${video?.split('https://youtu.be/')[1]}`,
     }
 }
 

@@ -1,7 +1,8 @@
 import {JSXConvertersFunction, LinkJSXConverter} from "@payloadcms/richtext-lexical/react";
 import {DefaultNodeTypes} from "@payloadcms/richtext-lexical";
 import {internalDocToHref} from "./internalLink";
-import {textConverter} from "@/app/(app)/components/RichText/converters/textConverter";
+import {textConverter} from "./textConverter";
+import {relationshipConverter} from "./relationshipConverter";
 
 type NodeTypes = DefaultNodeTypes
 
@@ -9,4 +10,5 @@ export const jsxConverter: JSXConvertersFunction<NodeTypes> = ({defaultConverter
   ...defaultConverters,
   ...LinkJSXConverter({internalDocToHref}),
   ...textConverter,
+  ...relationshipConverter
 })

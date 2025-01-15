@@ -33,7 +33,6 @@ export async function LogoObject({
   priority?: boolean
   image: Media,
 }) {
-  // console.log(image)
   return (
     <>
       <Individual schema={await addImage(image)}/>

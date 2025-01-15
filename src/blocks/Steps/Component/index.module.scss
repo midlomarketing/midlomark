@@ -1,0 +1,30 @@
+@use '../../../app/(app)/css/queries' as *;
+@use '../../../app/(app)/css/vars' as *;
+
+.stepContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.step {
+  background-color: var(--dark-primary);
+  flex: 1 0 100%;
+  @include small-break {
+    flex-basis: 48%;
+  }
+  @include mid-break {
+    flex-basis: 30%;
+  }
+  @include large-break {
+    flex-basis: 18%;
+  }
+}
+
+.stepText {
+  color: var(--light-primary);
+  padding: 0.75rem;
+  font-weight: bold;
+}

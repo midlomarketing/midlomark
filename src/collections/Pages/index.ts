@@ -1,13 +1,13 @@
 import {CollectionConfig} from 'payload'
 import Config from '../../blocks/ContentNoMedia/config'
 import ContentWithMedia from '../../blocks/ContentWithMedia/config'
-import contentWithMap from '../../blocks/ContentWithMap'
+import contentWithMap from '../../blocks/ContentWithMap/config'
 import cardSection from '../../blocks/Cards/config'
 import buttons from '../../components/buttons'
 import image from '../../components/image'
 import slug from '../../components/slug'
-import cta from '../../blocks/CTAs'
-import ContentWithVideo from '../../blocks/ContentWithVideo'
+import cta from '../../blocks/CTAs/config'
+import ContentWithVideo from '../../blocks/ContentWithVideo/config'
 import {userPerms} from '@/utilities/permissions'
 import {revalidatePage} from "@/collections/hooks/revalidatePage";
 import {
@@ -18,13 +18,13 @@ import {
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
 import clientLogos from "@/blocks/ClientLogos/config";
-import FAQBlock from "@/blocks/FAQBlock";
-import PainPoints from "@/blocks/PainPoints";
-import SponsoredBlock from "@/blocks/SponsoredBlock";
-import Steps from "@/blocks/Steps";
-import StepsWithIcons from "@/blocks/StepsWithIcons";
-import Summary from "@/blocks/Summary";
-import TableOfContents from "@/blocks/TableOfContents";
+import FAQBlock from "@/blocks/FAQBlock/config";
+import PainPoints from "@/blocks/PainPoints/config";
+import SponsoredBlock from "@/blocks/SponsoredBlock/config";
+import Steps from "@/blocks/Steps/config";
+import StepsWithIcons from "@/blocks/StepsWithIcons/config";
+import Summary from "@/blocks/Summary/config";
+import TableOfContents from "@/blocks/TableOfContents/config";
 import {lexicalEditor} from "@payloadcms/richtext-lexical";
 import {HighlightFeature} from "@/utilities/features/colorAccent/server";
 import {createCanonical} from "@/collections/Pages/hooks";
@@ -77,7 +77,8 @@ const Pages: CollectionConfig = {
             },
             buttons(),
             image(),
-          ]
+          ],
+          interfaceName: 'HeroProps',
         },
         {
           label: 'Content',

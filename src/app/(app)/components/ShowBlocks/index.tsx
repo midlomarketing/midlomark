@@ -2,17 +2,17 @@ import ContentNoMedia from '../../../../blocks/ContentNoMedia/Component'
 // import FeedToAdd from '../../blocks/Feed/FeedToAdd'
 import ContentWithMedia from '../../../../blocks/ContentWithMedia/Component'
 import CardSection from '../../../../blocks/Cards/Component'
-import CTA from '../../blocks/CTA'
-import ContentWithMap from '../../blocks/ContentWithMap'
-import ContentWithVideo from '../../blocks/ContentWithVideo'
+import CTA from '../../../../blocks/CTAs/Component'
+import ContentWithMap from '../../../../blocks/ContentWithMap/Component'
+import ContentWithVideo from '../../../../blocks/ContentWithVideo/Component'
 import ClientLogos from '../../../../blocks/ClientLogos/Component'
-import FAQ from '../../blocks/FAQ'
-import {PainPoints} from '../../blocks/PainPoints'
-import SponsoredSection from '../../blocks/SponsoredSection'
-import Steps from '../../blocks/Steps'
-import StepsWithIcons from '../../blocks/StepsWithIcons'
-import Summary from "@/app/(app)/blocks/Summary";
-import TableOfContents from '../../blocks/TableOfContents'
+import FAQ from '../../../../blocks/FAQBlock/Component'
+import {PainPoints} from '@/blocks/PainPoints/Component'
+import SponsoredSection from '../../../../blocks/SponsoredBlock/Component'
+import Steps from '../../../../blocks/Steps/Component'
+import StepsWithIcons from '../../../../blocks/StepsWithIcons/Component'
+import Summary from "src/blocks/Summary/Component";
+import TableOfContents from '../../../../blocks/TableOfContents/Component'
 import {FormBlock} from "@/blocks/Form/Component";
 
 
@@ -43,7 +43,7 @@ export function ShowBlocks({blocks}) {
     case 'contentWithVideo':
       return <ContentWithVideo {...blocks} />
     case 'cta':
-      return <CTA button={blocks.buttons}/>
+      return <CTA {...blocks} />
     case 'clientLogos':
       return <ClientLogos {...blocks} />
     case 'faqBlock':

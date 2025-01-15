@@ -67,6 +67,157 @@ export type CardArray =
       id?: string | null;
     }[]
   | null;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FAQArrayProps".
+ */
+export type FAQArrayProps =
+  | {
+      question?: {
+        root: {
+          type: string;
+          children: {
+            type: string;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      } | null;
+      answer?: {
+        root: {
+          type: string;
+          children: {
+            type: string;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      } | null;
+      id?: string | null;
+    }[]
+  | null;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PainPointArrayProps".
+ */
+export type PainPointArrayProps =
+  | {
+      image?: {
+        /**
+         * Recommended size is 640x360 (16:9 aspect ratio)
+         */
+        image?: (string | null) | Media;
+        /**
+         * Choose how you want to align the background image in the hero section. This does not change the placement of the image in the flow of the page.
+         */
+        imagePosition?:
+          | ('backgroundTop' | 'backgroundBottom' | 'backgroundCenter' | 'backgroundLeft' | 'backgroundRight')
+          | null;
+      };
+      painPoint?: {
+        root: {
+          type: string;
+          children: {
+            type: string;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      } | null;
+      buttons?: Button;
+      id?: string | null;
+    }[]
+  | null;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StepsArrayProps".
+ */
+export type StepsArrayProps =
+  | {
+      step?: string | null;
+      id?: string | null;
+    }[]
+  | null;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StepsWithIconsArrayProps".
+ */
+export type StepsWithIconsArrayProps =
+  | {
+      image?: {
+        /**
+         * Recommended size is 640x360 (16:9 aspect ratio)
+         */
+        image?: (string | null) | Media;
+        /**
+         * Choose how you want to align the background image in the hero section. This does not change the placement of the image in the flow of the page.
+         */
+        imagePosition?:
+          | ('backgroundTop' | 'backgroundBottom' | 'backgroundCenter' | 'backgroundLeft' | 'backgroundRight')
+          | null;
+      };
+      step?: string | null;
+      content?: {
+        root: {
+          type: string;
+          children: {
+            type: string;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      } | null;
+      id?: string | null;
+    }[]
+  | null;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TableOfContentsArrayProps".
+ */
+export type TableOfContentsArrayProps =
+  | {
+      /**
+       * Use this to set a link to navigate to a certain header.
+       */
+      anchor?: string | null;
+      headerText?: {
+        root: {
+          type: string;
+          children: {
+            type: string;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      } | null;
+      id?: string | null;
+    }[]
+  | null;
 
 export interface Config {
   auth: {
@@ -160,393 +311,24 @@ export interface Page {
   id: string;
   title?: string | null;
   slug?: string | null;
-  hero?: {
-    headline?: string | null;
-    subtext?: {
-      root: {
-        type: string;
-        children: {
-          type: string;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
-    textPosition?: ('Left' | 'Right') | null;
-    buttons?: Button;
-    image?: {
-      /**
-       * Recommended size is 640x360 (16:9 aspect ratio)
-       */
-      image?: (string | null) | Media;
-      /**
-       * Choose how you want to align the background image in the hero section. This does not change the placement of the image in the flow of the page.
-       */
-      imagePosition?:
-        | ('backgroundTop' | 'backgroundBottom' | 'backgroundCenter' | 'backgroundLeft' | 'backgroundRight')
-        | null;
-    };
-  };
+  hero?: HeroProps;
   content?: {
     content?:
       | (
           | ContentNoMediaProps
           | ContentWithMediaProps
-          | {
-              active?: boolean | null;
-              headerSection?: HeaderSectionProps;
-              mapLink?: string | null;
-              address?: (string | null) | Address;
-              buttons?: Button;
-              /**
-               * Which side of the screen should the text show up on on bigger screens?
-               */
-              textPosition?: ('Left' | 'Right') | null;
-              content?: {
-                root: {
-                  type: string;
-                  children: {
-                    type: string;
-                    version: number;
-                    [k: string]: unknown;
-                  }[];
-                  direction: ('ltr' | 'rtl') | null;
-                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                  indent: number;
-                  version: number;
-                };
-                [k: string]: unknown;
-              } | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'contentWithMap';
-            }
+          | ContentWithMapProps
           | CardSection
-          | {
-              headerSection?: HeaderSectionProps;
-              active?: boolean | null;
-              buttons?: Button;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'cta';
-            }
-          | {
-              active?: boolean | null;
-              headerSection?: HeaderSectionProps;
-              video?: {
-                /**
-                 * Copy and paste the direct link from your YouTube Studio. It should look like this: https://youtu.be/xxxxxx
-                 */
-                video?: string | null;
-                /**
-                 * Include only what you would like to show up on your website.
-                 */
-                videoName?: string | null;
-                /**
-                 * Check this box if you want the name to show up on your website.
-                 */
-                displayVideoName?: boolean | null;
-                channel?: ('YouTube' | 'Vimeo') | null;
-                /**
-                 * Use this field to send a different description to Google.
-                 */
-                description?: {
-                  root: {
-                    type: string;
-                    children: {
-                      type: string;
-                      version: number;
-                      [k: string]: unknown;
-                    }[];
-                    direction: ('ltr' | 'rtl') | null;
-                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                    indent: number;
-                    version: number;
-                  };
-                  [k: string]: unknown;
-                } | null;
-                image?: {
-                  /**
-                   * Recommended size is 640x360 (16:9 aspect ratio)
-                   */
-                  image?: (string | null) | Media;
-                  /**
-                   * Choose how you want to align the background image in the hero section. This does not change the placement of the image in the flow of the page.
-                   */
-                  imagePosition?:
-                    | ('backgroundTop' | 'backgroundBottom' | 'backgroundCenter' | 'backgroundLeft' | 'backgroundRight')
-                    | null;
-                };
-                uploadDate?: string | null;
-                minutes?: number | null;
-                seconds?: number | null;
-                creatorName?: string | null;
-                description_html?: string | null;
-              };
-              content?: {
-                root: {
-                  type: string;
-                  children: {
-                    type: string;
-                    version: number;
-                    [k: string]: unknown;
-                  }[];
-                  direction: ('ltr' | 'rtl') | null;
-                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                  indent: number;
-                  version: number;
-                };
-                [k: string]: unknown;
-              } | null;
-              buttons?: Button;
-              /**
-               * Which side of the screen should the text show up on on bigger screens?
-               */
-              textPosition?: ('Left' | 'Right') | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'contentWithVideo';
-            }
+          | CTAProps
+          | ContentWithVideoProps
           | ClientLogosProps
-          | {
-              active?: boolean | null;
-              headerSection?: HeaderSectionProps;
-              FAQ?:
-                | {
-                    question?: {
-                      root: {
-                        type: string;
-                        children: {
-                          type: string;
-                          version: number;
-                          [k: string]: unknown;
-                        }[];
-                        direction: ('ltr' | 'rtl') | null;
-                        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                        indent: number;
-                        version: number;
-                      };
-                      [k: string]: unknown;
-                    } | null;
-                    answer?: {
-                      root: {
-                        type: string;
-                        children: {
-                          type: string;
-                          version: number;
-                          [k: string]: unknown;
-                        }[];
-                        direction: ('ltr' | 'rtl') | null;
-                        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                        indent: number;
-                        version: number;
-                      };
-                      [k: string]: unknown;
-                    } | null;
-                    answer_html?: string | null;
-                    id?: string | null;
-                  }[]
-                | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'faqBlock';
-            }
-          | {
-              active?: boolean | null;
-              headerSection?: HeaderSectionProps;
-              painPoints?:
-                | {
-                    image?: {
-                      /**
-                       * Recommended size is 640x360 (16:9 aspect ratio)
-                       */
-                      image?: (string | null) | Media;
-                      /**
-                       * Choose how you want to align the background image in the hero section. This does not change the placement of the image in the flow of the page.
-                       */
-                      imagePosition?:
-                        | (
-                            | 'backgroundTop'
-                            | 'backgroundBottom'
-                            | 'backgroundCenter'
-                            | 'backgroundLeft'
-                            | 'backgroundRight'
-                          )
-                        | null;
-                    };
-                    painPoint?: {
-                      root: {
-                        type: string;
-                        children: {
-                          type: string;
-                          version: number;
-                          [k: string]: unknown;
-                        }[];
-                        direction: ('ltr' | 'rtl') | null;
-                        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                        indent: number;
-                        version: number;
-                      };
-                      [k: string]: unknown;
-                    } | null;
-                    buttons?: Button;
-                    id?: string | null;
-                  }[]
-                | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'painPoints';
-            }
-          | {
-              active?: boolean | null;
-              headerSection?: HeaderSectionProps;
-              link?: {
-                /**
-                 * Link to the sponsor
-                 */
-                destination?: string | null;
-                /**
-                 * Should this open in a new browser window/tab?
-                 */
-                openInNewTab?: boolean | null;
-                /**
-                 * Use this field to describe what your link does for accessibility
-                 */
-                title?: string | null;
-                /**
-                 * Use this field to edit the default CTA for a sponsored block.
-                 */
-                cta?: string | null;
-              };
-              /**
-               * Text for sponsored content.
-               */
-              sponsoredContent?: {
-                root: {
-                  type: string;
-                  children: {
-                    type: string;
-                    version: number;
-                    [k: string]: unknown;
-                  }[];
-                  direction: ('ltr' | 'rtl') | null;
-                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                  indent: number;
-                  version: number;
-                };
-                [k: string]: unknown;
-              } | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'sponsoredBlock';
-            }
-          | {
-              active?: boolean | null;
-              headerSection?: HeaderSectionProps;
-              steps?:
-                | {
-                    step?: string | null;
-                    id?: string | null;
-                  }[]
-                | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'steps';
-            }
-          | {
-              active?: boolean | null;
-              headerSection?: HeaderSectionProps;
-              steps?:
-                | {
-                    image?: {
-                      /**
-                       * Recommended size is 640x360 (16:9 aspect ratio)
-                       */
-                      image?: (string | null) | Media;
-                      /**
-                       * Choose how you want to align the background image in the hero section. This does not change the placement of the image in the flow of the page.
-                       */
-                      imagePosition?:
-                        | (
-                            | 'backgroundTop'
-                            | 'backgroundBottom'
-                            | 'backgroundCenter'
-                            | 'backgroundLeft'
-                            | 'backgroundRight'
-                          )
-                        | null;
-                    };
-                    step?: string | null;
-                    content?: {
-                      root: {
-                        type: string;
-                        children: {
-                          type: string;
-                          version: number;
-                          [k: string]: unknown;
-                        }[];
-                        direction: ('ltr' | 'rtl') | null;
-                        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                        indent: number;
-                        version: number;
-                      };
-                      [k: string]: unknown;
-                    } | null;
-                    id?: string | null;
-                  }[]
-                | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'stepsWithIcons';
-            }
-          | {
-              active?: boolean | null;
-              headerSection?: HeaderSectionProps;
-              /**
-               * A short summary of the article or page.
-               */
-              summary?: string | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'summaryBlock';
-            }
-          | {
-              active?: boolean | null;
-              headerSection?: HeaderSectionProps;
-              numberedList?: boolean | null;
-              tableOfContents?:
-                | {
-                    /**
-                     * Use this to set a link to navigate to a certain header.
-                     */
-                    anchor?: string | null;
-                    headerText?: {
-                      root: {
-                        type: string;
-                        children: {
-                          type: string;
-                          version: number;
-                          [k: string]: unknown;
-                        }[];
-                        direction: ('ltr' | 'rtl') | null;
-                        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                        indent: number;
-                        version: number;
-                      };
-                      [k: string]: unknown;
-                    } | null;
-                    id?: string | null;
-                  }[]
-                | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'tableOfContents';
-            }
+          | FAQProps
+          | PainPointProps
+          | SponsoredBlockProps
+          | StepsProps
+          | StepsWithIconsProps
+          | SummaryProps
+          | TableOfContentsProps
           | FormBlock
         )[]
       | null;
@@ -570,6 +352,42 @@ export interface Page {
   pageStatus?: ('Draft' | 'Published') | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroProps".
+ */
+export interface HeroProps {
+  headline?: string | null;
+  subtext?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  textPosition?: ('Left' | 'Right') | null;
+  buttons?: Button;
+  image?: {
+    /**
+     * Recommended size is 640x360 (16:9 aspect ratio)
+     */
+    image?: (string | null) | Media;
+    /**
+     * Choose how you want to align the background image in the hero section. This does not change the placement of the image in the flow of the page.
+     */
+    imagePosition?:
+      | ('backgroundTop' | 'backgroundBottom' | 'backgroundCenter' | 'backgroundLeft' | 'backgroundRight')
+      | null;
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -687,6 +505,39 @@ export interface ContentWithMediaProps {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentWithMapProps".
+ */
+export interface ContentWithMapProps {
+  active?: boolean | null;
+  headerSection?: HeaderSectionProps;
+  mapLink?: string | null;
+  address?: (string | null) | Address;
+  buttons?: Button;
+  /**
+   * Which side of the screen should the text show up on on bigger screens?
+   */
+  textPosition?: ('Left' | 'Right') | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contentWithMap';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "addresses".
  */
 export interface Address {
@@ -728,6 +579,104 @@ export interface CardButtonProps {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CTAProps".
+ */
+export interface CTAProps {
+  headerSection?: HeaderSectionProps;
+  active?: boolean | null;
+  buttons?: Button;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'cta';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentWithVideoProps".
+ */
+export interface ContentWithVideoProps {
+  active?: boolean | null;
+  headerSection?: HeaderSectionProps;
+  video?: VideoProps;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  buttons?: Button;
+  /**
+   * Which side of the screen should the text show up on on bigger screens?
+   */
+  textPosition?: ('Left' | 'Right') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contentWithVideo';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoProps".
+ */
+export interface VideoProps {
+  /**
+   * Copy and paste the direct link from your YouTube Studio. It should look like this: https://youtu.be/xxxxxx
+   */
+  video?: string | null;
+  /**
+   * Include only what you would like to show up on your website.
+   */
+  videoName?: string | null;
+  /**
+   * Check this box if you want the name to show up on your website.
+   */
+  displayVideoName?: boolean | null;
+  channel?: ('YouTube' | 'Vimeo') | null;
+  /**
+   * Use this field to send a different description to Google.
+   */
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  image?: {
+    /**
+     * Recommended size is 640x360 (16:9 aspect ratio)
+     */
+    image?: (string | null) | Media;
+    /**
+     * Choose how you want to align the background image in the hero section. This does not change the placement of the image in the flow of the page.
+     */
+    imagePosition?:
+      | ('backgroundTop' | 'backgroundBottom' | 'backgroundCenter' | 'backgroundLeft' | 'backgroundRight')
+      | null;
+  };
+  uploadDate?: string | null;
+  minutes?: number | null;
+  seconds?: number | null;
+  creatorName?: string | null;
+  description_html?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ClientLogosProps".
  */
 export interface ClientLogosProps {
@@ -754,6 +703,129 @@ export interface ClientLogosProps {
   id?: string | null;
   blockName?: string | null;
   blockType: 'clientLogos';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FAQProps".
+ */
+export interface FAQProps {
+  active?: boolean | null;
+  headerSection?: HeaderSectionProps;
+  FAQ?: FAQArrayProps;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'faqBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PainPointProps".
+ */
+export interface PainPointProps {
+  active?: boolean | null;
+  headerSection?: HeaderSectionProps;
+  painPoints?: PainPointArrayProps;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'painPoints';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SponsoredBlockProps".
+ */
+export interface SponsoredBlockProps {
+  active?: boolean | null;
+  headerSection?: HeaderSectionProps;
+  link?: {
+    /**
+     * Link to the sponsor
+     */
+    destination?: string | null;
+    /**
+     * Should this open in a new browser window/tab?
+     */
+    openInNewTab?: boolean | null;
+    /**
+     * Use this field to describe what your link does for accessibility
+     */
+    title?: string | null;
+    /**
+     * Use this field to edit the default CTA for a sponsored block.
+     */
+    cta?: string | null;
+  };
+  /**
+   * Text for sponsored content.
+   */
+  sponsoredContent?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'sponsoredBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StepsProps".
+ */
+export interface StepsProps {
+  active?: boolean | null;
+  headerSection?: HeaderSectionProps;
+  steps?: StepsArrayProps;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'steps';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StepsWithIconsProps".
+ */
+export interface StepsWithIconsProps {
+  active?: boolean | null;
+  headerSection?: HeaderSectionProps;
+  steps?: StepsWithIconsArrayProps;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'stepsWithIcons';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SummaryProps".
+ */
+export interface SummaryProps {
+  active?: boolean | null;
+  headerSection?: HeaderSectionProps;
+  /**
+   * A short summary of the article or page.
+   */
+  summary?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'summaryBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TableOfContentsProps".
+ */
+export interface TableOfContentsProps {
+  active?: boolean | null;
+  headerSection?: HeaderSectionProps;
+  numberedList?: boolean | null;
+  tableOfContents?: TableOfContentsArrayProps;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'tableOfContents';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1282,20 +1354,7 @@ export interface PayloadMigration {
 export interface PagesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
-  hero?:
-    | T
-    | {
-        headline?: T;
-        subtext?: T;
-        textPosition?: T;
-        buttons?: T | ButtonSelect<T>;
-        image?:
-          | T
-          | {
-              image?: T;
-              imagePosition?: T;
-            };
-      };
+  hero?: T | HeroPropsSelect<T>;
   content?:
     | T
     | {
@@ -1304,175 +1363,18 @@ export interface PagesSelect<T extends boolean = true> {
           | {
               contentNoMedia?: T | ContentNoMediaPropsSelect<T>;
               contentWithMedia?: T | ContentWithMediaPropsSelect<T>;
-              contentWithMap?:
-                | T
-                | {
-                    active?: T;
-                    headerSection?: T | HeaderSectionPropsSelect<T>;
-                    mapLink?: T;
-                    address?: T;
-                    buttons?: T | ButtonSelect<T>;
-                    textPosition?: T;
-                    content?: T;
-                    id?: T;
-                    blockName?: T;
-                  };
+              contentWithMap?: T | ContentWithMapPropsSelect<T>;
               cardSection?: T | CardSectionSelect<T>;
-              cta?:
-                | T
-                | {
-                    headerSection?: T | HeaderSectionPropsSelect<T>;
-                    active?: T;
-                    buttons?: T | ButtonSelect<T>;
-                    id?: T;
-                    blockName?: T;
-                  };
-              contentWithVideo?:
-                | T
-                | {
-                    active?: T;
-                    headerSection?: T | HeaderSectionPropsSelect<T>;
-                    video?:
-                      | T
-                      | {
-                          video?: T;
-                          videoName?: T;
-                          displayVideoName?: T;
-                          channel?: T;
-                          description?: T;
-                          image?:
-                            | T
-                            | {
-                                image?: T;
-                                imagePosition?: T;
-                              };
-                          uploadDate?: T;
-                          minutes?: T;
-                          seconds?: T;
-                          creatorName?: T;
-                          description_html?: T;
-                        };
-                    content?: T;
-                    buttons?: T | ButtonSelect<T>;
-                    textPosition?: T;
-                    id?: T;
-                    blockName?: T;
-                  };
+              cta?: T | CTAPropsSelect<T>;
+              contentWithVideo?: T | ContentWithVideoPropsSelect<T>;
               clientLogos?: T | ClientLogosPropsSelect<T>;
-              faqBlock?:
-                | T
-                | {
-                    active?: T;
-                    headerSection?: T | HeaderSectionPropsSelect<T>;
-                    FAQ?:
-                      | T
-                      | {
-                          question?: T;
-                          answer?: T;
-                          answer_html?: T;
-                          id?: T;
-                        };
-                    id?: T;
-                    blockName?: T;
-                  };
-              painPoints?:
-                | T
-                | {
-                    active?: T;
-                    headerSection?: T | HeaderSectionPropsSelect<T>;
-                    painPoints?:
-                      | T
-                      | {
-                          image?:
-                            | T
-                            | {
-                                image?: T;
-                                imagePosition?: T;
-                              };
-                          painPoint?: T;
-                          buttons?: T | ButtonSelect<T>;
-                          id?: T;
-                        };
-                    id?: T;
-                    blockName?: T;
-                  };
-              sponsoredBlock?:
-                | T
-                | {
-                    active?: T;
-                    headerSection?: T | HeaderSectionPropsSelect<T>;
-                    link?:
-                      | T
-                      | {
-                          destination?: T;
-                          openInNewTab?: T;
-                          title?: T;
-                          cta?: T;
-                        };
-                    sponsoredContent?: T;
-                    id?: T;
-                    blockName?: T;
-                  };
-              steps?:
-                | T
-                | {
-                    active?: T;
-                    headerSection?: T | HeaderSectionPropsSelect<T>;
-                    steps?:
-                      | T
-                      | {
-                          step?: T;
-                          id?: T;
-                        };
-                    id?: T;
-                    blockName?: T;
-                  };
-              stepsWithIcons?:
-                | T
-                | {
-                    active?: T;
-                    headerSection?: T | HeaderSectionPropsSelect<T>;
-                    steps?:
-                      | T
-                      | {
-                          image?:
-                            | T
-                            | {
-                                image?: T;
-                                imagePosition?: T;
-                              };
-                          step?: T;
-                          content?: T;
-                          id?: T;
-                        };
-                    id?: T;
-                    blockName?: T;
-                  };
-              summaryBlock?:
-                | T
-                | {
-                    active?: T;
-                    headerSection?: T | HeaderSectionPropsSelect<T>;
-                    summary?: T;
-                    id?: T;
-                    blockName?: T;
-                  };
-              tableOfContents?:
-                | T
-                | {
-                    active?: T;
-                    headerSection?: T | HeaderSectionPropsSelect<T>;
-                    numberedList?: T;
-                    tableOfContents?:
-                      | T
-                      | {
-                          anchor?: T;
-                          headerText?: T;
-                          id?: T;
-                        };
-                    id?: T;
-                    blockName?: T;
-                  };
+              faqBlock?: T | FAQPropsSelect<T>;
+              painPoints?: T | PainPointPropsSelect<T>;
+              sponsoredBlock?: T | SponsoredBlockPropsSelect<T>;
+              steps?: T | StepsPropsSelect<T>;
+              stepsWithIcons?: T | StepsWithIconsPropsSelect<T>;
+              summaryBlock?: T | SummaryPropsSelect<T>;
+              tableOfContents?: T | TableOfContentsPropsSelect<T>;
               formBlock?: T | FormBlockSelect<T>;
             };
       };
@@ -1491,6 +1393,22 @@ export interface PagesSelect<T extends boolean = true> {
   pageStatus?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroProps_select".
+ */
+export interface HeroPropsSelect<T extends boolean = true> {
+  headline?: T;
+  subtext?: T;
+  textPosition?: T;
+  buttons?: T | ButtonSelect<T>;
+  image?:
+    | T
+    | {
+        image?: T;
+        imagePosition?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1546,6 +1464,21 @@ export interface ContentWithMediaPropsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentWithMapProps_select".
+ */
+export interface ContentWithMapPropsSelect<T extends boolean = true> {
+  active?: T;
+  headerSection?: T | HeaderSectionPropsSelect<T>;
+  mapLink?: T;
+  address?: T;
+  buttons?: T | ButtonSelect<T>;
+  textPosition?: T;
+  content?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "CardSection_select".
  */
 export interface CardSectionSelect<T extends boolean = true> {
@@ -1584,6 +1517,53 @@ export interface CardButtonPropsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CTAProps_select".
+ */
+export interface CTAPropsSelect<T extends boolean = true> {
+  headerSection?: T | HeaderSectionPropsSelect<T>;
+  active?: T;
+  buttons?: T | ButtonSelect<T>;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentWithVideoProps_select".
+ */
+export interface ContentWithVideoPropsSelect<T extends boolean = true> {
+  active?: T;
+  headerSection?: T | HeaderSectionPropsSelect<T>;
+  video?: T | VideoPropsSelect<T>;
+  content?: T;
+  buttons?: T | ButtonSelect<T>;
+  textPosition?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoProps_select".
+ */
+export interface VideoPropsSelect<T extends boolean = true> {
+  video?: T;
+  videoName?: T;
+  displayVideoName?: T;
+  channel?: T;
+  description?: T;
+  image?:
+    | T
+    | {
+        image?: T;
+        imagePosition?: T;
+      };
+  uploadDate?: T;
+  minutes?: T;
+  seconds?: T;
+  creatorName?: T;
+  description_html?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ClientLogosProps_select".
  */
 export interface ClientLogosPropsSelect<T extends boolean = true> {
@@ -1603,6 +1583,148 @@ export interface ClientLogosPropsSelect<T extends boolean = true> {
       };
   id?: T;
   blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FAQProps_select".
+ */
+export interface FAQPropsSelect<T extends boolean = true> {
+  active?: T;
+  headerSection?: T | HeaderSectionPropsSelect<T>;
+  FAQ?: T | FAQArrayPropsSelect<T>;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FAQArrayProps_select".
+ */
+export interface FAQArrayPropsSelect<T extends boolean = true> {
+  question?: T;
+  answer?: T;
+  id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PainPointProps_select".
+ */
+export interface PainPointPropsSelect<T extends boolean = true> {
+  active?: T;
+  headerSection?: T | HeaderSectionPropsSelect<T>;
+  painPoints?: T | PainPointArrayPropsSelect<T>;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PainPointArrayProps_select".
+ */
+export interface PainPointArrayPropsSelect<T extends boolean = true> {
+  image?:
+    | T
+    | {
+        image?: T;
+        imagePosition?: T;
+      };
+  painPoint?: T;
+  buttons?: T | ButtonSelect<T>;
+  id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SponsoredBlockProps_select".
+ */
+export interface SponsoredBlockPropsSelect<T extends boolean = true> {
+  active?: T;
+  headerSection?: T | HeaderSectionPropsSelect<T>;
+  link?:
+    | T
+    | {
+        destination?: T;
+        openInNewTab?: T;
+        title?: T;
+        cta?: T;
+      };
+  sponsoredContent?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StepsProps_select".
+ */
+export interface StepsPropsSelect<T extends boolean = true> {
+  active?: T;
+  headerSection?: T | HeaderSectionPropsSelect<T>;
+  steps?: T | StepsArrayPropsSelect<T>;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StepsArrayProps_select".
+ */
+export interface StepsArrayPropsSelect<T extends boolean = true> {
+  step?: T;
+  id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StepsWithIconsProps_select".
+ */
+export interface StepsWithIconsPropsSelect<T extends boolean = true> {
+  active?: T;
+  headerSection?: T | HeaderSectionPropsSelect<T>;
+  steps?: T | StepsWithIconsArrayPropsSelect<T>;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StepsWithIconsArrayProps_select".
+ */
+export interface StepsWithIconsArrayPropsSelect<T extends boolean = true> {
+  image?:
+    | T
+    | {
+        image?: T;
+        imagePosition?: T;
+      };
+  step?: T;
+  content?: T;
+  id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SummaryProps_select".
+ */
+export interface SummaryPropsSelect<T extends boolean = true> {
+  active?: T;
+  headerSection?: T | HeaderSectionPropsSelect<T>;
+  summary?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TableOfContentsProps_select".
+ */
+export interface TableOfContentsPropsSelect<T extends boolean = true> {
+  active?: T;
+  headerSection?: T | HeaderSectionPropsSelect<T>;
+  numberedList?: T;
+  tableOfContents?: T | TableOfContentsArrayPropsSelect<T>;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TableOfContentsArrayProps_select".
+ */
+export interface TableOfContentsArrayPropsSelect<T extends boolean = true> {
+  anchor?: T;
+  headerText?: T;
+  id?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -1,0 +1,44 @@
+@use '../../../app/(app)/css/queries' as *;
+@use '../../../app/(app)/css/vars' as *;
+
+.videoName {
+  //text-black text-xl font-bold mb-6
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+.flexReverse {
+  display: flex;
+  flex-direction: column-reverse;
+  @include med-small-break {
+    display: grid;
+  }
+}
+
+.contentContainer {
+  background-color: var(--light-primary);
+  padding: 1rem;
+  @include rounded;
+  @include shadow-sm;
+  grid-column: span 12;
+  @include med-small-break {
+    grid-column: span 6;
+  }
+}
+
+.content {
+  //text-dark-green h-fit inline-block
+  height: fit-content;
+  display: inline-block;
+}
+
+.video {
+  @include aspect-video;
+  grid-column: span 12;
+  width: 100%;
+  //margin-bottom: 1rem;
+  @include med-small-break {
+    grid-column: span 6;
+    margin-bottom: 0;
+  }
+}

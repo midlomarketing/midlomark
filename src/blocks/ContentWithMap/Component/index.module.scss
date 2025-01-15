@@ -1,0 +1,52 @@
+@use '../../../app/(app)/css/queries' as *;
+@use '../../../app/(app)/css/vars' as *;
+
+.addressColumn {
+  grid-column: span 12;
+  @include med-small-break {
+    grid-column: span 5;
+  }
+}
+
+.mapColumn {
+  grid-column: span 12;
+  @include med-small-break {
+    grid-column: span 7;
+  }
+}
+
+.mapContainer {
+  aspect-ratio: 16 / 9;
+  width: auto;
+}
+
+.addressStart {
+  align-items: flex-start;
+}
+
+.addressEnd {
+  align-items: flex-start;
+  @include med-small-break {
+    align-items: flex-end;
+  }
+}
+
+.reverse {
+  .addressColumn {
+    order: 1;
+  }
+
+  .mapColumn {
+    order: -1;
+  }
+}
+
+.textContainer {
+  //p-4 mt-4 bg-light-green text-dark-green rounded-xl shadow-md
+  padding: 1rem;
+  margin-top: 1rem;
+  background-color: var(--light-primary);
+  color: var(--dark-primary);
+  border-radius: 1rem;
+  @include shadow-sm
+}
