@@ -5,12 +5,8 @@ import {meta} from '@/app/(app)/components/Metadata'
 import {getPayload, Where} from 'payload'
 import configPromise from '@payload-config'
 import {GeneralDate} from '@/app/(app)/components/Date'
-import {SerializeLexical} from '@/app/(app)/components/RichText/Lexical'
-import formatDate from '@/app/(app)/utils/formatDate'
 import React, {cache} from "react";
-import {draftMode} from "next/headers";
-import {GlobalSetting, Post} from "@/payload-types";
-import {getCachedGlobal} from "@/app/(app)/utils/getGlobals";
+import {Post} from "@/payload-types";
 import {Redirects} from "@/app/(app)/components/Redirects";
 import {SectionContainer} from "@/app/(app)/components/PageLayout";
 import {ImageObject} from "@/app/(app)/components/Media/Media";
@@ -19,6 +15,7 @@ import {BreadCrumbsContainer, Breadcrumbs} from "@/app/(app)/components/Breadcru
 import {PostCard} from "@/app/(app)/components/PostCard/Card";
 import {CardRow} from "@/app/(app)/components/PostCard";
 import {BlogNav} from "@/app/(app)/components/BlogNav";
+import {RichText} from "@/app/(app)/components/RichText";
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -151,9 +148,9 @@ export default async function Blog({params}: Props) {
           <main className={classes.main}>
             {typeof content?.image?.image !== 'string' && content?.image?.image && <ImageObject
               className={classes.blogImage}
-              image={content.image.image}
+              {...content.image.image}
             />}
-            <SerializeLexical className={classes.blogContent} nodes={content?.richText?.root.children}/>
+            {content?.richText && <RichText className={classes.blogContent} data={content.richText}/>}
 
             <BlogNav next={getNext} prev={getPrev} />
 

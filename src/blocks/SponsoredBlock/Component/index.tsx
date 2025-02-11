@@ -7,7 +7,7 @@ import {SponsoredBlockProps} from "@/payload-types";
 
 type Props = SponsoredBlockProps
 
-export default function SponsoredSection(props: Props) {
+export function SponsoredSection(props: Props) {
 
   const { active,
     headerSection,

@@ -1,8 +1,6 @@
 "use client"
-import {SerializeLexical} from "@/app/(app)/components/RichText/Lexical";
 import {useRef, useState} from "react";
 import classes from './index.module.scss'
-import {RichTextType} from "@/app/(app)/utils/types";
 import {FAQArrayProps} from "@/payload-types";
 import {RichText} from "@/app/(app)/components/RichText";
 

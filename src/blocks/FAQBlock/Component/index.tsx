@@ -7,7 +7,7 @@ import {FAQItem} from "@/blocks/FAQBlock/Component/Item";
 
 type Props = FAQProps
 
-export default function FAQ(props: Props) {
+export function FAQ(props: Props) {
 
   const {active,
   headerSection,

@@ -1,6 +1,5 @@
-import Header, {HeaderType} from '../../../app/(app)/components/CustomHeader'
-import {Button, ButtonContainer} from '../../../app/(app)/components/Button'
-import {SerializeLexical} from '../../../app/(app)/components/RichText/Lexical'
+import Header from '../../../app/(app)/components/CustomHeader'
+import {Button, ButtonContainer} from '@/app/(app)/components/Button'
 import {
   AButton,
   RichTextType
@@ -11,12 +10,11 @@ import {ContentContainer} from "@/app/(app)/components/PageLayout/ContentContain
 import Grid from "@/app/(app)/components/PageLayout/Grid";
 import classes from './index.module.scss'
 import {
-  Media as MediaProps,
-  Button as ButtonProps, ContentWithMediaProps
+  ContentWithMediaProps
 } from "@/payload-types";
 import {RichText} from "@/app/(app)/components/RichText";
 
-export default function ContentWithMedia(props: ContentWithMediaProps) {
+export function ContentWithMedia(props: ContentWithMediaProps) {
 
   const {
     active,

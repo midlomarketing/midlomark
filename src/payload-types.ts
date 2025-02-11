@@ -13,7 +13,21 @@
 export type Button =
   | {
       title?: string | null;
+      linkType?: ('External' | 'Internal') | null;
       link?: string | null;
+      internalLink?:
+        | ({
+            relationTo: 'industries';
+            value: string | Industry;
+          } | null)
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
       /**
        * Should this open in a new browser window/tab?
        */
@@ -233,6 +247,7 @@ export interface Config {
     redirects: Redirect;
     entitySeo: EntitySeo;
     stickyBanners: StickyBanner;
+    industries: Industry;
     forms: Form;
     'form-submissions': FormSubmission;
     'payload-locked-documents': PayloadLockedDocument;
@@ -257,6 +272,7 @@ export interface Config {
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     entitySeo: EntitySeoSelect<false> | EntitySeoSelect<true>;
     stickyBanners: StickyBannersSelect<false> | StickyBannersSelect<true>;
+    industries: IndustriesSelect<false> | IndustriesSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -330,6 +346,7 @@ export interface Page {
           | SummaryProps
           | TableOfContentsProps
           | FormBlock
+          | PostFeed
         )[]
       | null;
   };
@@ -391,37 +408,53 @@ export interface HeroProps {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
+ * via the `definition` "industries".
  */
-export interface Media {
+export interface Industry {
   id: string;
   title?: string | null;
-  altDescription?: string | null;
-  credit?: {
-    /**
-     * Leave a name for who or what created or captured this image.
-     */
-    creator?: string | null;
-    /**
-     * Choose if the creator is an organization or a person.
-     */
-    creatorType?: ('Person' | 'Organization') | null;
-    /**
-     * Link to the creator's website
-     */
-    creatorLink?: string | null;
+  slug?: string | null;
+  hero?: HeroProps;
+  content?: {
+    content?:
+      | (
+          | ContentNoMediaProps
+          | ContentWithMediaProps
+          | ContentWithMapProps
+          | CardSection
+          | CTAProps
+          | ContentWithVideoProps
+          | ClientLogosProps
+          | FAQProps
+          | PainPointProps
+          | SponsoredBlockProps
+          | StepsProps
+          | StepsWithIconsProps
+          | SummaryProps
+          | TableOfContentsProps
+          | FormBlock
+          | PostFeed
+        )[]
+      | null;
   };
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+    /**
+     * Include an alternative URL. Overwrites the default URL.
+     */
+    canonical?: string | null;
+    siteName?: string | null;
+    seoAbout?: (string | EntitySeo)[] | null;
+    seoMentions?: (string | EntitySeo)[] | null;
+  };
+  pageStatus?: ('Draft' | 'Published') | null;
   updatedAt: string;
   createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -502,6 +535,40 @@ export interface ContentWithMediaProps {
   id?: string | null;
   blockName?: string | null;
   blockType: 'contentWithMedia';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: string;
+  title?: string | null;
+  altDescription?: string | null;
+  credit?: {
+    /**
+     * Leave a name for who or what created or captured this image.
+     */
+    creator?: string | null;
+    /**
+     * Choose if the creator is an organization or a person.
+     */
+    creatorType?: ('Person' | 'Organization') | null;
+    /**
+     * Link to the creator's website
+     */
+    creatorLink?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1012,33 +1079,16 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "entitySeo".
+ * via the `definition` "PostFeed".
  */
-export interface EntitySeo {
-  id: string;
-  title: string;
-  /**
-   * See https://schema.org to see available types.
-   */
-  type?: string | null;
-  /**
-   * Name of the entity.
-   */
-  name?: string | null;
-  /**
-   * This should be an external URL to tell Google more about this entity. See https://developers.google.com/knowledge-graph/reference/rest/v1 to lookup values
-   */
-  sameAs?:
-    | {
-        /**
-         * You can also use a Wikipedia link here.
-         */
-        source?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt: string;
-  createdAt: string;
+export interface PostFeed {
+  headerSection?: HeaderSectionProps;
+  active?: boolean | null;
+  feedToAdd?: 'blog' | null;
+  feedCategory?: (string | Category)[] | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'feed';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1160,6 +1210,7 @@ export interface Post {
   };
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1186,6 +1237,36 @@ export interface User {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "entitySeo".
+ */
+export interface EntitySeo {
+  id: string;
+  title: string;
+  /**
+   * See https://schema.org to see available types.
+   */
+  type?: string | null;
+  /**
+   * Name of the entity.
+   */
+  name?: string | null;
+  /**
+   * This should be an external URL to tell Google more about this entity. See https://developers.google.com/knowledge-graph/reference/rest/v1 to lookup values
+   */
+  sameAs?:
+    | {
+        /**
+         * You can also use a Wikipedia link here.
+         */
+        source?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1298,6 +1379,10 @@ export interface PayloadLockedDocument {
         value: string | StickyBanner;
       } | null)
     | ({
+        relationTo: 'industries';
+        value: string | Industry;
+      } | null)
+    | ({
         relationTo: 'forms';
         value: string | Form;
       } | null)
@@ -1376,6 +1461,7 @@ export interface PagesSelect<T extends boolean = true> {
               summaryBlock?: T | SummaryPropsSelect<T>;
               tableOfContents?: T | TableOfContentsPropsSelect<T>;
               formBlock?: T | FormBlockSelect<T>;
+              feed?: T | PostFeedSelect<T>;
             };
       };
   meta?:
@@ -1416,7 +1502,9 @@ export interface HeroPropsSelect<T extends boolean = true> {
  */
 export interface ButtonSelect<T extends boolean = true> {
   title?: T;
+  linkType?: T;
   link?: T;
+  internalLink?: T;
   openInNewTab?: T;
   isPrimary?: T;
   id?: T;
@@ -1741,6 +1829,18 @@ export interface FormBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PostFeed_select".
+ */
+export interface PostFeedSelect<T extends boolean = true> {
+  headerSection?: T | HeaderSectionPropsSelect<T>;
+  active?: T;
+  feedToAdd?: T;
+  feedCategory?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "categories_select".
  */
 export interface CategoriesSelect<T extends boolean = true> {
@@ -1812,6 +1912,7 @@ export interface PostsSelect<T extends boolean = true> {
       };
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1911,6 +2012,53 @@ export interface EntitySeoSelect<T extends boolean = true> {
 export interface StickyBannersSelect<T extends boolean = true> {
   name?: T;
   content?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "industries_select".
+ */
+export interface IndustriesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  hero?: T | HeroPropsSelect<T>;
+  content?:
+    | T
+    | {
+        content?:
+          | T
+          | {
+              contentNoMedia?: T | ContentNoMediaPropsSelect<T>;
+              contentWithMedia?: T | ContentWithMediaPropsSelect<T>;
+              contentWithMap?: T | ContentWithMapPropsSelect<T>;
+              cardSection?: T | CardSectionSelect<T>;
+              cta?: T | CTAPropsSelect<T>;
+              contentWithVideo?: T | ContentWithVideoPropsSelect<T>;
+              clientLogos?: T | ClientLogosPropsSelect<T>;
+              faqBlock?: T | FAQPropsSelect<T>;
+              painPoints?: T | PainPointPropsSelect<T>;
+              sponsoredBlock?: T | SponsoredBlockPropsSelect<T>;
+              steps?: T | StepsPropsSelect<T>;
+              stepsWithIcons?: T | StepsWithIconsPropsSelect<T>;
+              summaryBlock?: T | SummaryPropsSelect<T>;
+              tableOfContents?: T | TableOfContentsPropsSelect<T>;
+              formBlock?: T | FormBlockSelect<T>;
+              feed?: T | PostFeedSelect<T>;
+            };
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+        canonical?: T;
+        siteName?: T;
+        seoAbout?: T;
+        seoMentions?: T;
+      };
+  pageStatus?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -2097,6 +2245,10 @@ export interface Nav {
           | ({
               relationTo: 'posts';
               value: string | Post;
+            } | null)
+          | ({
+              relationTo: 'industries';
+              value: string | Industry;
             } | null);
         nestedLinks?:
           | {
@@ -2117,6 +2269,10 @@ export interface Nav {
                       | ({
                           relationTo: 'posts';
                           value: string | Post;
+                        } | null)
+                      | ({
+                          relationTo: 'industries';
+                          value: string | Industry;
                         } | null);
                     id?: string | null;
                   }[]

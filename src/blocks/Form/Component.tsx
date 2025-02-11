@@ -6,7 +6,6 @@ import React, { useCallback, useState } from 'react'
 import { useForm, FormProvider } from 'react-hook-form'
 import classes from './index.module.scss'
 import { Button } from '@/components/ui/button'
-import {SerializeLexical} from "@/app/(app)/components/RichText/Lexical";
 import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
 
 import { buildInitialFormState } from './buildInitialFormState'
@@ -14,6 +13,7 @@ import { fields } from './fields'
 import { getClientSideURL } from '@/utilities/getURL'
 import {ContentContainer, SectionContainer} from "@/app/(app)/components/PageLayout";
 import Grid from "@/app/(app)/components/PageLayout/Grid";
+import {RichText} from "@/app/(app)/components/RichText";
 
 export type Value = unknown
 
@@ -136,12 +136,12 @@ export const FormBlock: React.FC<
         <Grid className={classes.contentContainer}>
           {enableIntro && introContent && !hasSubmitted && (
           <div className={classes.introContainer}>
-            <SerializeLexical nodes={introContent.root.children}/>
+            <RichText data={introContent}/>
           </div>
         )}
           <FormProvider {...formMethods}>
             {!isLoading && hasSubmitted && confirmationType === 'message' && (
-              <SerializeLexical nodes={confirmationMessage.root.children}/>
+              <RichText data={confirmationMessage}/>
             )}
             {isLoading && !hasSubmitted && <p>Loading, please wait...</p>}
             {error && <div>{`${error.status || '500'}: ${error.message || ''}`}</div>}

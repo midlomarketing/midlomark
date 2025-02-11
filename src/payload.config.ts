@@ -1,11 +1,9 @@
 import path from 'path'
-import {en} from 'payload/i18n/en'
 import {BlocksFeature, FixedToolbarFeature, lexicalEditor} from '@payloadcms/richtext-lexical'
 import {mongooseAdapter} from '@payloadcms/db-mongodb'
 import {buildConfig} from 'payload'
 import sharp from 'sharp'
 import {fileURLToPath} from 'url'
-import {nodemailerAdapter} from '@payloadcms/email-nodemailer'
 import {resendAdapter} from '@payloadcms/email-resend'
 import {
   StickyBanners,
@@ -29,8 +27,9 @@ import ContentWithMedia from '@/blocks/ContentWithMedia/config'
 import EntitySeo from '@/collections/EntitySeo'
 import {Page, Post} from '@/payload-types'
 import {GenerateDescription, GenerateImage, GenerateTitle, GenerateURL} from '@payloadcms/plugin-seo/types'
+import {Industries} from "@/collections/Industries/config";
 // import {searchFields} from '@/search/fieldOverrides'
-import {beforeSyncWithSearch} from '@/search/beforeSync'
+// import {beforeSyncWithSearch} from '@/search/beforeSync'
 
 const generateTitle: GenerateTitle<Post | Page> = ({doc}) => {
   return doc?.title ? `${doc.title} | Boilerplate` : 'Boilerplate'
@@ -78,7 +77,8 @@ export default buildConfig({
     Addresses,
     Redirects,
     EntitySeo,
-    StickyBanners
+    StickyBanners,
+    Industries
   ],
   plugins: [
     formBuilderPlugin({
@@ -143,9 +143,6 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.MONGODB_URI || '',
   }),
-  i18n: {
-    supportedLanguages: {en},
-  },
   cors: [
     `${process.env.PAYLOAD_PUBLIC_SERVER_URL}`,
   ],
@@ -158,6 +155,9 @@ export default buildConfig({
         // Icon: {path: '/src/graphics/Icon.tsx', exportName: 'Icon'},
         // Logo: {path: '/src/graphics/Logo.tsx', exportName: 'Logo'},
       },
+    },
+    livePreview: {
+      collections: ['industries', 'posts', 'pages']
     },
     meta: {
       titleSuffix: '- MidloMark',
@@ -194,6 +194,10 @@ export default buildConfig({
       },
     },
     user: Users.slug,
+    autoLogin: {
+      email: 'dev@payloadcms.com',
+      password: 'test',
+    },
     routes: {
       logout: '/logout',
     },

@@ -58,7 +58,7 @@ const Nav: GlobalConfig = {
         {
           name: 'link',
           type: 'relationship',
-          relationTo: ['pages', 'posts'],
+          relationTo: ['pages', 'posts', 'industries'],
           admin: {
             condition: (data, siblingData) => {
               if (siblingData.linkType === 'Internal') {
@@ -124,7 +124,7 @@ const Nav: GlobalConfig = {
                 {
                   name: 'link',
                   type: 'relationship',
-                  relationTo: ['pages', 'posts'],
+                  relationTo: ['pages', 'posts', 'industries'],
                   admin: {
                     condition: (data, siblingData) => {
                       if (siblingData.linkType === 'Internal') {

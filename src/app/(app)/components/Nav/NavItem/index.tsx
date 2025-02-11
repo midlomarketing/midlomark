@@ -61,6 +61,7 @@ export function NavItem({name, link, className, nestedLinks, linkType, openInNew
         )
     } else if (linkType === 'Internal') {
         const isHome = link.value.slug === 'home'
+      // console.log(link.relationTo)
         return (
             <Link
                 href={isHome ? `/` : `/${link.value.slug}`}
@@ -93,7 +94,7 @@ export function NavItem({name, link, className, nestedLinks, linkType, openInNew
                             item.linkType === 'Internal' ? (
                                 <Link
                                     key={item.id}
-                                    href={`/${item.link.value.slug}`}
+                                    href={`/${item.link.relationTo === 'industries' ? `industries/${item.link.value.slug}` : item.link.value.slug}`}
                                     target={openInNewTab === 'Yes' ? `_blank` : `_self`}
                                     className={`${classes.listItem} ${pathname.includes(item.link.value.slug) ? classes.activeContainer : undefined}`}
                                     aria-label={`Navigate to the ${item.name} page`}

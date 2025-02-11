@@ -11,7 +11,7 @@ import {ImageObject} from "@/app/(app)/components/Media/Media";
 import {RichText} from "@/app/(app)/components/RichText";
 import React from "react";
 
-export default function CardSection(props: CardSectionProps) {
+export function CardSection(props: CardSectionProps) {
 
   const {active, card, headerSection} = props
 

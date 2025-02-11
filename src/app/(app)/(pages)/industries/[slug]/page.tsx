@@ -1,22 +1,15 @@
-import {RenderBlocks} from '../../components/RenderBlocks'
-import {addImage} from '../../components/Schema'
+import {RenderBlocks} from '../../../components/RenderBlocks'
+import {addImage} from '../../../components/Schema'
 import {meta as GenerateMetadata} from '@/app/(app)/components/Metadata'
 import configPromise from '@payload-config'
 import {getPayload} from 'payload'
 import {Metadata} from 'next'
 import React, {cache} from 'react'
 import {draftMode} from 'next/headers'
-import {Page as PageType} from '@/payload-types'
-import {Redirects} from '../../components/Redirects'
+import {Industry as IndustryType} from '@/payload-types'
+import {Redirects} from '../../../components/Redirects'
 import {Hero} from "@/app/(app)/components/Hero";
 
-// TODO fix types for navigation and buttons so we can use relationship fields for links in buttons
-// TODO design fix in footer and nav
-// TODO work on schema to make sure that works
-// TODO fix buttons opening in new tab when not set to
-
-// TODO search plugin
-// TODO include BG boolean selection and color picker in block
 
 export async function generateStaticParams() {
   const payload = await getPayload({config: configPromise})
@@ -46,9 +39,9 @@ type Args = {
 
 
 export default async function Page({params: paramsPromise}: Args) {
-  const {slug = 'home'} = await paramsPromise
+  const {slug = 'industries'} = await paramsPromise
   const url = '/' + slug
-  let page: PageType
+  let page: IndustryType
 
 
   page = await queryPageBySlug({
@@ -90,7 +83,7 @@ export default async function Page({params: paramsPromise}: Args) {
 //@ts-ignore
 export async function generateMetadata({params: paramsPromise}): Promise<Metadata> {
 
-  const {slug = 'home'} = await paramsPromise
+  const {slug = 'industries'} = await paramsPromise
   const page = await queryPageBySlug({
     slug,
   })
@@ -108,7 +101,7 @@ const queryPageBySlug = cache(async ({slug}: { slug: string }) => {
   const payload = await getPayload({config: configPromise})
 
   const result = await payload.find({
-    collection: 'pages',
+    collection: 'industries',
     draft,
     limit: 1,
     depth: 1,

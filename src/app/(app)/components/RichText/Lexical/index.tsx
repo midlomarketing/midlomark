@@ -9,7 +9,7 @@ import type {SerializedElementNode, SerializedLexicalNode} from '@payloadcms/ric
 import classes from './index.module.scss'
 import {RichTextUpload} from '../Upload'
 import {icons} from '../../../utils/icons'
-import {ShowBlocks} from '../../ShowBlocks'
+import {RenderBlocks} from '../../RenderBlocks'
 
 import escapeHTML from 'escape-html'
 import React, {Fragment, JSX} from 'react'
@@ -272,7 +272,7 @@ export function SerializeLexical({nodes, className}: Props): JSX.Element {
                 if (fields.active) {
                   return (
                     <div key={index}>
-                      <ShowBlocks blocks={fields}/>
+                      <RenderBlocks blocks={fields}/>
                     </div>
                   )
                 }

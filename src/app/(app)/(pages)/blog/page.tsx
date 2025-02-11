@@ -7,7 +7,6 @@ import {GlobalSetting, Post} from "@/payload-types";
 import {getCachedGlobal} from "@/app/(app)/utils/getGlobals";
 import {ContentContainer, SectionContainer} from "@/app/(app)/components/PageLayout";
 import {ImageObject} from "@/app/(app)/components/Media/Media";
-import {SerializeLexical} from "@/app/(app)/components/RichText/Lexical";
 import {GeneralDate} from "@/app/(app)/components/Date";
 import Link from "next/link";
 import {User} from "@/payload-types"
@@ -94,7 +93,7 @@ export default async function Blogs({params}: BlogProps) {
           <h2>Featured Post</h2>
           <Link href={`/blog/${featured.slug}` || ``} className={classes.featuredCard}>
             {featured.content?.image?.image && typeof featured.content.image.image !== 'string' && <div className={classes.featuredImage}>
-              <ImageObject image={featured.content.image.image} />
+              <ImageObject {...featured.content?.image.image} />
             </div>}
             <div className={classes.featuredBody}>
               <div className={classes.featuredHeader}>

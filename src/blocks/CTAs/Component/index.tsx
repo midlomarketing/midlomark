@@ -7,7 +7,7 @@ import React from "react";
 
 type Props = CTAProps
 
-export default function CTA(props: Props) {
+export function CTA(props: Props) {
 
   const {
     active,

@@ -1,8 +1,6 @@
-import Header, {HeaderType} from '../../../app/(app)/components/CustomHeader'
-import {SerializeLexical} from '../../../app/(app)/components/RichText/Lexical'
-import {VideoObject} from '../../../app/(app)/components/Media/Media';
-import {ImageObject as ImageObjectType} from '../../../app/(app)/components/Media/Media/types';
-import {RichTextType} from "@/app/(app)/utils/types";
+import Header from '../../../app/(app)/components/CustomHeader'
+import {RichText} from '@/app/(app)/components/RichText'
+import {VideoObject} from '@/app/(app)/components/Media/Media';
 import {SectionContainer} from "@/app/(app)/components/PageLayout";
 import {ContentContainer} from "@/app/(app)/components/PageLayout/ContentContainer";
 import classes from './index.module.scss'
@@ -11,7 +9,7 @@ import {ContentWithVideoProps} from "@/payload-types";
 
 type Props = ContentWithVideoProps
 
-export default function ContentWithVideo(props: Props) {
+export function ContentWithVideo(props: Props) {
 
   const {
     active,
@@ -30,8 +28,8 @@ export default function ContentWithVideo(props: Props) {
                         {content &&
                             <div
                                 className={classes.contentContainer}>
-                                <SerializeLexical className={classes.content}
-                                                  nodes={content.root.children}/>
+                                <RichText className={classes.content}
+                                                  data={content}/>
                             </div>
                         }
                   <VideoObject

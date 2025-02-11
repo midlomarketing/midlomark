@@ -7,7 +7,7 @@ import {ClientLogosProps} from '@/payload-types'
 
 type Props = ClientLogosProps
 
-export default function ClientLogos(props: Props) {
+export function ClientLogos(props: Props) {
 
   const {active, headerSection, logos} = props
 

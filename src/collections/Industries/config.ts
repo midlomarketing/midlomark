@@ -27,11 +27,12 @@ import Summary from "@/blocks/Summary/config";
 import TableOfContents from "@/blocks/TableOfContents/config";
 import {lexicalEditor} from "@payloadcms/richtext-lexical";
 import {HighlightFeature} from "@/utilities/features/colorAccent/server";
-import {createCanonical} from "@/collections/Pages/hooks";
+import {createCanonical} from "@/collections/Industries/hooks";
 import {FormBlock} from "@/blocks/Form/config";
+import {FeedBlock} from "@/blocks/Feed/config";
 
-const Pages: CollectionConfig = {
-  slug: 'pages',
+const Industries: CollectionConfig = {
+  slug: 'industries',
   versions: true,
   access: {
     read: () => true,
@@ -42,6 +43,7 @@ const Pages: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     group: 'Content',
+    livePreview: {url: ({data}) => `http://localhost:3000/industries/${data.slug}`,}
   },
   fields: [
     {
@@ -103,7 +105,8 @@ const Pages: CollectionConfig = {
                 StepsWithIcons,
                 Summary,
                 TableOfContents,
-                FormBlock
+                FormBlock,
+                FeedBlock
               ],
             },
           ],
@@ -175,14 +178,6 @@ const Pages: CollectionConfig = {
       ],
     },
     {
-      name: 'parentPage',
-      type: 'relationship',
-      relationTo: 'pages',
-      admin: {
-        position: 'sidebar',
-      },
-    },
-    {
       name: 'pageStatus',
       type: 'select',
       options: ['Draft', 'Published'],
@@ -197,4 +192,4 @@ const Pages: CollectionConfig = {
   }
 }
 
-export {Pages}
+export {Industries}

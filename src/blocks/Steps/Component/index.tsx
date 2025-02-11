@@ -6,7 +6,7 @@ import {StepsProps} from "@/payload-types";
 
 type Props = StepsProps
 
-export default function Steps(props: Props) {
+export function Steps(props: Props) {
 
   const {active, headerSection,
   steps} = props

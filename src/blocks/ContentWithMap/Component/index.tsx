@@ -10,7 +10,7 @@ import {RichText} from "@/app/(app)/components/RichText";
 
 type Props = ContentWithMapProps
 
-export default function ContentWithMap(props: Props) {
+export function ContentWithMap(props: Props) {
 
   const {
     active,

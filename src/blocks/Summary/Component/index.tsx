@@ -5,7 +5,7 @@ import {SummaryProps} from "@/payload-types";
 
 type Props = SummaryProps
 
-export default function Summary(props: Props) {
+export function Summary(props: Props) {
 
   const { active, headerSection, summary} = props
 

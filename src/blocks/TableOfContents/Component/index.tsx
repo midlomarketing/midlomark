@@ -9,7 +9,7 @@ import {RichText} from "@/app/(app)/components/RichText";
 
 type Props = TableOfContentsProps
 
-export default function TableOfContents(props: Props) {
+export function TableOfContents(props: Props) {
 
   const { active,
     headerSection,

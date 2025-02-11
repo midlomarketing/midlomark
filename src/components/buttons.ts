@@ -1,4 +1,4 @@
-import { Field } from 'payload/'
+import { Field } from 'payload'
 import deepMerge from '../utilities/deepMerge'
 
 type Button = (fieldToUse?: string, overrides?: Partial<Field>) => Field
@@ -29,8 +29,37 @@ const buttons: Button = (fieldToUse = 'name', overrides) =>
           type: 'text',
         },
         {
+          name: 'linkType',
+          type: 'radio',
+          options: ['External', 'Internal'],
+          defaultValue: 'External',
+        },
+        {
           name: 'link',
           type: 'text',
+          admin: {
+            condition: (data, siblingData, { user }) => {
+              if (siblingData.linkType === 'External') {
+                return true
+              } else {
+                return false
+              }
+            },
+          }
+        },
+        {
+          name: 'internalLink',
+          type: 'relationship',
+          relationTo: ['industries', 'pages', 'posts'],
+          admin: {
+            condition: (data, siblingData, { user }) => {
+              if (siblingData.linkType === 'Internal') {
+                return true
+              } else {
+                return false
+              }
+            },
+          }
         },
         {
           name: 'openInNewTab',

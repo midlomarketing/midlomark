@@ -5,7 +5,7 @@ import classes from './index.module.scss'
 import {RichText} from "@/app/(app)/components/RichText";
 import {ContentNoMediaProps} from "@/payload-types";
 
-export default function ContentNoMedia(props: ContentNoMediaProps) {
+export function ContentNoMedia(props: ContentNoMediaProps) {
 
   const {active, includeBgColor, headerSection, content} = props
 

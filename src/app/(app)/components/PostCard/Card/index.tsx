@@ -9,7 +9,7 @@ export function PostCard(post: Post) {
   return (<Link key={post.id} href={`/blog/${post.slug}`} className={classes.card}>
       {typeof post.content?.image?.image !== 'string' && post.content?.image?.image && <div className={classes.cardImage}>
         <ImageObject
-          image={post.content.image.image}
+          {...post.content.image.image}
         />
       </div>}
       <div className={classes.cardBody}>

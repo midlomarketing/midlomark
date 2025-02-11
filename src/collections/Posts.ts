@@ -26,11 +26,18 @@ import {FormBlock} from "@/blocks/Form/config";
 
 const Posts: CollectionConfig = {
   slug: 'posts',
-  versions: true,
+  versions: {
+    drafts: {
+      autosave: {
+        interval: 300
+      }
+    }
+  },
   admin: {
     useAsTitle: 'title',
     group: 'Content',
     defaultColumns: ['title', 'slug', 'date', 'featured'],
+    livePreview: {url: ({data}) => `http://localhost:3000/blog/${data.slug}`,}
   },
   access: {
     read: () => true,

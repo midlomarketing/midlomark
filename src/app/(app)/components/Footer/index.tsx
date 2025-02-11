@@ -3,9 +3,7 @@ import classes from './index.module.scss'
 import {GlobalSetting, Nav as Navigation} from "@/payload-types";
 import {getCachedGlobal} from "@/app/(app)/utils/getGlobals";
 import Link from "next/link";
-import {ImageObject, LogoObject} from "@/app/(app)/components/Media/Media/ImageObject";
-import {ImageObject as ImageObjectType} from "@/app/(app)/components/Media/Media/types";
-import {Logo} from "@/app/(app)/components/Nav/Logo";
+import {ImageObject} from "@/app/(app)/components/Media/Media/ImageObject";
 
 export async function Footer() {
 
@@ -16,7 +14,7 @@ export async function Footer() {
         <ContentContainer>
           {typeof globals.logos?.landscapeLogo !== 'string' && globals.logos?.landscapeLogo && <div className={classes.logoContainer}>
             <ImageObject
-              image={globals.logos.landscapeLogo}
+              {...globals.logos.landscapeLogo}
               className={classes.logo}
             />
           </div>}
