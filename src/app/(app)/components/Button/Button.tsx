@@ -1,16 +1,14 @@
 import React from 'react'
-import {PrimaryButton} from "@/app/(app)/components/Button/PrimaryButton";
-import {SecondaryButton} from "@/app/(app)/components/Button/SecondaryButton";
-import type {CardButtonProps} from "@/payload-types";
+import {CTAButton} from "src/app/(app)/components/Button/CTAButton";
+import {Button as ButtonProps} from "@/payload-types";
 
-type Props = CardButtonProps & {className?: string}
+type Props = NonNullable<ButtonProps>[number] & {className?: string}
 
 export function Button(props: Props) {
 
-  const {isPrimary, title, link, openInNewTab, className} = props
+  const {title, link, openInNewTab, className} = props
 
-    return (isPrimary ? <PrimaryButton className={className} title={title} link={link} label={title} openInNewTab={openInNewTab}/> :
-        <SecondaryButton className={className} title={title} link={link} label={title} openInNewTab={openInNewTab}/>)
+    return <CTAButton className={className} title={title} link={link} openInNewTab={openInNewTab}/>
 
     // {/*      TODO loading button */}
     // {/*<Link*/}

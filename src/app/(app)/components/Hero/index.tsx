@@ -1,6 +1,5 @@
 import {ButtonContainer} from "@/app/(app)/components/Button";
-import {PrimaryButton} from "@/app/(app)/components/Button/PrimaryButton";
-import {SecondaryButton} from "@/app/(app)/components/Button/SecondaryButton";
+import {CTAButton} from "src/app/(app)/components/Button/CTAButton";
 import {ImageObject} from "@/app/(app)/components/Media/Media";
 import React from "react";
 import classes from './index.module.scss'
@@ -31,7 +30,7 @@ export function Hero(props: Props) {
       </div>
       {buttons && <ButtonContainer className={classes.buttons}>
         {buttons?.map((btn) => (
-          btn.isPrimary ? <PrimaryButton key={btn.id} {...btn} /> : <SecondaryButton key={btn.id} {...btn} />
+          <CTAButton key={btn.id} {...btn} />
         ))}
       </ButtonContainer>}
     </div>

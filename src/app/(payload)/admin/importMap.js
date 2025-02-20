@@ -32,8 +32,10 @@ import { MetaDescriptionComponent as MetaDescriptionComponent_a8a977ebc872c5d5ea
 import { PreviewComponent as PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { ContentDescription as ContentDescription_49d715487edf46ce24f1f65332222eda } from '/src/components/ContentDescription.ts'
 import { SeoDescription as SeoDescription_74dc3fce6b2b97f5f61793c4bc11c6aa } from '/src/components/seoDescription.ts'
-import { NavLinkLabel as NavLinkLabel_5d1851af8c9c2228deb44aa5b16cac36 } from 'src/components/NavLinkLabel.ts'
 import { SocialLinksDescription as SocialLinksDescription_1f95792d6b91006ffdedf56abd6cc2a2 } from 'src/components/socialLinksDescription.ts'
+import { NavLinkLabel as NavLinkLabel_5d1851af8c9c2228deb44aa5b16cac36 } from 'src/components/NavLinkLabel.ts'
+import { Icon as Icon_5309f8d350601afa767e3bbcd3a39ec1 } from '/src/components/Icon.tsx'
+import { Logo as Logo_b89b432fcc7a823da701ee1bb1f8a4a2 } from '/src/components/Logo.tsx'
 
 export const importMap = {
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
@@ -70,6 +72,8 @@ export const importMap = {
   "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "/src/components/ContentDescription.ts#ContentDescription": ContentDescription_49d715487edf46ce24f1f65332222eda,
   "/src/components/seoDescription.ts#SeoDescription": SeoDescription_74dc3fce6b2b97f5f61793c4bc11c6aa,
+  "src/components/socialLinksDescription.ts#SocialLinksDescription": SocialLinksDescription_1f95792d6b91006ffdedf56abd6cc2a2,
   "src/components/NavLinkLabel.ts#NavLinkLabel": NavLinkLabel_5d1851af8c9c2228deb44aa5b16cac36,
-  "src/components/socialLinksDescription.ts#SocialLinksDescription": SocialLinksDescription_1f95792d6b91006ffdedf56abd6cc2a2
+  "/src/components/Icon.tsx#Icon": Icon_5309f8d350601afa767e3bbcd3a39ec1,
+  "/src/components/Logo.tsx#Logo": Logo_b89b432fcc7a823da701ee1bb1f8a4a2
 }

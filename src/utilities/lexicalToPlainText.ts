@@ -1,13 +1,17 @@
 export function lexicalToPlainText(json) {
   function extractText(node) {
-    if (node.type === 'text') {
+    // console.log(node)
+    if (node?.type === 'text') {
       return node.text || ' ';
     }
-    if (node.children) {
+    // if (node.type === 'block') {
+    //   if (node.fields.blockType === 'tableOfContents') return node
+    // }
+    if (node?.children) {
       return node.children.map(extractText).join(' ');
     }
     return "";
   }
 
-  return extractText(json.root)
+  return extractText(json?.root)
 }

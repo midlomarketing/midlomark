@@ -77,7 +77,7 @@ export type CardArray =
         [k: string]: unknown;
       } | null;
       includeButton?: boolean | null;
-      button?: CardButtonProps;
+      buttons?: Button;
       id?: string | null;
     }[]
   | null;
@@ -229,6 +229,65 @@ export type TableOfContentsArrayProps =
         };
         [k: string]: unknown;
       } | null;
+      id?: string | null;
+    }[]
+  | null;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NavLinksProps".
+ */
+export type NavLinksProps =
+  | {
+      name?: string | null;
+      linkType?: ('External' | 'Internal' | 'No Link') | null;
+      /**
+       * Should this open in a new browser window/tab?
+       */
+      openInNewTab?: ('Yes' | 'No') | null;
+      externalLink?: string | null;
+      link?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null)
+        | ({
+            relationTo: 'industries';
+            value: string | Industry;
+          } | null);
+      nestedLinks?:
+        | {
+            navigationLink?:
+              | {
+                  name?: string | null;
+                  linkType?: ('External' | 'Internal') | null;
+                  /**
+                   * Should this open in a new browser window/tab?
+                   */
+                  openInNewTab?: ('Yes' | 'No') | null;
+                  externalLink?: string | null;
+                  link?:
+                    | ({
+                        relationTo: 'pages';
+                        value: string | Page;
+                      } | null)
+                    | ({
+                        relationTo: 'posts';
+                        value: string | Post;
+                      } | null)
+                    | ({
+                        relationTo: 'industries';
+                        value: string | Industry;
+                      } | null);
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+          }[]
+        | null;
       id?: string | null;
     }[]
   | null;
@@ -630,19 +689,6 @@ export interface CardSection {
   id?: string | null;
   blockName?: string | null;
   blockType: 'cardSection';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CardButtonProps".
- */
-export interface CardButtonProps {
-  title?: string | null;
-  link?: string | null;
-  /**
-   * Should this open in a new browser window/tab?
-   */
-  openInNewTab?: boolean | null;
-  isPrimary?: boolean | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1220,6 +1266,13 @@ export interface User {
   id: string;
   name: string;
   slug?: string | null;
+  socialLinks?:
+    | {
+        channel?: 'youtube' | null;
+        url?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   role: 'admin' | 'user' | 'viewer' | 'author';
   isAuthor?: boolean | null;
   postsByUser?: {
@@ -1590,18 +1643,8 @@ export interface CardArraySelect<T extends boolean = true> {
   cardHeader?: T;
   cardText?: T;
   includeButton?: T;
-  button?: T | CardButtonPropsSelect<T>;
+  buttons?: T | ButtonSelect<T>;
   id?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CardButtonProps_select".
- */
-export interface CardButtonPropsSelect<T extends boolean = true> {
-  title?: T;
-  link?: T;
-  openInNewTab?: T;
-  isPrimary?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1947,6 +1990,13 @@ export interface MediaSelect<T extends boolean = true> {
 export interface UsersSelect<T extends boolean = true> {
   name?: T;
   slug?: T;
+  socialLinks?:
+    | T
+    | {
+        channel?: T;
+        url?: T;
+        id?: T;
+      };
   role?: T;
   isAuthor?: T;
   postsByUser?: T;
@@ -2228,61 +2278,7 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Nav {
   id: string;
-  navigationLink?:
-    | {
-        name?: string | null;
-        linkType?: ('External' | 'Internal' | 'No Link') | null;
-        /**
-         * Should this open in a new browser window/tab?
-         */
-        openInNewTab?: ('Yes' | 'No') | null;
-        externalLink?: string | null;
-        link?:
-          | ({
-              relationTo: 'pages';
-              value: string | Page;
-            } | null)
-          | ({
-              relationTo: 'posts';
-              value: string | Post;
-            } | null)
-          | ({
-              relationTo: 'industries';
-              value: string | Industry;
-            } | null);
-        nestedLinks?:
-          | {
-              navigationLink?:
-                | {
-                    name?: string | null;
-                    linkType?: ('External' | 'Internal') | null;
-                    /**
-                     * Should this open in a new browser window/tab?
-                     */
-                    openInNewTab?: ('Yes' | 'No') | null;
-                    externalLink?: string | null;
-                    link?:
-                      | ({
-                          relationTo: 'pages';
-                          value: string | Page;
-                        } | null)
-                      | ({
-                          relationTo: 'posts';
-                          value: string | Post;
-                        } | null)
-                      | ({
-                          relationTo: 'industries';
-                          value: string | Industry;
-                        } | null);
-                    id?: string | null;
-                  }[]
-                | null;
-              id?: string | null;
-            }[]
-          | null;
-        id?: string | null;
-      }[]
-    | null;
+  navigationLink?: NavLinksProps;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2377,34 +2373,37 @@ export interface Footer {
  * via the `definition` "nav_select".
  */
 export interface NavSelect<T extends boolean = true> {
-  navigationLink?:
+  navigationLink?: T | NavLinksPropsSelect<T>;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NavLinksProps_select".
+ */
+export interface NavLinksPropsSelect<T extends boolean = true> {
+  name?: T;
+  linkType?: T;
+  openInNewTab?: T;
+  externalLink?: T;
+  link?: T;
+  nestedLinks?:
     | T
     | {
-        name?: T;
-        linkType?: T;
-        openInNewTab?: T;
-        externalLink?: T;
-        link?: T;
-        nestedLinks?:
+        navigationLink?:
           | T
           | {
-              navigationLink?:
-                | T
-                | {
-                    name?: T;
-                    linkType?: T;
-                    openInNewTab?: T;
-                    externalLink?: T;
-                    link?: T;
-                    id?: T;
-                  };
+              name?: T;
+              linkType?: T;
+              openInNewTab?: T;
+              externalLink?: T;
+              link?: T;
               id?: T;
             };
         id?: T;
       };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
+  id?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

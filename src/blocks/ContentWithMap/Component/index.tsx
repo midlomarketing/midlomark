@@ -7,6 +7,7 @@ import {ContentContainer} from "@/app/(app)/components/PageLayout/ContentContain
 import Grid from "@/app/(app)/components/PageLayout/Grid";
 import classes from './index.module.scss'
 import {RichText} from "@/app/(app)/components/RichText";
+import {CTAButton} from "@/app/(app)/components/Button/CTAButton";
 
 type Props = ContentWithMapProps
 
@@ -52,7 +53,7 @@ export function ContentWithMap(props: Props) {
                     {buttons && buttons.length > 0 && (
                         <ButtonContainer>
                             {buttons.map((button) => (
-                                <Button
+                                <CTAButton
                                     {...button}
                                     key={button.id}
                                 />

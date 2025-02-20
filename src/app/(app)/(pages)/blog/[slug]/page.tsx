@@ -16,6 +16,8 @@ import {PostCard} from "@/app/(app)/components/PostCard/Card";
 import {CardRow} from "@/app/(app)/components/PostCard";
 import {BlogNav} from "@/app/(app)/components/BlogNav";
 import {RichText} from "@/app/(app)/components/RichText";
+import {addArticle} from "@/app/(app)/components/Schema";
+import {Schema} from "@/app/(app)/components/Schema/Container";
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -121,7 +123,12 @@ export default async function Blog({params}: Props) {
 
     // console.log(relatedPosts)
 
+    const schema = [
+      addArticle(blog)
+    ]
+
     return <article>
+      <Schema schema={schema} />
       <Redirects url={url} disableNotFound/>
       <SectionContainer>
         <div className={classes.blogContainer}>

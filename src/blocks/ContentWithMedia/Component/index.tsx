@@ -13,6 +13,7 @@ import {
   ContentWithMediaProps
 } from "@/payload-types";
 import {RichText} from "@/app/(app)/components/RichText";
+import {CTAButton} from "@/app/(app)/components/Button/CTAButton";
 
 export function ContentWithMedia(props: ContentWithMediaProps) {
 
@@ -46,7 +47,7 @@ export function ContentWithMedia(props: ContentWithMediaProps) {
               {buttons && (
                 <ButtonContainer>
                   {buttons.map((button: AButton) => (
-                    <Button
+                    <CTAButton
                       key={button.id}
                       {...button}
                     />
@@ -71,7 +72,7 @@ export function ContentWithMedia(props: ContentWithMediaProps) {
             {content && <RichText data={content}/>}
             <ButtonContainer>
               {buttons?.map((button: AButton) => (
-                <Button
+                <CTAButton
                   key={button.id}
                   {...button}
                 />

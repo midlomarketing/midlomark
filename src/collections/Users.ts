@@ -26,6 +26,32 @@ const Users: CollectionConfig = {
     },
     slug('name'),
     {
+      name: 'socialLinks',
+      type: 'array',
+      admin: {
+        components: {
+          RowLabel: {
+            path: 'src/components/socialLinksDescription.ts',
+            exportName: 'SocialLinksDescription',
+          }
+        }
+      },
+      fields: [
+        {
+          name: 'channel',
+          type: 'select',
+          options: [
+            {label: 'YouTube', value: 'youtube'},
+          ],
+        },
+        {
+          name: 'url',
+          label: 'URL',
+          type: 'text',
+        }
+      ]
+    },
+    {
       access: {
         update: ({req: {user}}) => {
           if (user?.role === 'admin') {
@@ -67,7 +93,7 @@ const Users: CollectionConfig = {
       hooks: {
         afterRead: [
           async ({siblingData}) => {
-          if (siblingData?.postsByUser?.docs) {
+            if (siblingData?.postsByUser?.docs) {
               return siblingData.postsByUser.docs.length
             }
           }

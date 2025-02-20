@@ -10,10 +10,16 @@ import {Page as PageType} from '@/payload-types'
 import {Redirects} from '../../components/Redirects'
 import {Hero} from "@/app/(app)/components/Hero";
 
-// TODO fix types for navigation and buttons so we can use relationship fields for links in buttons
-// TODO design fix in footer and nav
-// TODO work on schema to make sure that works
-// TODO fix buttons opening in new tab when not set to
+// TODO rss feed, sitemap, etc.
+// TODO change FAQ block to have setOpenIndex
+// TODO change out icon based on light or dark mode preference
+// TODO get Admin UI favicons set
+// TODO add social section component (pull in svg icon for the section, put in footer)
+// TODO work on lexicalToPlainText.ts to try and plain-text-ify blocks
+// TODO create local business schema from addLogo
+
+// TODO try nested blocks
+//// TODO a section block with a background-color field with blocks inside that would be 'text and media' - is this just using RenderBlocks inside the Block?
 
 // TODO search plugin
 // TODO include BG boolean selection and color picker in block

@@ -1,8 +1,8 @@
 import { Field } from 'payload'
 import deepMerge from '../utilities/deepMerge'
 
-type Button = (fieldToUse?: string, overrides?: Partial<Field>) => Field
-const buttons: Button = (fieldToUse = 'name', overrides) =>
+type Button = (overrides?: Partial<Field>) => Field
+const buttons: Button = (overrides) =>
   deepMerge<Field, Partial<Field>>(
     {
       name: 'buttons',

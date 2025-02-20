@@ -13,6 +13,7 @@ const Nav: GlobalConfig = {
   fields: [
     {
       name: 'navigationLink',
+      interfaceName: 'NavLinksProps',
       admin: {
         components: {
           RowLabel: {

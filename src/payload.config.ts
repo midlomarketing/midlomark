@@ -22,7 +22,6 @@ import {seoPlugin} from '@payloadcms/plugin-seo'
 import {formBuilderPlugin} from "@payloadcms/plugin-form-builder";
 // import {searchPlugin} from '@payloadcms/plugin-search'
 import {s3Storage} from '@payloadcms/storage-s3'
-import process from 'process'
 import ContentWithMedia from '@/blocks/ContentWithMedia/config'
 import EntitySeo from '@/collections/EntitySeo'
 import {Page, Post} from '@/payload-types'
@@ -30,6 +29,7 @@ import {GenerateDescription, GenerateImage, GenerateTitle, GenerateURL} from '@p
 import {Industries} from "@/collections/Industries/config";
 // import {searchFields} from '@/search/fieldOverrides'
 // import {beforeSyncWithSearch} from '@/search/beforeSync'
+import type {Media as MediaProps} from './payload-types'
 
 const generateTitle: GenerateTitle<Post | Page> = ({doc}) => {
   return doc?.title ? `${doc.title} | Boilerplate` : 'Boilerplate'
@@ -48,13 +48,18 @@ const generateURL: GenerateURL<Post | Page> = ({doc}) => {
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-const iconUrl = `${process.env.CLOUDFLARE_BUCKET}/`
-const darkIconUrl = `${process.env.CLOUDFLARE_BUCKET}/`
-const logoUrl = `https://images.midlomark.com/`
 
-// TODO look at Lexical plaintext converter: https://payloadcms.com/docs/beta/lexical/converters#lexical-plain-text
+// const globals = await fetch(`${process.env.API_BASE_URL}/api/globals/global-settings`).then((res) =>
+//   res.json(),
+// )
 
-// TODO For boilerplate front end, do conditional rendering (if doc, render doc; else render some other message)
+// const lightModeIcon = globals.logos.squareLogo as MediaProps
+// const darkModeIcon = globals.logos.darkModeSquare as MediaProps
+// const fullLogo = globals.logos.landscapeLogo as MediaProps
+// const iconUrl = `${process.env.CLOUDFLARE_BUCKET}/${lightModeIcon.filename}`
+// const darkIconUrl = `${process.env.CLOUDFLARE_BUCKET}/${darkModeIcon.filename}`
+// const logoUrl = `${process.env.CLOUDFLARE_BUCKET}/${fullLogo.filename}`
+
 // TODO create a README to remind me what I need to do each time I spin up the boiler plate
 
 export default buildConfig({
@@ -152,8 +157,14 @@ export default buildConfig({
   admin: {
     components: {
       graphics: {
-        // Icon: {path: '/src/graphics/Icon.tsx', exportName: 'Icon'},
-        // Logo: {path: '/src/graphics/Logo.tsx', exportName: 'Logo'},
+        Icon: {
+          path: '/src/components/Icon.tsx',
+          exportName: 'Icon'
+        },
+        Logo: {
+          path: '/src/components/Logo.tsx',
+          exportName: 'Logo'
+        },
       },
     },
     livePreview: {
@@ -164,33 +175,31 @@ export default buildConfig({
       description:
         'This is the MidlMark CMS. Edit and add pages, blogs, and more to the website.',
       icons: [
-        {
-          fetchPriority: 'high',
-          // url: icon,
-          url: iconUrl,
-          sizes: '16x16 32x32 48x48 64x64',
-          type: 'image/webp',
-          rel: 'icon',
-        },
-        {
-          media: '(prefers-color-scheme: dark)',
-          fetchPriority: 'high',
-          // url: darkModeIcon,
-          url: darkIconUrl,
-          sizes: '16x16 32x32 48x48 64x64',
-          type: 'image/webp',
-          rel: 'icon',
-        },
+        // {
+        //   fetchPriority: 'high',
+        //   url: iconUrl,
+        //   sizes: '16x16 32x32 48x48 64x64',
+        //   type: 'image/webp',
+        //   rel: 'icon',
+        // },
+        // {
+        //   media: '(prefers-color-scheme: dark)',
+        //   fetchPriority: 'high',
+        //   url: darkIconUrl,
+        //   sizes: '16x16 32x32 48x48 64x64',
+        //   type: 'image/webp',
+        //   rel: 'icon',
+        // },
       ],
       openGraph: {
         description:
           'This is the MidlMark CMS. Edit and add pages, blogs, and more to the website.',
         siteName: 'MidloMark',
-        images: [
-          {
-            url: logoUrl,
-          },
-        ],
+        // images: [
+        //   {
+        //     url: logoUrl,
+        //   },
+        // ],
       },
     },
     user: Users.slug,

@@ -1,5 +1,5 @@
 import {addImage} from '../../Schema'
-import {Individual} from '../../Schema/Container'
+import {Schema} from '../../Schema/Container'
 import Image from 'next/image'
 import type {Media} from "@/payload-types";
 
@@ -11,36 +11,12 @@ export async function ImageObject(props: Props) {
 
   return (
     <>
-      {/*<Individual schema={await addImage(image)}/>*/}
+      <Schema schema={addImage(props)}/>
       <Image
         src={`${process.env.CLOUDFLARE_BUCKET}/${filename}`}
         height={height || 360}
         width={width || 640}
         alt={altDescription || ``}
-        className={className}
-        priority={priority}
-      />
-    </>
-  )
-}
-
-export async function LogoObject({
-                                   image,
-                                   className,
-                                   priority = true,
-                                 }: {
-  className?: string
-  priority?: boolean
-  image: Media,
-}) {
-  return (
-    <>
-      <Individual schema={await addImage(image)}/>
-      <Image
-        src={`${process.env.CLOUDFLARE_BUCKET}/${image.filename || ``}`}
-        height={image.height || 50}
-        width={image.width || 50}
-        alt={image.altDescription || ``}
         className={className}
         priority={priority}
       />

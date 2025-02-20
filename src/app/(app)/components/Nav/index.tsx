@@ -11,16 +11,11 @@ export async function Nav() {
 
     return (
         <nav className={`${classes.navContainer}`}>
-            <Logo
-                width={typeof globals.logos?.squareLogo !== 'string' && globals.logos?.squareLogo?.width || 50}
-                height={typeof globals.logos?.squareLogo !== 'string' && globals.logos?.squareLogo?.height || 50}
-                altDescription={typeof globals.logos?.squareLogo !== 'string' && globals.logos?.squareLogo?.altDescription || ``}
-                credit={typeof globals.logos?.squareLogo !== 'string' && globals.logos?.squareLogo?.credit || {creator: ``, creatorLink: ``, creatorType: undefined}}
-                filename={typeof globals.logos?.squareLogo !== 'string' && globals.logos?.squareLogo?.filename || ``}
-            />
+          {globals.logos?.squareLogo && typeof globals.logos.squareLogo !== 'string' && <Logo
+            {...globals.logos?.squareLogo}
+          />}
             <NavBar
-                // @ts-ignore
-                navLinks={response.navigationLink}
+                {...response}
             />
         </nav>
     )

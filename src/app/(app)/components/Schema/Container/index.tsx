@@ -1,17 +1,11 @@
-export function Individual({ schema }: { schema: object }) {
-  return (
-    <script
-      type={`application/ld+json`}
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  )
-}
+import Script from "next/script";
 
-export function Multiple({ schema }: { schema: object[] }) {
+export function Schema({ schema }: { schema: object }) {
   return (
-    <script
+    <Script
       type={`application/ld+json`}
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema.map((s) => s)) }}
-    />
+    >
+      {JSON.stringify(schema)}
+    </Script>
   )
 }

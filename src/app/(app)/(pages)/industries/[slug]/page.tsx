@@ -1,5 +1,5 @@
 import {RenderBlocks} from '../../../components/RenderBlocks'
-import {addImage} from '../../../components/Schema'
+import {addBreadcrumbs, addImage} from '../../../components/Schema'
 import {meta as GenerateMetadata} from '@/app/(app)/components/Metadata'
 import configPromise from '@payload-config'
 import {getPayload} from 'payload'
@@ -9,6 +9,8 @@ import {draftMode} from 'next/headers'
 import {Industry as IndustryType} from '@/payload-types'
 import {Redirects} from '../../../components/Redirects'
 import {Hero} from "@/app/(app)/components/Hero";
+import {Schema} from "@/app/(app)/components/Schema/Container";
+import {BreadcrumbProps} from "@/app/(app)/components/Breadcrumbs/Breadcrumbs";
 
 
 export async function generateStaticParams() {
@@ -54,22 +56,31 @@ export default async function Page({params: paramsPromise}: Args) {
 
   const {hero, content, meta} = page
 
-  const pageBlocks = content?.content
   const pageLayout = page.content?.content
 
-  const imageFilename = typeof meta?.image !== 'string' && meta?.image?.filename
+  const breadcrumbs: BreadcrumbProps = [
+    {
+        link: '/',
+        name: 'home',
+      },
+      {
+        link: '/industries',
+        name: 'industries',
+      },
+      {
+        name: page.title || ''
+      }
+  ]
 
   const schema = [
-    meta?.image && typeof meta?.image !== 'string' && await addImage(meta.image),
+    meta?.image && typeof meta?.image !== 'string' && addImage(meta.image),
+    addBreadcrumbs(breadcrumbs)
   ]
 
   return (
     <main>
       <Redirects url={url} disableNotFound/>
-      {schema && <script
-        type={`application/ld+json`}
-        dangerouslySetInnerHTML={{__html: JSON.stringify(schema.map((s) => s))}}
-      />}
+      {schema && <Schema schema={schema} />}
       {hero?.image?.image && <Hero
         {...hero}
       />
@@ -80,7 +91,7 @@ export default async function Page({params: paramsPromise}: Args) {
   )
 }
 
-//@ts-ignore
+
 export async function generateMetadata({params: paramsPromise}): Promise<Metadata> {
 
   const {slug = 'industries'} = await paramsPromise

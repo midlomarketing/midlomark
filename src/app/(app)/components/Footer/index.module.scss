@@ -49,12 +49,12 @@
   gap: 0.5rem;
   background-color: var(--light-secondary);
   padding: 0.5rem 1rem;
-  * {
+  *, span {
     color: var(--dark-primary)!important;
   }
   @include rounded;
   @include small-break {
-    * {
+    *, span {
       color: var(--light-primary) !important;
     }
     background-color: inherit;
