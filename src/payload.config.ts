@@ -49,6 +49,7 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 
+
 // const globals = await fetch(`${process.env.API_BASE_URL}/api/globals/global-settings`).then((res) =>
 //   res.json(),
 // )
@@ -193,7 +194,7 @@ export default buildConfig({
       ],
       openGraph: {
         description:
-          'This is the MidlMark CMS. Edit and add pages, blogs, and more to the website.',
+          'This is the MidloMark CMS. Edit and add pages, blogs, and more to the website.',
         siteName: 'MidloMark',
         // images: [
         //   {

@@ -7,6 +7,7 @@ import {ContentContainer} from "@/app/(app)/components/PageLayout/ContentContain
 import Grid from "@/app/(app)/components/PageLayout/Grid";
 import classes from './index.module.scss'
 import {PainPointProps} from "@/payload-types";
+import {CTAButton} from "@/app/(app)/components/Button/CTAButton";
 
 type Props = PainPointProps
 
@@ -36,7 +37,7 @@ export function PainPoints(props: Props) {
                 {point.buttons && point.buttons.length > 0 && (
                   <ButtonContainer>
                     {point.buttons.map((button) => (
-                      <Button
+                      <CTAButton
                         {...button}
                         key={button.id}
                       />

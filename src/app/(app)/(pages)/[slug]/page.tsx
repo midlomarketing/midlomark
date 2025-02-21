@@ -10,9 +10,6 @@ import {Page as PageType} from '@/payload-types'
 import {Redirects} from '../../components/Redirects'
 import {Hero} from "@/app/(app)/components/Hero";
 
-// TODO rss feed, sitemap, etc.
-// TODO change FAQ block to have setOpenIndex
-// TODO change out icon based on light or dark mode preference
 // TODO get Admin UI favicons set
 // TODO add social section component (pull in svg icon for the section, put in footer)
 // TODO work on lexicalToPlainText.ts to try and plain-text-ify blocks
