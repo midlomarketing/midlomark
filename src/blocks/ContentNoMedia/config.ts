@@ -3,7 +3,7 @@ import headerSection from '../../components/headerSection'
 import {lexicalEditor} from "@payloadcms/richtext-lexical";
 import {HighlightFeature} from "@/utilities/features/colorAccent/server";
 
-const Config: Block = <Block>{
+const ContentNoMedia: Block = <Block>{
     slug: 'contentNoMedia',
     fields: [
         {
@@ -32,4 +32,4 @@ const Config: Block = <Block>{
   interfaceName: 'ContentNoMediaProps'
 }
 
-export default Config
+export default ContentNoMedia

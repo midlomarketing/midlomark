@@ -10,16 +10,9 @@ import {Page as PageType} from '@/payload-types'
 import {Redirects} from '../../components/Redirects'
 import {Hero} from "@/app/(app)/components/Hero";
 
-// TODO get Admin UI favicons set
-// TODO add social section component (pull in svg icon for the section, put in footer)
-// TODO work on lexicalToPlainText.ts to try and plain-text-ify blocks
-// TODO create local business schema from addLogo
-
-// TODO try nested blocks
-//// TODO a section block with a background-color field with blocks inside that would be 'text and media' - is this just using RenderBlocks inside the Block?
-
 // TODO search plugin
-// TODO include BG boolean selection and color picker in block
+// TODO work on auth, review website template to see how Payload CMS does auth
+// TODO about and entity mentions
 
 export async function generateStaticParams() {
   const payload = await getPayload({config: configPromise})
@@ -27,7 +20,7 @@ export async function generateStaticParams() {
     collection: 'pages',
     limit: 1000,
     draft: false,
-    overrideAccess: false,
+    overrideAccess: true,
   })
 
   const params = pages.docs
@@ -115,7 +108,7 @@ const queryPageBySlug = cache(async ({slug}: { slug: string }) => {
     draft,
     limit: 1,
     depth: 1,
-    overrideAccess: draft,
+    overrideAccess: true,
     where: {
       slug: {
         equals: slug,

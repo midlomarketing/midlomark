@@ -6,6 +6,7 @@ const socialLinks: SocialLinks = (fieldToUse = 'name', overrides) =>
   deepMerge<Field, Partial<Field>>(
     {
       name: 'socialLinks',
+      interfaceName: 'socialLinksProps',
       type: 'array',
       admin: {
         components: {

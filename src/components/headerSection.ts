@@ -17,6 +17,9 @@ const headerSection: HeaderSection = (overrides) =>
           type: 'select',
           options: ['h2', 'h3', 'h4', 'h5', 'h6'],
           defaultValue: 'h2',
+          admin: {
+            isClearable: false,
+          }
         },
         {
           name: 'anchor',

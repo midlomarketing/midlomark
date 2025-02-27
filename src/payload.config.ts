@@ -49,17 +49,10 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 
+const iconUrl = 'https://images.midlomark.com/Midlo%20Web%20Design%20_Icon%20Full.webp'
+const darkIconUrl = `https://images.midlomark.com/Midlo%20Web%20Design%20_Icon%20White.webp`
+const logoUrl = 'https://images.midlomark.com/LIVE%20TN.webp'
 
-// const globals = await fetch(`${process.env.API_BASE_URL}/api/globals/global-settings`).then((res) =>
-//   res.json(),
-// )
-
-// const lightModeIcon = globals.logos.squareLogo as MediaProps
-// const darkModeIcon = globals.logos.darkModeSquare as MediaProps
-// const fullLogo = globals.logos.landscapeLogo as MediaProps
-// const iconUrl = `${process.env.CLOUDFLARE_BUCKET}/${lightModeIcon.filename}`
-// const darkIconUrl = `${process.env.CLOUDFLARE_BUCKET}/${darkModeIcon.filename}`
-// const logoUrl = `${process.env.CLOUDFLARE_BUCKET}/${fullLogo.filename}`
 
 // TODO create a README to remind me what I need to do each time I spin up the boiler plate
 
@@ -176,31 +169,29 @@ export default buildConfig({
       description:
         'This is the MidlMark CMS. Edit and add pages, blogs, and more to the website.',
       icons: [
-        // {
-        //   fetchPriority: 'high',
-        //   url: iconUrl,
-        //   sizes: '16x16 32x32 48x48 64x64',
-        //   type: 'image/webp',
-        //   rel: 'icon',
-        // },
-        // {
-        //   media: '(prefers-color-scheme: dark)',
-        //   fetchPriority: 'high',
-        //   url: darkIconUrl,
-        //   sizes: '16x16 32x32 48x48 64x64',
-        //   type: 'image/webp',
-        //   rel: 'icon',
-        // },
+        {
+          url: iconUrl,
+          sizes: '16x16 32x32 48x48 64x64',
+          type: 'image/webp',
+          rel: 'icon',
+        },
+        {
+          media: '(prefers-color-scheme: dark)',
+          url: darkIconUrl,
+          sizes: '16x16 32x32 48x48 64x64',
+          type: 'image/webp',
+          rel: 'icon',
+        },
       ],
       openGraph: {
         description:
           'This is the MidloMark CMS. Edit and add pages, blogs, and more to the website.',
         siteName: 'MidloMark',
-        // images: [
-        //   {
-        //     url: logoUrl,
-        //   },
-        // ],
+        images: [
+          {
+            url: logoUrl,
+          },
+        ],
       },
     },
     user: Users.slug,

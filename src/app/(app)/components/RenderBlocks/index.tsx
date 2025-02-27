@@ -16,6 +16,7 @@ import {FormBlock} from "@/blocks/Form/Component";
 import {FeedSegment} from "@/blocks/Feed/Component";
 import type {Page, Post} from "@/payload-types";
 import {Fragment} from "react";
+import {SectionBlock} from "@/blocks/Section/Component";
 
 const blockComponents = {
   contentNoMedia: ContentNoMedia,
@@ -34,6 +35,7 @@ const blockComponents = {
   tableOfContents: TableOfContents,
   formBlock: FormBlock,
   feed: FeedSegment,
+  section: SectionBlock
 }
 
 export const RenderBlocks: React.FC<{

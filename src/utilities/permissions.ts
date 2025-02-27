@@ -1,4 +1,5 @@
 import { Access } from 'payload'
+
 const adminPerms: Access = ({ req: { user }, id }) => {
   if (user?.role && user?.role === 'admin') {
     return true

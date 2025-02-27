@@ -36,7 +36,6 @@ import {StepsWithIcons} from "@/blocks/StepsWithIcons/Component";
 import {Summary} from "@/blocks/Summary/Component";
 import {TableOfContents} from "@/blocks/TableOfContents/Component";
 
-
 type NodeTypes = DefaultNodeTypes
   | SerializedBlockNode<ContentWithVideoProps
   | ContentWithMapProps

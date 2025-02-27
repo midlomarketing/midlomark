@@ -1,7 +1,7 @@
 import {CollectionConfig} from 'payload'
 import image from '../components/image'
 import slug from '../components/slug'
-import {userPerms} from '@/utilities/permissions'
+import {adminPerms, userPerms} from '@/utilities/permissions'
 import {
   BlocksFeature,
   FixedToolbarFeature,
@@ -40,7 +40,7 @@ const Posts: CollectionConfig = {
     livePreview: {url: ({data}) => `http://localhost:3000/blog/${data.slug}`,}
   },
   access: {
-    read: () => true,
+    read: (req) => adminPerms(req),
     create: (req) => userPerms(req),
     update: (req) => userPerms(req),
     delete: (req) => userPerms(req),

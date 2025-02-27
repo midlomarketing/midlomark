@@ -234,6 +234,19 @@ export type TableOfContentsArrayProps =
   | null;
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "socialLinksProps".
+ */
+export type SocialLinksProps =
+  | {
+      channel?:
+        | ('YouTube' | 'Instagram' | 'Facebook' | 'Pinterest' | 'Vimeo' | 'Threads' | 'LinkedIn' | 'TikTok')
+        | null;
+      fullLink?: string | null;
+      id?: string | null;
+    }[]
+  | null;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "NavLinksProps".
  */
 export type NavLinksProps =
@@ -390,6 +403,7 @@ export interface Page {
   content?: {
     content?:
       | (
+          | SectionProps
           | ContentNoMediaProps
           | ContentWithMediaProps
           | ContentWithMapProps
@@ -1266,13 +1280,7 @@ export interface User {
   id: string;
   name: string;
   slug?: string | null;
-  socialLinks?:
-    | {
-        channel?: 'youtube' | null;
-        url?: string | null;
-        id?: string | null;
-      }[]
-    | null;
+  socialLinks?: SocialLinksProps;
   role: 'admin' | 'user' | 'viewer' | 'author';
   isAuthor?: boolean | null;
   postsByUser?: {
@@ -1320,6 +1328,18 @@ export interface EntitySeo {
     | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SectionProps".
+ */
+export interface SectionProps {
+  active?: boolean | null;
+  headerSection?: HeaderSectionProps;
+  blocks?: (ContentWithMediaProps | ContentNoMediaProps)[] | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'section';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1499,6 +1519,7 @@ export interface PagesSelect<T extends boolean = true> {
         content?:
           | T
           | {
+              section?: T | SectionPropsSelect<T>;
               contentNoMedia?: T | ContentNoMediaPropsSelect<T>;
               contentWithMedia?: T | ContentWithMediaPropsSelect<T>;
               contentWithMap?: T | ContentWithMapPropsSelect<T>;
@@ -1564,13 +1585,17 @@ export interface ButtonSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentNoMediaProps_select".
+ * via the `definition` "SectionProps_select".
  */
-export interface ContentNoMediaPropsSelect<T extends boolean = true> {
+export interface SectionPropsSelect<T extends boolean = true> {
   active?: T;
   headerSection?: T | HeaderSectionPropsSelect<T>;
-  content?: T;
-  includeBgColor?: T;
+  blocks?:
+    | T
+    | {
+        contentWithMedia?: T | ContentWithMediaPropsSelect<T>;
+        contentNoMedia?: T | ContentNoMediaPropsSelect<T>;
+      };
   id?: T;
   blockName?: T;
 }
@@ -1600,6 +1625,18 @@ export interface ContentWithMediaPropsSelect<T extends boolean = true> {
   content?: T;
   buttons?: T | ButtonSelect<T>;
   textPosition?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentNoMediaProps_select".
+ */
+export interface ContentNoMediaPropsSelect<T extends boolean = true> {
+  active?: T;
+  headerSection?: T | HeaderSectionPropsSelect<T>;
+  content?: T;
+  includeBgColor?: T;
   id?: T;
   blockName?: T;
 }
@@ -1990,13 +2027,7 @@ export interface MediaSelect<T extends boolean = true> {
 export interface UsersSelect<T extends boolean = true> {
   name?: T;
   slug?: T;
-  socialLinks?:
-    | T
-    | {
-        channel?: T;
-        url?: T;
-        id?: T;
-      };
+  socialLinks?: T | SocialLinksPropsSelect<T>;
   role?: T;
   isAuthor?: T;
   postsByUser?: T;
@@ -2010,6 +2041,15 @@ export interface UsersSelect<T extends boolean = true> {
   hash?: T;
   loginAttempts?: T;
   lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "socialLinksProps_select".
+ */
+export interface SocialLinksPropsSelect<T extends boolean = true> {
+  channel?: T;
+  fullLink?: T;
+  id?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2325,15 +2365,7 @@ export interface GlobalSetting {
     landscapeLogo?: (string | null) | Media;
     darkModeLandscape?: (string | null) | Media;
   };
-  socialLinks?:
-    | {
-        channel?:
-          | ('YouTube' | 'Instagram' | 'Facebook' | 'Pinterest' | 'Vimeo' | 'Threads' | 'LinkedIn' | 'TikTok')
-          | null;
-        fullLink?: string | null;
-        id?: string | null;
-      }[]
-    | null;
+  socialLinks?: SocialLinksProps;
   stickyBanner?: (string | null) | StickyBanner;
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -2438,13 +2470,7 @@ export interface GlobalSettingsSelect<T extends boolean = true> {
         landscapeLogo?: T;
         darkModeLandscape?: T;
       };
-  socialLinks?:
-    | T
-    | {
-        channel?: T;
-        fullLink?: T;
-        id?: T;
-      };
+  socialLinks?: T | SocialLinksPropsSelect<T>;
   stickyBanner?: T;
   updatedAt?: T;
   createdAt?: T;

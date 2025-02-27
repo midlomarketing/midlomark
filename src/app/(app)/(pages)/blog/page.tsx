@@ -23,6 +23,14 @@ type BlogProps = {
   }
 }
 
+// await payload.update({
+//   collection: 'posts',
+//   where: {},
+//   data: {
+//     _status: 'published'
+//   }
+// })
+
 export async function generateMetadata(params) {
   const {slug} = params
 
@@ -31,8 +39,6 @@ export async function generateMetadata(params) {
       equals: 'blog'
     }
   }
-
-  // console.log(params)
 
   const page = await payload.find({
     collection: 'pages',

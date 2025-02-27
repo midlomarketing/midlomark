@@ -2,6 +2,7 @@ import {CollectionConfig, getPayload} from 'payload'
 import {adminPerms, fieldAdmin, userPerms, viewerPerms} from '@/utilities/permissions'
 import configPromise from "@payload-config";
 import slug from "@/components/slug";
+import socialLinks from "@/components/socialLinks";
 
 const Users: CollectionConfig = {
   slug: 'users',
@@ -25,32 +26,7 @@ const Users: CollectionConfig = {
       required: true,
     },
     slug('name'),
-    {
-      name: 'socialLinks',
-      type: 'array',
-      admin: {
-        components: {
-          RowLabel: {
-            path: 'src/components/socialLinksDescription.ts',
-            exportName: 'SocialLinksDescription',
-          }
-        }
-      },
-      fields: [
-        {
-          name: 'channel',
-          type: 'select',
-          options: [
-            {label: 'YouTube', value: 'youtube'},
-          ],
-        },
-        {
-          name: 'url',
-          label: 'URL',
-          type: 'text',
-        }
-      ]
-    },
+    socialLinks(),
     {
       access: {
         update: ({req: {user}}) => {

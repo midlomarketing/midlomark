@@ -5,8 +5,8 @@ import {meta} from '@/app/(app)/components/Metadata'
 import {getPayload, Where} from 'payload'
 import configPromise from '@payload-config'
 import {GeneralDate} from '@/app/(app)/components/Date'
-import React, {cache} from "react";
-import {Post} from "@/payload-types";
+import React, {cache, Fragment} from "react";
+import {Post, User} from "@/payload-types";
 import {Redirects} from "@/app/(app)/components/Redirects";
 import {SectionContainer} from "@/app/(app)/components/PageLayout";
 import {ImageObject} from "@/app/(app)/components/Media/Media";
@@ -18,6 +18,9 @@ import {BlogNav} from "@/app/(app)/components/BlogNav";
 import {RichText} from "@/app/(app)/components/RichText";
 import {addArticle} from "@/app/(app)/components/Schema";
 import {Schema} from "@/app/(app)/components/Schema/Container";
+import SocialSection from "@/app/(app)/components/Social/SocialSection";
+import SocialIcons from "@/app/(app)/components/Social/SocialIcons";
+import {draftMode} from "next/headers";
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -29,7 +32,7 @@ export async function generateStaticParams() {
     collection: 'posts',
     limit: 1000,
     draft: false,
-    overrideAccess: false,
+    overrideAccess: true,
   })
 
   const params = blogs.docs
@@ -128,7 +131,7 @@ export default async function Blog({params}: Props) {
     ]
 
     return <article>
-      <Schema schema={schema} />
+      <Schema schema={schema}/>
       <Redirects url={url} disableNotFound/>
       <SectionContainer>
         <div className={classes.blogContainer}>
@@ -140,11 +143,22 @@ export default async function Blog({params}: Props) {
               </BreadCrumbsContainer>
               <h1 className={classes.blogTitle}>{blog.title}</h1>
               <div className={classes.blogInfo}>
-                <div className={classes.blogAuthors}>{content?.authors?.map((author, index) => (
-                  <Link key={index} className={classes.blogAuthorLink}
-                        href={typeof author !== 'string' && `/authors/${author.slug}` || ``}>{typeof author !== 'string' && author.name} |
-                    Posts: {typeof author !== 'string' && author.postCount}</Link>
-                ))}</div>
+                <div className={classes.blogAuthors}>
+                  {content?.authors?.map((author: User, index, arr) => (
+                    <Fragment key={author.id}>
+                      <div className={classes.blogAuthorInfo}>
+                        <Link className={classes.blogAuthorLink}
+                              href={`/authors/${author.slug}` || ``}>
+                          {author.name} |
+                          Posts: {author.postCount}
+                        </Link>
+                        {author.socialLinks && <SocialSection socialLinks={author.socialLinks} header={false}
+                                                              className={classes.authorSocials}/>}
+                      </div>
+                      {arr.length > index + 1 && <hr className={classes.hr}/>}
+                    </Fragment>
+                  ))}
+                </div>
                 <GeneralDate className={classes.blogDate} date={blog.date || ``} includeTime={false}/></div>
               {/* categories */}
               {content?.summary && <div className={classes.summary}>
@@ -159,16 +173,16 @@ export default async function Blog({params}: Props) {
             />}
             {content?.richText && <RichText className={classes.blogContent} data={content.richText}/>}
 
-            <BlogNav next={getNext} prev={getPrev} />
+            <BlogNav next={getNext} prev={getPrev}/>
 
             {relatedPosts && relatedPosts.docs.length > 0 && (<section>
                 <h3>Related Posts</h3>
                 <CardRow>
-                {relatedPosts.docs?.map((relatedPost: Post) => (
+                  {relatedPosts.docs?.map((relatedPost: Post) => (
                     <PostCard
                       key={relatedPost.id}
                       {...relatedPost}
-                      />
+                    />
                   ))}
                 </CardRow>
               </section>
@@ -188,7 +202,7 @@ export default async function Blog({params}: Props) {
 
 
 const queryBlog = cache(async ({slug, limit, sort = 'date'}: { slug: Where, limit: number, sort?: string }) => {
-  // const {isEnabled: draft} = draftMode()
+  const {isEnabled: draft} = await draftMode()
 
   const payload = await getPayload({config: configPromise})
   const result = await payload.find({
@@ -197,8 +211,8 @@ const queryBlog = cache(async ({slug, limit, sort = 'date'}: { slug: Where, limi
     limit: limit,
     overrideAccess: true,
     depth: 2,
-    sort: sort
-    // draft
+    sort: sort,
+    draft
   })
 
   return result

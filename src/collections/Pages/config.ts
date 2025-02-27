@@ -1,5 +1,4 @@
 import {CollectionConfig} from 'payload'
-import Config from '../../blocks/ContentNoMedia/config'
 import ContentWithMedia from '../../blocks/ContentWithMedia/config'
 import contentWithMap from '../../blocks/ContentWithMap/config'
 import cardSection from '../../blocks/Cards/config'
@@ -30,6 +29,8 @@ import {HighlightFeature} from "@/utilities/features/colorAccent/server";
 import {createCanonical} from "@/collections/Pages/hooks";
 import {FormBlock} from "@/blocks/Form/config";
 import {FeedBlock} from "@/blocks/Feed/config";
+import ContentNoMedia from "../../blocks/ContentNoMedia/config";
+import Section from "@/blocks/Section/config";
 
 const Pages: CollectionConfig = {
   slug: 'pages',
@@ -91,7 +92,8 @@ const Pages: CollectionConfig = {
               type: 'blocks',
               label: false,
               blocks: [
-                Config,
+                Section,
+                ContentNoMedia,
                 ContentWithMedia,
                 contentWithMap,
                 cardSection,

@@ -3,7 +3,7 @@ import image from '../../components/image'
 import positionSelector from '../../components/positionSelector'
 import buttons from '../../components/buttons'
 import headerSection from '../../components/headerSection'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import {lexicalEditor} from '@payloadcms/richtext-lexical'
 
 const ContentWithMedia: Block = {
   slug: 'contentWithMedia',

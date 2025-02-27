@@ -1,16 +1,11 @@
 import {getPayload} from 'payload'
 import configPromise from '@payload-config'
-import {Media, Post, User, VideoProps} from "@/payload-types";
+import {Media, Post, User, VideoProps, GlobalSetting, Address} from "@/payload-types";
 import {lexicalToPlainText} from "@/utilities/lexicalToPlainText";
 import {getServerSideURL} from "@/utilities/getURL";
 
-// import {getCachedGlobal} from "@/app/(app)/utils/getGlobals";
-//
-// const payload = await getPayloadHMR({config: configPromise})
-//
-// const globals = await payload.findGlobal({
-//     slug: 'global-settings',
-// })
+import {getCachedGlobal} from "@/app/(app)/utils/getGlobals";
+
 
 export const addArticle = (post: Post) => ({
   '@context': 'https://schema.org',
@@ -25,7 +20,7 @@ export const addArticle = (post: Post) => ({
     '@type': 'Person',
     name: author.name,
     sameAs:
-      author.socialLinks?.map((socialLink) => socialLink.channel),
+      author.socialLinks?.map((socialLink) => socialLink.fullLink),
   })),
   articleBody: lexicalToPlainText(post.content?.richText),
 })
@@ -101,52 +96,41 @@ export const addVideo = async (props: VideoProps) => {
   }
 }
 
-// export const addLogo = async () => {
-//     const globals: GlobalSetting = await getCachedGlobal('global-settings', 1)()
-//
-// TODO use this as a way to filter by "Primary Address" or similar
-//     const meetingAddress = globals.footerAddresses?.addresses?.filter(
-//         (a) => typeof a.address !== 'string' && a.address?.meetingAddress,
-//     )
-//
-//     const streetAddress =
-//         meetingAddress &&
-//         typeof meetingAddress[0].address !== 'string' &&
-//         meetingAddress[0].address?.streetAddress
-//     const city =
-//         meetingAddress && typeof meetingAddress[0].address !== 'string' && meetingAddress[0].address?.city
-//     const state =
-//         meetingAddress &&
-//         typeof meetingAddress[0].address !== 'string' &&
-//         meetingAddress[0].address?.state
-//     const zip =
-//         meetingAddress && typeof meetingAddress[0].address !== 'string' && meetingAddress[0].address?.zip
-//
-//     const phone = globals.phone?.phoneNumber
-//     return {
-//         '@context': 'https://schema.org',
-//         '@type': 'Organization',
-//         url: globals.churchDomain,
-//         logo: {
-//             '@type': 'ImageObject',
-//             contentUrl: `${process.env.CLOUDFLARE_BUCKET}/logo-icon.webp`,
-//         },
-//         sameAs: globals.socialLinks?.map((link) => link.fullLink),
-//         name: globals.churchName,
-//         description: 'Helping everyday people learn how to become Jesus followers.',
-//         address: {
-//             '@type': 'PostalAddress',
-//             streetAddress: streetAddress,
-//             addressLocality: city,
-//             addressRegion: state,
-//             postalCode: zip,
-//             addressCountry: 'US',
-//         },
-//         contactPoint: {
-//             '@type': 'ContactPoint',
-//             email: 'info@localvineyard.church',
-//             telephone: phone,
-//         },
-//     }
-// }
-//
+type Props = GlobalSetting
+
+export const addLogo = async (props: Props) => {
+
+    const { streetAddress, city, state, zip } = props.footerAddresses?.addresses?.[0] as Address
+
+    const phone = props.phone?.phoneNumber
+    return {
+        '@context': 'https://schema.org',
+        '@type': 'Organization',
+        url: getServerSideURL(),
+        logo: {
+            '@type': 'ImageObject',
+            contentUrl: `${process.env.CLOUDFLARE_BUCKET}/${
+              props.logos?.landscapeLogo
+              && typeof props.logos.landscapeLogo !== 'string'
+              && props.logos?.landscapeLogo.filename
+            }`,
+        },
+        sameAs: props.socialLinks?.map((link) => link.fullLink),
+        name: props.businessName,
+        description: 'This is a boilerplate NextJS and Payload CMS project',
+        address: {
+            '@type': 'PostalAddress',
+            streetAddress: streetAddress,
+            addressLocality: city,
+            addressRegion: state,
+            postalCode: zip,
+            addressCountry: 'US',
+        },
+        contactPoint: {
+            '@type': 'ContactPoint',
+            email: 'nick@midlowebdesign.com',
+            telephone: phone,
+        },
+    }
+}
+

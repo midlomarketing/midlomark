@@ -6,10 +6,17 @@ import StickyBannerContainer from './components/Nav/StickyBanner'
 import React from 'react'
 import {GlobalSetting} from "@/payload-types";
 import {getCachedGlobal} from "@/app/(app)/utils/getGlobals";
+import Script from "next/script";
+import {addLogo} from "@/app/(app)/components/Schema";
+import {Schema} from "@/app/(app)/components/Schema/Container";
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
 
   const globals: GlobalSetting = await getCachedGlobal('global-settings', 1)()
+
+  const schema = [
+    await addLogo({...globals})
+  ]
 
   return (
     <html lang="en">
@@ -47,6 +54,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         {children}
         <Footer />
       </body>
+      <Schema schema={schema} />
       {globals.googleTagManagerCode && <GoogleTagManager gtmId={globals.googleTagManagerCode}/>}
     </html>
   )
