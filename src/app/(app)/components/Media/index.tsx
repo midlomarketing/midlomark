@@ -13,6 +13,7 @@ export const Media = (props: { className?: string; resource: MediaProps; htmlEle
       {/*TODO: set up VideoObject for embedding*/}
       {isVideo ? null : (
         <ImageObject
+          // @ts-ignore
           image={resource}
         /> // eslint-disable-line
       )}

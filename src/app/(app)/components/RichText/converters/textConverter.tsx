@@ -1,6 +1,6 @@
 import {JSXConverters} from "@payloadcms/richtext-lexical/react";
 import {SerializedTextNode} from "@payloadcms/richtext-lexical";
-import classes from "@/app/(app)/components/RichText/Lexical/index.module.scss";
+import classes from "@/app/(app)/components/RichText/index.module.scss";
 
 const IS_BOLD = 1
 const IS_ITALIC = 2

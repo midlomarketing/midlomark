@@ -19,7 +19,7 @@ export function PostCard(post: Post) {
         {post.content?.authors?.map((author: User, index, array) => (
           <span key={author.id} className={classes.author}>{array.length > index + 1 ? `${author.name}, ` : author.name}</span>
         ))}
-        <GeneralDate date={post.date || ``} includeTime={false} className={classes.cardDate}/>
+        {post.date && <GeneralDate date={post?.date || ``} includeTime={false} className={classes.cardDate}/>}
         {post.content?.category && <div className={classes.postCategories}>
           {post.content?.category.map((category: Category, idx) => (
             <span className={classes.categoryText} key={category.id}>{category.title}</span>

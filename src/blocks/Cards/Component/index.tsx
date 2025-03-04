@@ -28,7 +28,7 @@ export function CardSection(props: CardSectionProps) {
                 <div className={classes.innerCard}> {/* innerCard */}
                   {/* card header */}
                   <div className={classes.cardImageContainer}>
-                    {card.includeButton && card.buttons?.[0].linkType !== 'External' ? (
+                    {card.includeButton && card.buttons?.[0]?.linkType !== 'External' ? (
                       <Link href={
                         card.buttons?.[0].internalLink?.relationTo !== 'pages'
                           ? `/${typeof card.buttons?.[0].internalLink?.value !== 'string' && `${card.buttons?.[0].internalLink?.relationTo}/${card.buttons?.[0].internalLink?.value.slug}`}`
@@ -46,7 +46,7 @@ export function CardSection(props: CardSectionProps) {
                             {...card.image.image}
                           />}
                       </Link>
-                    ) : card.includeButton && card.buttons?.[0].linkType === 'External' ? (
+                    ) : card.includeButton && card.buttons?.[0]?.linkType === 'External' ? (
                       <a
                         rel={`noreferrer noopener`}
                         href={card.buttons?.[0].link || ``}

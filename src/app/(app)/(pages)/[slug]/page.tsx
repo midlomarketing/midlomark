@@ -10,9 +10,11 @@ import {Page as PageType} from '@/payload-types'
 import {Redirects} from '../../components/Redirects'
 import {Hero} from "@/app/(app)/components/Hero";
 
-// TODO search plugin
+// TODO try building and checking for errors, reading internalLink as undefined. just disable buttons?
+// TODO search plugin, collection slugs to link out to, finish designing search page
+// TODO pagination for blog posts
 // TODO work on auth, review website template to see how Payload CMS does auth
-// TODO about and entity mentions
+// TODO test out plugins that people create
 
 export async function generateStaticParams() {
   const payload = await getPayload({config: configPromise})
@@ -63,7 +65,7 @@ export default async function Page({params: paramsPromise}: Args) {
   const imageFilename = typeof meta?.image !== 'string' && meta?.image?.filename
 
   const schema = [
-    meta?.image && typeof meta?.image !== 'string' && await addImage(meta.image),
+    meta?.image && typeof meta?.image !== 'string' && addImage(meta.image),
   ]
 
   return (

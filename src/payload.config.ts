@@ -20,15 +20,15 @@ import {
 } from '@/collections'
 import {seoPlugin} from '@payloadcms/plugin-seo'
 import {formBuilderPlugin} from "@payloadcms/plugin-form-builder";
-// import {searchPlugin} from '@payloadcms/plugin-search'
+import {searchPlugin} from '@payloadcms/plugin-search'
 import {s3Storage} from '@payloadcms/storage-s3'
 import ContentWithMedia from '@/blocks/ContentWithMedia/config'
 import EntitySeo from '@/collections/EntitySeo'
 import {Page, Post} from '@/payload-types'
 import {GenerateDescription, GenerateImage, GenerateTitle, GenerateURL} from '@payloadcms/plugin-seo/types'
 import {Industries} from "@/collections/Industries/config";
-// import {searchFields} from '@/search/fieldOverrides'
-// import {beforeSyncWithSearch} from '@/search/beforeSync'
+import {searchFields} from '@/search/fieldOverrides'
+import {beforeSyncWithSearch} from '@/search/beforeSync'
 import type {Media as MediaProps} from './payload-types'
 
 const generateTitle: GenerateTitle<Post | Page> = ({doc}) => {
@@ -125,14 +125,18 @@ export default buildConfig({
       generateDescription: ({doc}) => doc?.content?.description,
       uploadsCollection: 'media',
     }),
-    // searchPlugin({
-    //     beforeSync: beforeSyncWithSearch,
-    //     searchOverrides: {
-    //         fields: ({defaultFields}) => {
-    //             return [...defaultFields, ...searchFields]
-    //         },
-    //     }
-    // })
+    searchPlugin({
+      collections: ['posts', 'pages'],
+      beforeSync: beforeSyncWithSearch,
+      searchOverrides: {
+        fields: ({defaultFields}) => {
+          return [...defaultFields, ...searchFields]
+        },
+        admin: {
+          group: 'Admin',
+        }
+      }
+    })
   ],
   globals: [Nav, GlobalSettings, Footer],
   secret: process.env.PAYLOAD_SECRET || '',

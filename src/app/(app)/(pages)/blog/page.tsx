@@ -18,9 +18,9 @@ const payload = await getPayload({config: configPromise})
 // export const revalidate = 3600
 
 type BlogProps = {
-  params: {
-    slug: string
-  }
+  params: Promise<{
+    slug?: string
+  }>
 }
 
 // await payload.update({
@@ -31,9 +31,7 @@ type BlogProps = {
 //   }
 // })
 
-export async function generateMetadata(params) {
-  const {slug} = params
-
+export async function generateMetadata() {
   const pageQuery = {
     slug: {
       equals: 'blog'
@@ -50,8 +48,7 @@ export async function generateMetadata(params) {
 
 }
 
-export default async function Blogs({params}: BlogProps) {
-  const {slug} = params
+export default async function Blogs() {
 
   const featuredQuery = {
     date: {

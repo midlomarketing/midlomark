@@ -5,6 +5,7 @@ import {getCachedGlobal} from "@/app/(app)/utils/getGlobals";
 import Link from "next/link";
 import {ImageObject} from "@/app/(app)/components/Media/Media/ImageObject";
 import SocialSection from "@/app/(app)/components/Social/SocialSection";
+import {Search} from "@/search/Component";
 
 export async function Footer() {
 
@@ -42,6 +43,7 @@ export async function Footer() {
               </div>
         )}
       </div>
+      {/*<Search />*/}
       {socialMedia && <SocialSection socialLinks={socialMedia} header={true} className={classes.socialSection}/>}
       <hr className={classes.hr}/>
       <div className={classes.copyright}>

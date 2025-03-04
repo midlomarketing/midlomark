@@ -1,4 +1,3 @@
-import {SerializedLexicalNode} from "lexical";
 
 export type Buttons = {
     buttons: {
@@ -11,12 +10,6 @@ export type Buttons = {
     }[]
 }
 
-export interface CreditType {
-    creatorType?: string | null
-    creator?: string | null
-    creatorLink?: string | null
-}
-
 export type YesOrNo = 'Yes' | 'No'
 
 export type AButton = {
@@ -27,37 +20,4 @@ export type AButton = {
     title?: string
     label?: string
     className?: string
-}
-
-export type MetaImage = {
-    url: string
-    width: number | `${number}`
-    height: number | `${number}`
-}
-
-export type SeriesProp = {
-    params: {
-        slug: string
-    }
-}
-
-export type MetadataProps = {
-    params: {
-        slug: string
-    }
-}
-
-export type ContentType = 'Message' | 'Series' | 'Song' | 'Album' | 'Event' | 'Small Group'
-
-export interface LinkType {
-    destination: string
-    openInNewTab?: boolean
-    title?: string
-    cta: string
-}
-
-export interface RichTextType {
-    root: {
-        children: SerializedLexicalNode[]
-    }
 }

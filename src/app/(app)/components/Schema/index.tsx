@@ -1,9 +1,8 @@
 import {getPayload} from 'payload'
 import configPromise from '@payload-config'
-import {Media, Post, User, VideoProps, GlobalSetting, Address} from "@/payload-types";
+import type {EntitySeo, Media, Post, User, VideoProps, GlobalSetting, Address} from "@/payload-types";
 import {lexicalToPlainText} from "@/utilities/lexicalToPlainText";
 import {getServerSideURL} from "@/utilities/getURL";
-
 import {getCachedGlobal} from "@/app/(app)/utils/getGlobals";
 
 
@@ -23,6 +22,19 @@ export const addArticle = (post: Post) => ({
       author.socialLinks?.map((socialLink) => socialLink.fullLink),
   })),
   articleBody: lexicalToPlainText(post.content?.richText),
+  mentions: post.meta?.seoMentions?.map((mention: EntitySeo) => (
+      {
+        '@type': mention.type,
+        name: mention.name,
+        sameAs: mention.sameAs?.map(link => link.source),
+      }
+    )
+  ),
+  about: post.meta?.seoAbout?.map((about: EntitySeo) => ({
+    '@type': about.type,
+    name: about.name,
+    sameAs: about.sameAs?.map(link => link.source),
+  })),
 })
 
 
@@ -100,37 +112,37 @@ type Props = GlobalSetting
 
 export const addLogo = async (props: Props) => {
 
-    const { streetAddress, city, state, zip } = props.footerAddresses?.addresses?.[0] as Address
+  const {streetAddress, city, state, zip} = props.footerAddresses?.addresses?.[0] as Address
 
-    const phone = props.phone?.phoneNumber
-    return {
-        '@context': 'https://schema.org',
-        '@type': 'Organization',
-        url: getServerSideURL(),
-        logo: {
-            '@type': 'ImageObject',
-            contentUrl: `${process.env.CLOUDFLARE_BUCKET}/${
-              props.logos?.landscapeLogo
-              && typeof props.logos.landscapeLogo !== 'string'
-              && props.logos?.landscapeLogo.filename
-            }`,
-        },
-        sameAs: props.socialLinks?.map((link) => link.fullLink),
-        name: props.businessName,
-        description: 'This is a boilerplate NextJS and Payload CMS project',
-        address: {
-            '@type': 'PostalAddress',
-            streetAddress: streetAddress,
-            addressLocality: city,
-            addressRegion: state,
-            postalCode: zip,
-            addressCountry: 'US',
-        },
-        contactPoint: {
-            '@type': 'ContactPoint',
-            email: 'nick@midlowebdesign.com',
-            telephone: phone,
-        },
-    }
+  const phone = props.phone?.phoneNumber
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    url: getServerSideURL(),
+    logo: {
+      '@type': 'ImageObject',
+      contentUrl: `${process.env.CLOUDFLARE_BUCKET}/${
+        props.logos?.landscapeLogo
+        && typeof props.logos.landscapeLogo !== 'string'
+        && props.logos?.landscapeLogo.filename
+      }`,
+    },
+    sameAs: props.socialLinks?.map((link) => link.fullLink),
+    name: props.businessName,
+    description: 'This is a boilerplate NextJS and Payload CMS project',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: streetAddress,
+      addressLocality: city,
+      addressRegion: state,
+      postalCode: zip,
+      addressCountry: 'US',
+    },
+    contactPoint: {
+      '@type': 'ContactPoint',
+      email: 'nick@midlowebdesign.com',
+      telephone: phone,
+    },
+  }
 }
 

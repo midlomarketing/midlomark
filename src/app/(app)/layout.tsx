@@ -9,6 +9,7 @@ import {getCachedGlobal} from "@/app/(app)/utils/getGlobals";
 import Script from "next/script";
 import {addLogo} from "@/app/(app)/components/Schema";
 import {Schema} from "@/app/(app)/components/Schema/Container";
+import {getServerSideURL} from "@/utilities/getURL";
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
 
@@ -21,6 +22,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en">
       <head>
+        <title></title>
         <link
           rel="icon"
           href={`${process.env.CLOUDFLARE_BUCKET}/${
@@ -45,7 +47,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link
           rel="alternate"
           type="application/rss+xml"
-          href="#"
+          href={`${getServerSideURL()}/blog/feed`}
         />
       </head>
       <body>

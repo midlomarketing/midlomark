@@ -2,7 +2,6 @@ import Header from '../../../app/(app)/components/CustomHeader'
 import {Button, ButtonContainer} from '@/app/(app)/components/Button'
 import {
   AButton,
-  RichTextType
 } from '@/app/(app)/utils/types'
 import {ImageObject} from '@/app/(app)/components/Media/Media'
 import {SectionContainer} from "@/app/(app)/components/PageLayout";
